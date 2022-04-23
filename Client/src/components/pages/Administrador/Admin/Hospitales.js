@@ -1,10 +1,10 @@
 import React from 'react'
-import AdminNavigation from '../../../partials/AdminNavigation'
+import AdminNavigation from '../Partials/AdminNavigation'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
 
-import AddStudent from '../../../partials/AddStudent';
+import AddStudent from '../Partials/AddStudent';
 import ListaHospitales from '../Hospital/ListaHospitales';
 
 export default class Hospitales extends React.Component {

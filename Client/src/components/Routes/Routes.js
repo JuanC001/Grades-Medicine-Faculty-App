@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes as Switch } from "react-router-dom";
-import Estudiantes from '../pages/administrador/Admin/Estudiantes';
-import Hospitales from '../pages/administrador/Admin/Hospitales';
-import Home from '../pages/home/Home';
+import Estudiantes from '../pages/Administrador/Admin/Estudiantes';
+import Hospitales from '../pages/Administrador/Admin/Hospitales';
+import Home from '../pages/Home/Home';
 
 
 
