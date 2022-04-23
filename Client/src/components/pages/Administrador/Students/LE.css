@@ -1,0 +1,13 @@
+.grilla {
+
+    font-size: 16px;
+
+}
+
+.card-list img {
+    padding-top: 10px;
+    height: 120px;
+    width: 120px;
+    object-fit: cover;
+
+}

@@ -1,0 +1,22 @@
+
+.container img{
+
+    width: 20%;
+    height: 20%;
+    
+
+}
+
+.container2 button{
+
+    border: 1px solid black;
+    background-color: orange;
+
+}
+
+.login-card{
+
+    width: 400px;
+    height: 80%;
+
+}
