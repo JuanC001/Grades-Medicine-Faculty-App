@@ -28,7 +28,7 @@ const Home = () => {
         if(usuario.data.rol === 'admin'){
 
           console.log('entro');
-          return navigate('Estudiantes')
+          return navigate('/admin/Estudiantes')
 
         }
         
