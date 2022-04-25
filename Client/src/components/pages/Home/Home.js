@@ -31,9 +31,10 @@ const Home = () => {
           return navigate('/admin/Estudiantes')
 
         }
+
         
       }else{
-        console.log('Efe');
+        console.log('No conecto');
       }
 
     }
