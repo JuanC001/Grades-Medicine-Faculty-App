@@ -5,6 +5,7 @@ import AddStudent from '../Partials/AddStudent';
 
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import './CSS/Estudiantes.css'
 
 export default class Estudiantes extends React.Component {
   state = {
@@ -12,11 +13,9 @@ export default class Estudiantes extends React.Component {
   }
 
   async componentDidMount() {
-
-    console.log('Comoaneofna asd')
+    
     const res = await axios.get('http://localhost:5000/api/admin/allStudents');
     this.setState({ estudiantes: res.data });
-    console.log(this.state.estudiantes);
 
   }
 
@@ -27,7 +26,7 @@ export default class Estudiantes extends React.Component {
         <NavBar />
         <div className="text-center m-3">
 
-          <div className="bg-light mx-auto container-fluid w-75 rounded rounded-3">
+          <div className="bg-light mx-auto container-fluid w-80 rounded rounded-3">
 
             <h1 className="display-1 ">Listado de Estudiantes</h1>
 

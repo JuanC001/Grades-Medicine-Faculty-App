@@ -1,8 +1,58 @@
 import React from 'react'
 import './LE.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
+import MostrarEstudiante from './MostrarEstudiante';
+
+import Swal from 'sweetalert2';
+
 
 export default function ListaEstudiantes(props) {
+
+  let navigate = useNavigate();
+
+  const id_estudiante = props.estudiante._id;
+
+  const borrarEstudiante = async (e) => {
+
+    const nuevo = await axios.post('http://localhost:5000/api/admin/eliminarEstudiante', { _id: id_estudiante });
+    return 
+  }
+
+  const askEliminarEstudiante = (e) => {
+
+    e.preventDefault();
+    Swal.fire({
+      title: `¿Seguro que quieres eliminar a ${props.estudiante.nombres}?`,
+      text: "¡Esto no se puede revertir!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, bórralo!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        borrarEstudiante();
+        Swal.fire(
+          '¡Eliminado!',
+          'Se borro al estudiante',
+          'success'
+        ).then((result) => {
+          if(result.isConfirmed) {
+
+            window.location.reload(false);
+          }
+        });
+        
+        
+      }
+
+    });
+
+   // return navigate('/admin/Estudiantes');
+
+  }
 
   return (
     <div className="card mb-3 card-list text-center container-fluid">
@@ -25,20 +75,20 @@ export default function ListaEstudiantes(props) {
                 <div className="col-md-4">
                   <div className='input-group'>
                     <label className='input-group-text input-group-sm' htmlFor='Nombre_est'>Nombre</label>
-                    <input type='text' disabled readonly value={props.estudiante.nombres} className=' form-control-sm' id='Nombre_est' name='Nombre_est' />
+                    <input type='text' disabled readOnly value={props.estudiante.nombres} className=' form-control-sm' id='Nombre_est' name='Nombre_est' />
                   </div>
                 </div>
 
                 <div className="col">
                   <div className='input-group'>
                     <label className='input-group-text input-group-sm' htmlFor='cedula'>CC</label>
-                    <input type='text' disabled readonly value={props.estudiante.documento} className=' form-control-sm' id='cedula' name='cedula' />
+                    <input type='text' disabled readOnly value={props.estudiante.documento} className=' form-control-sm' id='cedula' name='cedula' />
                   </div>
                 </div>
                 <div className="col-md-4">
                   <div className='input-group'>
                     <label className='input-group-text input-group-sm' htmlFor='Correo'>Correo</label>
-                    <input type='text' disabled readonly value={props.estudiante.correo} className=' form-control-sm' id='Correo' name='Correo' />
+                    <input type='text' disabled readOnly value={props.estudiante.correo} className=' form-control-sm' id='Correo' name='Correo' />
                   </div>
                 </div>
 
@@ -139,16 +189,16 @@ export default function ListaEstudiantes(props) {
             <div className="">
               <div className="row justify-content-center pb-2">
 
-                <button className="btn btn-primary w-50"><FontAwesomeIcon icon="fa-solid fa-pen-to-square" /></button>
+                <button className="btn btn-primary w-50 EDIT"><FontAwesomeIcon icon="fa-solid fa-pen-to-square" /></button>
 
               </div>
 
               <div className="row justify-content-center pb-2">
-                <button className="btn btn-primary w-50"><FontAwesomeIcon icon="fa-solid fa-trash-can" /></button>
+                <button className="btn btn-primary w-50 DELETE" type="button" onClick={askEliminarEstudiante} ><FontAwesomeIcon icon="fa-solid fa-trash-can" /></button>
               </div>
 
-              <div className="row justify-content-center">
-                <button className="btn btn-primary w-50"><FontAwesomeIcon icon="fa-solid fa-eye" /></button>
+              <div className="row justify-content-center WATCH">
+                <MostrarEstudiante id={props.estudiante._id}/>
               </div>
 
             </div>

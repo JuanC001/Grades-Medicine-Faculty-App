@@ -9,10 +9,13 @@ const { RegisEstudiante,
         ModifHospital,
         ElimHospital,
         ObtenerEstudiantes,
-        ObtenerHospitales } = adminControl;
+        ObtenerHospitales,
+        ObtenerUnEstudiante } = adminControl;
 
 Router.post('/api/admin/regisEstudiante', RegisEstudiante);
 Router.post('/api/admin/RegisHospital', RegisHospital);
+Router.post('/api/admin/eliminarEstudiante' , ElimEstudiante)
+Router.post('/api/admin/unEstudiante', ObtenerUnEstudiante);
 Router.get('/api/admin/allStudents', ObtenerEstudiantes);
 Router.get('/api/admin/allHospital', ObtenerHospitales);
 

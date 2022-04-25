@@ -8,10 +8,7 @@ export default function ListaHospitales(props){
 
         
 
-        <div className="card mb-3 card-list text-center container-fluid">
-
-            <h1>{props.hsp.nombre_hospital}</h1>
-            {console.log('a')}
+        <div className="card mb-3 card-list text-center container-fluid">            
 
         </div>
 
