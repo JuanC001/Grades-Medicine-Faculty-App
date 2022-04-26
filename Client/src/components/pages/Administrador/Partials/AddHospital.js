@@ -122,10 +122,21 @@ class AddStudent extends React.Component {
                                     </div>
                                 </div>
 
+                            </form>
 
+                            <hr />
 
+                            <form action="" className="form-control text-center">
+
+                                <h1 className="display-6 pb-3">Subir archivo excel con los Hospitales</h1>
+                                <div className='input-group mb-3'>
+                                    <label className='input-group-text' htmlFor='archExcel'>Archivo Excel</label>
+                                    <input type='file' className='form-control' id='archExcel' name='archExcel' />
+                                </div>
+                                <button className="btn btn-success">Subir</button>
 
                             </form>
+
                         </ModalBody>
                         <ModalFooter>
                             <hr />
