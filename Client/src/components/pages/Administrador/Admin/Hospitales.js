@@ -4,7 +4,7 @@ import AdminNavigation from '../Partials/AdminNavigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
 
-import AddStudent from '../Partials/AddStudent';
+import AddHospital from '../Partials/AddHospital';
 import ListaHospitales from '../Hospital/ListaHospitales';
 
 export default class Hospitales extends React.Component {
@@ -17,7 +17,6 @@ export default class Hospitales extends React.Component {
 
     const res = await axios.get('http://localhost:5000/api/admin/allHospital');
     this.setState({ hospitales: res.data });
-    console.log(this.state.hospitales);
 
   }
 
@@ -40,7 +39,7 @@ export default class Hospitales extends React.Component {
 
                 <div className="btn-group me-2 text-center">
 
-                  <AddStudent />
+                  <AddHospital className="btn btn-primary"/>
                   <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-print" /></button>
                   <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-pen-to-square" /></button>
 
@@ -57,7 +56,7 @@ export default class Hospitales extends React.Component {
 
                   e => 
 
-                    <ListaHospitales hsp = {e}/>
+                    <ListaHospitales key={e._id} hsp = {e}/>
 
                 )
 

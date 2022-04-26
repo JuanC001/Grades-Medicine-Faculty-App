@@ -1,29 +1,82 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import Swal from 'sweetalert2';
 import axios from 'axios';
 
 class AddStudent extends React.Component {
-
-    constructor(props) {
-
-        super(props);
-
-    }
 
     async componentDidMount() {
 
         const res = await axios.get('http://localhost:5000/api/admin/allHospital');
         this.setState({ hospitales: res.data });
-        console.log(this.state.hospitales);
+
+    }
+
+    handleSubmit = async (e) => {
+
+        e.preventDefault();
+
+
+        console.log(this.state.reg_nombres);
+        console.log(this.state.documento);
+        console.log(this.state.correo);
+        console.log(this.state.lugar1);
+        console.log(this.state.fechaInicial);
+        console.log(this.state.fechaFinal);
+
+        const nuevo = await axios.post('http://localhost:5000/api/admin/regisEstudiante', {
+            reg_nombres: this.state.reg_nombres,
+            documento: this.state.documento,
+            correo: this.state.correo,
+            lugar1: this.state.lugar1,
+            fechaInicial: this.state.fechaInicial,
+            fechaFinal: this.state.fechaFinal,
+            semestre: this.state.semestre,
+        })
+        let revision = true;
+
+        if (this.state.reg_nombres === '') {
+            console.log('WHOOPS!')
+            revision = false;
+        }
+
+        if (nuevo.data.respuesta === "correcto" && revision) {
+
+            console.log("Completado!");
+            Swal.fire({
+                title: 'Agregado!',
+                text: "Has agregado un estudiante!",
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'OK!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.reload(false);
+                }
+            })
+
+        } else {
+            console.log("Revise bien las credenciales")
+        }
 
     }
 
     state = {
 
         modalOpen: false,
-        hospitales: []
+        hospitales: [],
+
+        reg_nombres: '',
+        documento: '',
+        correo: '',
+        lugar1: '',
+        fechaInicial: '',
+        fechaFinal: '',
+        semestre: ''
 
     }
 
@@ -40,32 +93,32 @@ class AddStudent extends React.Component {
             <div>
                 <button className="btn btn-primary" onClick={this.toggle}><FontAwesomeIcon icon="fa-solid fa-plus" /></button>
                 <div className="modal-div">
-                    <Modal isOpen={this.state.modalOpen} nameClass="modal-class" size='xl'>
+                    <Modal isOpen={this.state.modalOpen} className="modal-class" size='xl'>
                         <ModalHeader toggle={this.toggle}>Agregar Estudiante</ModalHeader>
                         <ModalBody>
                             <p>En esta seccion puedes agregar a los diferentes estudiantes de la facultad de medicina,
                                 puedes registrar a uno solo o agregar un archivo de excel.</p>
-                            <form className='form-control text-center'>
+                            <form className='form-control text-center' onSubmit={this.handleSubmit}>
 
                                 <h6 className="pb-2 pt-1">Información del Estudiante</h6>
                                 <div className='row pb-2'>
                                     <div className='col-5'>
                                         <div className='form-floating'>
-                                            <input type='text' className="form-control" id='nombres' name='nombres' placeholder='nombres' />
-                                            <label htmlFor='nombres'>Nombres</label>
+                                            <input type='text' className="form-control" id='nombres' name='nombres' placeholder='nombres' onChange={(e) => this.setState({ reg_nombres: e.target.value })} />
+                                            <label htmlFor='nombres'>APELLIDO(S) NOMBRE(S)</label>
                                         </div>
                                     </div>
                                     <div className="col-5">
                                         <div className='form-floating'>
-                                            <input type='text' className="form-control" id='documento' name='documento' placeholder='nombres' />
+                                            <input type='text' className="form-control" id='documento' name='documento' placeholder='nombres' onChange={(e) => this.setState({ documento: e.target.value })} />
                                             <label htmlFor='documento'>Documento Estudiante</label>
                                         </div>
                                     </div>
                                     <div className="col-2">
                                         <div className='form-floating'>
-                                            <select className="form-control form-select">
+                                            <select className="form-control form-select" onChange={(e) => this.setState({ semestre: e.target.value })}>
 
-                                                <option selected>Semestre...</option>
+                                                <option defaultValue>Semestre...</option>
                                                 <option value="11">11</option>
                                                 <option value="12">12</option>
 
@@ -77,7 +130,7 @@ class AddStudent extends React.Component {
 
                                 <div className='row pb-2'>
                                     <div className='form-floating'>
-                                        <input type='text' className="form-control" id='correo' name='correo' placeholder='correo' />
+                                        <input type='text' className="form-control" id='correo' name='correo' placeholder='correo' onChange={(e) => this.setState({ correo: e.target.value })} />
                                         <label htmlFor='correo'> Correo Institucional</label>
                                     </div>
                                 </div>
@@ -99,13 +152,13 @@ class AddStudent extends React.Component {
                                     <div className="col-4 input-group mb-3">
 
                                         <label className="input-group-text" htmlFor="hspselect">Hospital</label>
-                                        <select className="form-select" id='hspselect'>
+                                        <select onChange={(e) => this.setState({ lugar1: e.target.value })} className="form-select" id='hspselect'>
 
-                                            <option selected>Hospital Inicial...</option>
+                                            <option defaultValue >Hospital Inicial...</option>
                                             {
 
                                                 this.state.hospitales.map(e =>
-                                                    <option value={e.nombre_hospital
+                                                    <option key={e._id} value={e.nombre_hospital
                                                     }>{e.nombre_hospital
                                                         }</option>)
 
@@ -124,7 +177,7 @@ class AddStudent extends React.Component {
 
                                         <div className='input-group input-group-sm mb-3'>
                                             <label className="input-group-text" htmlFor="date1">Fecha Inicial</label>
-                                            <input className='px-1' type="date" id='date1' name="date1"></input>
+                                            <input className='px-1' type="date" id='date1' name="date1" onChange={(e) => this.setState({ fechaInicial: e.target.value })}></input>
 
                                         </div>
                                     </div>
@@ -133,12 +186,12 @@ class AddStudent extends React.Component {
 
                                         <div className='input-group input-group-sm mb-3'>
                                             <label className="input-group-text" htmlFor="date2">Fecha Final</label>
-                                            <input className='px-1' type="date" id='date2' name="date2"></input>
+                                            <input className='px-1' type="date" id='date2' name="date2" onChange={(e) => this.setState({ fechaFinal: e.target.value })}></input>
 
                                         </div>
                                     </div>
                                     <div className="col">
-                                        <button className="btn btn-primary">
+                                        <button className="btn btn-primary" onClick={this.handleSubmit}>
                                             Agregar Estudiante
                                         </button>
                                     </div>
@@ -156,6 +209,7 @@ class AddStudent extends React.Component {
                                 </div>
                                 <button className="btn btn-success">Subir</button>
                             </form>
+
                         </ModalBody>
                         <ModalFooter>
                             <hr />

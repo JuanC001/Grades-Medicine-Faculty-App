@@ -2,10 +2,19 @@ import student from '../models/estudent.js';
 import hospital from '../models/hospital.js';
 const admCtrl = {};
 
+admCtrl.ObtenerUnEstudiante = async (req,res) => {
+
+    const {_id} = req.body;
+    const estudiante = await student.findById(_id);
+    res.json(estudiante);
+
+}
+
 admCtrl.ObtenerEstudiantes = async (req,res) => {
 
     const estudiantes = await student.find();
     res.json(estudiantes);
+    console.log("Envio de estudiantes completado!")
     
 }
 
@@ -13,15 +22,23 @@ admCtrl.RegisEstudiante = (req,res) => {
 
 
     // registro estudiante
-    const {reg_nombres, documento, correo, lugar1, fechaInicial, fechaFinal} = req.body;
+    const {reg_nombres, documento, correo, lugar1, fechaInicial, fechaFinal, semestre} = req.body;
     console.log(req.body);
+    let respuesta = "correcto";
 
+    if(reg_nombres == '' || documento == '' || correo == ''){
+
+        console.log("Esta VACIO!!");
+        respuesta = "incorrecto";
+
+    }
 
     const newStudent = new student({
 
         nombres: reg_nombres,
         documento: documento,
         correo: correo,
+        semestre: semestre,
 
         rotacion1: {
 
@@ -53,14 +70,25 @@ admCtrl.RegisEstudiante = (req,res) => {
 
     });
 
-    student.create(newStudent);
+    try {
+        if(respuesta != "incorrecto"){
+
+            student.create(newStudent);
+
+        }
+        
+        
+
+    }catch(e){
+        respuesta = "incorrecto"
+    }
+
     res.json({
 
-        "nombre": reg_nombres,
-        "documento": documento,
-        "correo": correo
+        "respuesta": respuesta,
 
-    })
+    });
+    
 
 
 }
@@ -71,9 +99,14 @@ admCtrl.ModifEstudiante = (req,res) => {
 
 }
 
-admCtrl.ElimEstudiante = (req,res) => {
+admCtrl.ElimEstudiante = async (req,res) => {
 
     // eliminar el estudiante
+    const {_id} = req.body;
+
+    await student.findByIdAndDelete(_id);
+    
+    res.json({terminado : true});
 
 }
 
@@ -112,9 +145,12 @@ admCtrl.ModifHospital = (req,res) => {
 
 }
 
-admCtrl.ElimHospital = (req,res) => {
+admCtrl.ElimHospital = async (req,res) => {
 
     //Registrar hospital
+    const {_id} = req.body;
+    await hospital.findByIdAndDelete(_id);
+    res.json({terminado: true});
 
 }
 
