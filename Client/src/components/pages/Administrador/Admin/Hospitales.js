@@ -7,6 +7,8 @@ import axios from 'axios';
 import AddHospital from '../Partials/AddHospital';
 import ListaHospitales from '../Hospital/ListaHospitales';
 
+const ip = 'http://192.168.50.141:5000';
+
 export default class Hospitales extends React.Component {
 
   state = {
@@ -15,7 +17,8 @@ export default class Hospitales extends React.Component {
 
   async componentDidMount() {
 
-    const res = await axios.get('http://localhost:5000/api/admin/allHospital');
+    const ipBuilder = ip + '/api/admin/allHospital';
+    const res = await axios.get(ipBuilder);
     this.setState({ hospitales: res.data });
 
   }

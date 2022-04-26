@@ -4,8 +4,8 @@
 
 }
 
-.card-list img {
-    padding-top: 10px;
+.cardimg {
+
     height: 120px;
     width: 120px;
     object-fit: cover;

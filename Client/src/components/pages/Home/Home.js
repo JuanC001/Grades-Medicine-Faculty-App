@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 import axios from 'axios';
+const ip = 'http://192.168.50.141:5000';
 
 const Home = () => {
 
@@ -17,8 +18,8 @@ const Home = () => {
     const handleSubmit = async (e) => {
 
       e.preventDefault();
-      
-      const usuario = await axios.post('http://localhost:5000/api/login', {
+      const ipBuilder = ip + '/api/login';
+      const usuario = await axios.post(ipBuilder, {
         user: user,
         password: password
       })

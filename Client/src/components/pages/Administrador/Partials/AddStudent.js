@@ -5,11 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
+const ip = 'http://192.168.50.141:5000';
+
 class AddStudent extends React.Component {
 
     async componentDidMount() {
-
-        const res = await axios.get('http://localhost:5000/api/admin/allHospital');
+        const ipBuilder = ip + '/api/admin/allHospital';
+        const res = await axios.get(ipBuilder);
         this.setState({ hospitales: res.data });
 
     }
@@ -18,7 +20,7 @@ class AddStudent extends React.Component {
 
         e.preventDefault();
 
-
+        const ipBuilder = ip + '/api/admin/regisEstudiante';
         console.log(this.state.reg_nombres);
         console.log(this.state.documento);
         console.log(this.state.correo);
@@ -26,7 +28,7 @@ class AddStudent extends React.Component {
         console.log(this.state.fechaInicial);
         console.log(this.state.fechaFinal);
 
-        const nuevo = await axios.post('http://localhost:5000/api/admin/regisEstudiante', {
+        const nuevo = await axios.post(ipBuilder, {
             reg_nombres: this.state.reg_nombres,
             documento: this.state.documento,
             correo: this.state.correo,
