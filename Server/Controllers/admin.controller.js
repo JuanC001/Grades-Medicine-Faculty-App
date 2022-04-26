@@ -103,10 +103,8 @@ admCtrl.ElimEstudiante = async (req,res) => {
 
     // eliminar el estudiante
     const {_id} = req.body;
-    console.log("////////////////////////////////////////////////////")
-    console.log(_id);
 
-    const user = await student.findByIdAndDelete(_id);
+    await student.findByIdAndDelete(_id);
     
     res.json({terminado : true});
 
@@ -147,9 +145,12 @@ admCtrl.ModifHospital = (req,res) => {
 
 }
 
-admCtrl.ElimHospital = (req,res) => {
+admCtrl.ElimHospital = async (req,res) => {
 
     //Registrar hospital
+    const {_id} = req.body;
+    await hospital.findByIdAndDelete(_id);
+    res.json({terminado: true});
 
 }
 

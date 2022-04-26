@@ -2,7 +2,7 @@ import React from 'react'
 import './LE.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
-import {useNavigate} from 'react-router-dom';
+
 import MostrarEstudiante from './MostrarEstudiante';
 
 import Swal from 'sweetalert2';
@@ -10,14 +10,13 @@ import Swal from 'sweetalert2';
 
 export default function ListaEstudiantes(props) {
 
-  let navigate = useNavigate();
 
   const id_estudiante = props.estudiante._id;
 
   const borrarEstudiante = async (e) => {
 
-    const nuevo = await axios.post('http://localhost:5000/api/admin/eliminarEstudiante', { _id: id_estudiante });
-    return 
+    await axios.post('http://localhost:5000/api/admin/eliminarEstudiante', { _id: id_estudiante });
+     
   }
 
   const askEliminarEstudiante = (e) => {

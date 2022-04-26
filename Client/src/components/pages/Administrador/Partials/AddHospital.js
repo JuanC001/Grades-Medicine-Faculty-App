@@ -1,18 +1,59 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Swal from 'sweetalert2';
+import axios from 'axios';
 
 class AddStudent extends React.Component {
 
-    constructor(props) {
+    handleSubmit = async (e) => {
 
-        super(props);
+        e.preventDefault();
+        console.log(this.state.nombre_hsp)
+        console.log(this.state.nombre_lider)
+        console.log(this.state.cupo)
+        console.log(this.state.correo)
+        const url = "http://localhost:5000/api/admin/RegisHospital";
+
+        const nuevo = await axios.post(url, {
+
+            nombre: this.state.nombre_hsp,
+            n_lider: this.state.nombre_lider,
+            correo: this.state.correo,
+            cupo: this.state.cupo
+        }
+        );
+
+        if (nuevo.data.registera === "complete") {
+
+            Swal.fire({
+                title: 'Agregado!',
+                text: "Has agregado un hospital!",
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'OK!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.reload(false);
+                }
+            })
+
+        }
+
+
 
     }
 
     state = {
 
-        modalOpen: false
+        modalOpen: false,
+
+        nombre_hsp: '',
+        nombre_lider: '',
+        cupo: 0,
+        correo: ''
 
     }
 
@@ -29,102 +70,60 @@ class AddStudent extends React.Component {
             <div>
                 <button className="btn btn-primary" onClick={this.toggle}><FontAwesomeIcon icon="fa-solid fa-plus" /></button>
                 <div className="modal-div">
-                    <Modal isOpen={this.state.modalOpen} nameClass="modal-class" size='xl'>
-                        <ModalHeader toggle={this.toggle}>Agregar Estudiante</ModalHeader>
+                    <Modal isOpen={this.state.modalOpen} className="modal-class" size='xl'>
+                        <ModalHeader toggle={this.toggle}>Agregar Hospital</ModalHeader>
                         <ModalBody>
-                            <p>En esta seccion puedes agregar a los diferentes estudiantes de la facultad de medicina,
-                                puedes registrar a uno solo o agregar un archivo de excel.</p>
+                            <p>En esta seccion puedes agregar a diferentes hospitales por los cuales rotarán los estudiantes</p>
                             <form className='form-control text-center'>
 
-                                <h6 className="pb-2 pt-1">Información del Estudiante</h6>
-                                <div className='row pb-2'>
-                                    <div className='col-5'>
-                                        <div className='form-floating'>
-                                            <input type='text' className="form-control" id='nombres' name='nombres' placeholder='nombres' />
-                                            <label htmlFor='nombres'>Nombres</label>
+                                <div className="row pb-2 pt-2">
+                                    <div className="col-sm-6">
+                                        <div className="form-floating">
+
+                                            <input type="text" className="form-control" id="hspnombre" placeholder="hh" onChange={(e) => this.setState({ nombre_hsp: e.target.value })} />
+                                            <label htmlFor="hspnombre">Nombre del Hospital</label>
+
                                         </div>
                                     </div>
-                                    <div className="col-5">
-                                        <div className='form-floating'>
-                                            <input type='text' className="form-control" id='documento' name='documento' placeholder='nombres' />
-                                            <label htmlFor='documento'>Documento Estudiante</label>
+                                    <div className="col-sm-6">
+                                        <div className="form-floating">
+
+                                            <input type="text" className="form-control" id="ldnombre" placeholder="hh" onChange={(e) => this.setState({ nombre_lider: e.target.value })} />
+                                            <label htmlFor="ldnombre">Doctor a Cargo</label>
+
                                         </div>
                                     </div>
-                                    <div className="col-2">
-                                        <div className='form-floating'>
-                                            <select className="form-control form-select">
-
-                                                <option selected>Semestre...</option>
-                                                <option value="11">11</option>
-                                                <option value="12">12</option>
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div className='row pb-2'>
-                                    <div className='form-floating'>
-                                        <input type='text' className="form-control" id='correo' name='correo' placeholder='correo' />
-                                        <label htmlFor='correo'> Correo Institucional</label>
-                                    </div>
-                                </div>
-
-                                <div className='row'>
-                                    <div className='input-group mb-3'>
-                                        <label className='input-group-text' htmlFor='archivo_foto'>Foto</label>
-                                        <input type='file' className='form-control' id='archivo_foto' name='archivo_foto' />
-                                    </div>
-
-                                </div>
-
-
-                                <hr />
-                                <h6 className="pb-2">Sitio de Practica</h6>
-
-                                <div className="row pb-2">
-
-                                    <div className="col-4 input-group mb-3">
-
-                                        <label className="input-group-text" htmlFor="hspselect">Hospital</label>
-                                        <select className="form-select" id='hspselect'>
-
-                                            <option selected>Hospital Inicial...</option>
-                                            <option value="H1">Hsp 1</option>
-                                            <option value="H2">Hsp 2</option>
-
-                                        </select>
-
-
-                                    </div>
-
                                 </div>
                                 <div className="row pb-2">
-                                    <div className="col">
+                                    <div className="col-sm-6">
+                                        <div className="form-floating">
 
-                                        <div className='input-group input-group-sm mb-3'>
-                                            <label className="input-group-text" htmlFor="date1">Fecha Inicial</label>
-                                            <input className='px-1' type="date" id='date1' name="date1"></input>
-
-                                        </div>
-                                    </div>
-
-                                    <div className="col">
-
-                                        <div className='input-group input-group-sm mb-3'>
-                                            <label className="input-group-text" htmlFor="date2">Fecha Final</label>
-                                            <input className='px-1' type="date" id='date2' name="date2"></input>
+                                            <input type="text" className="form-control" id="correoctn" placeholder="Correo" onChange={(e) => this.setState({ correo: e.target.value })} />
+                                            <label htmlFor="correoctn">Correo de Contacto</label>
 
                                         </div>
                                     </div>
-                                    <div className="col">
-                                        <button className="btn btn-primary">
-                                            Agregar Estudiante
+                                    <div className="col-sm-6">
+                                        <div className="form-floating">
+
+                                            <input type="number" className="form-control" id="cupo" placeholder="Correo" onChange={(e) => this.setState({ cupo: e.target.value })} />
+                                            <label htmlFor="cupo">Cupo</label>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row pb-2">
+                                    <div className="col align-self-center">
+
+                                        <button className="btn btn-primary" onClick={this.handleSubmit}>
+                                            Agregar Hospital
                                         </button>
-                                    </div>
 
+                                    </div>
                                 </div>
+
+
+
 
                             </form>
                         </ModalBody>

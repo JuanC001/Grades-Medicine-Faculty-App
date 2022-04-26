@@ -1,8 +1,7 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import Swal from 'sweetalert2';
 import axios from 'axios';
 
 
@@ -63,6 +62,9 @@ export default class MostrarEstudiante extends React.Component {
 
 
                 </ModalBody>
+                <ModalFooter>
+                    
+                </ModalFooter>
                 </Modal>
             </div>
 

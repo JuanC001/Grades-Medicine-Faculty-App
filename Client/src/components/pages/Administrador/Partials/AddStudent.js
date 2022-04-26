@@ -7,12 +7,6 @@ import axios from 'axios';
 
 class AddStudent extends React.Component {
 
-    constructor(props) {
-
-        super(props);
-
-    }
-
     async componentDidMount() {
 
         const res = await axios.get('http://localhost:5000/api/admin/allHospital');
@@ -43,12 +37,12 @@ class AddStudent extends React.Component {
         })
         let revision = true;
 
-        if(this.state.reg_nombres == ''){
+        if(this.state.reg_nombres === ''){
             console.log('WHOOPS!')
             revision = false;
         }
 
-        if(nuevo.data.respuesta == "correcto" && revision) {
+        if(nuevo.data.respuesta === "correcto" && revision) {
             
             console.log("Completado!");
             Swal.fire({
