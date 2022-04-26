@@ -58,10 +58,11 @@ export default function ListaEstudiantes(props) {
 
       <div className="card-header">
         <div className="row">
-          <label htmlFor="nombreL" className="col-sm-3 col-form-label">Estudiante:</label>
+          <label htmlFor="nombreL" className="col-sm-2 col-form-label text-start">Estudiante:</label>
           <div className="col-sm-5">
             <input readOnly type="text" className=" form-control-plaintext" id="nombreL" value={props.estudiante.nombres} />
           </div>
+          
         </div>
       </div>
 
@@ -70,7 +71,7 @@ export default function ListaEstudiantes(props) {
           <div className="col-sm-2">
             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" className="img-fluid rounded-start border" />
           </div>
-          <div className="col-sm-10">
+          <div className="col-sm-10 cardimg">
             
           </div>
         </div>
