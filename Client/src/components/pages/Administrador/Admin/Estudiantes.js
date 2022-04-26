@@ -7,6 +7,8 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './CSS/Estudiantes.css'
 
+const ip = 'http://192.168.50.141:5000';
+
 export default class Estudiantes extends React.Component {
   state = {
     estudiantes: []
@@ -14,7 +16,8 @@ export default class Estudiantes extends React.Component {
 
   async componentDidMount() {
     
-    const res = await axios.get('http://localhost:5000/api/admin/allStudents');
+    const ipBuilder = ip + '/api/admin/allStudents';
+    const res = await axios.get(ipBuilder);
     this.setState({ estudiantes: res.data });
 
   }

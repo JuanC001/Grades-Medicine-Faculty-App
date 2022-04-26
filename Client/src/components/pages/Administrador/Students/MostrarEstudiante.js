@@ -3,7 +3,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import axios from 'axios';
-
+const ip = 'http://192.168.50.141:5000';
 
 export default class MostrarEstudiante extends React.Component {
 
@@ -12,7 +12,8 @@ export default class MostrarEstudiante extends React.Component {
     }
 
     async componentDidMount() {
-        const res = await axios.post('http://localhost:5000/api/admin/unEstudiante',
+        const ipBuilder = ip + '/api/admin/unEstudiante';
+        const res = await axios.post(ipBuilder,
             { _id: this.props.id });
         this.setState({ estudiante: res.data });
         const estudiantef = res.data;

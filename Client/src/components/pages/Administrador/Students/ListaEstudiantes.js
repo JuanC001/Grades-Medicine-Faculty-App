@@ -7,6 +7,7 @@ import MostrarEstudiante from './MostrarEstudiante';
 
 import Swal from 'sweetalert2';
 
+const ip = 'http://192.168.50.141:5000';
 
 export default function ListaEstudiantes(props) {
 
@@ -15,7 +16,9 @@ export default function ListaEstudiantes(props) {
 
   const borrarEstudiante = async (e) => {
 
-    await axios.post('http://localhost:5000/api/admin/eliminarEstudiante', { _id: id_estudiante });
+    const ipBuilder = ip + '/api/eliminarEstudiante';
+
+    await axios.post(ipBuilder, { _id: id_estudiante });
 
   }
 
@@ -57,22 +60,33 @@ export default function ListaEstudiantes(props) {
     <div className="card mb-3">
 
       <div className="card-header">
-        <div className="row">
-          <label htmlFor="nombreL" className="col-sm-2 col-form-label text-start">Estudiante:</label>
-          <div className="col-sm-5">
-            <input readOnly type="text" className=" form-control-plaintext" id="nombreL" value={props.estudiante.nombres} />
+        <div className="container">
+          <div className="row">
+            <div className="col">
+              <div className="row">
+                <label htmlFor="nombreL" className="col-sm-4 col-form-label">Estudiante:</label>
+                <label htmlFor="" className="col-sm-5 col-form-label">{props.estudiante.nombres}</label>
+              </div>
+            </div>
+
+            <div className="col align-self-end">
+              <div className="roq">
+                <label htmlFor="nombreL" className="col-sm-2 col-form-label text-end align-self-end">CC:</label>
+                <label htmlFor="" className="col col-form-label">{props.estudiante.documento}</label>
+              </div>
+            </div>
+
           </div>
-          
         </div>
       </div>
 
       <div className="card-body">
         <div className="row">
           <div className="col-sm-2">
-            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" className="img-fluid rounded-start border" />
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" className="cardimg" />
           </div>
           <div className="col-sm-10 cardimg">
-            
+
           </div>
         </div>
 

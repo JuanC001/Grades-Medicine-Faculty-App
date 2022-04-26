@@ -6,10 +6,11 @@ import Swal from 'sweetalert2';
 export default function ListaHospitales(props) {
 
     const id_hsp = props.hsp._id;
+    const ip = 'http://192.168.50.141:5000';
 
     const eliminarHospital = async (e) => {
-
-        await axios.post("http://localhost:5000/api/admin/eliminarHospital", {_id: id_hsp})
+        const ipBuilder = ip + '/api/admin/eliminarHospital';
+        await axios.post(ipBuilder, {_id: id_hsp})
 
     }
 

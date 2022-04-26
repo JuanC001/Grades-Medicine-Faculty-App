@@ -4,7 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-class AddStudent extends React.Component {
+const ip = 'http://192.168.50.141:5000';
+
+class AddHospital extends React.Component {
 
     handleSubmit = async (e) => {
 
@@ -13,7 +15,7 @@ class AddStudent extends React.Component {
         console.log(this.state.nombre_lider)
         console.log(this.state.cupo)
         console.log(this.state.correo)
-        const url = "http://localhost:5000/api/admin/RegisHospital";
+        const url = ip + '/api/admin/RegisHospital';
 
         const nuevo = await axios.post(url, {
 
@@ -148,4 +150,4 @@ class AddStudent extends React.Component {
     }
 }
 
-export default AddStudent;
+export default AddHospital;
