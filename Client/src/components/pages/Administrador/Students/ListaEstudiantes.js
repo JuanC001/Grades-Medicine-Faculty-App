@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
 
 import MostrarEstudiante from './MostrarEstudiante';
+import EditarEstudiante from './EditarEstudiante';
 
 import Swal from 'sweetalert2';
 
@@ -116,6 +117,10 @@ export default function ListaEstudiantes(props) {
                   <div className="col">
                     <label htmlFor="">{props.estudiante.rotacionActual}</label>
                   </div>
+                  <div className="col">
+                    <label htmlFor="">Area Actual:</label>
+                  </div>
+                  <div className="col"> <u>Area del estudiante</u></div>
                 </div>
               </li>
 
@@ -130,12 +135,12 @@ export default function ListaEstudiantes(props) {
             </div>
             <div className="row pb-1">
               <div>
-                <button className="btn btn-primary" onClick={askEliminarEstudiante}><FontAwesomeIcon icon="fa-solid fa-pen-to-square" /></button>
+                <EditarEstudiante id={props.estudiante._id} />
               </div>
             </div>
             <div className="row pb-1">
               <div>
-                <button className="btn btn-danger" onClick={askEliminarEstudiante}><FontAwesomeIcon icon="fa-solid fa-trash-can" /></button>
+                <button className="btn btn-danger" onClick={askEliminarEstudiante}><FontAwesomeIcon icon="fa-solid fa-trash-can" /> </button>
               </div>
             </div>
           </div>
