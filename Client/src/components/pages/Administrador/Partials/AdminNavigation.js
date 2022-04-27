@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { NavLink } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,7 +11,7 @@ const AdminNavigation = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-white">
             <div className="container-fluid">
-                <a className="navbar-brand">
+                <a className="navbar-brand" href="#">
                     <img src="https://imgs.search.brave.com/bNg6um44OC6XsP3DfWpyF5pyLAhhok5OjrT14Y4sxSY/rs:fit:522:225:1/g:ce/aHR0cHM6Ly90c2Uy/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC5z/aVdrZm9EWUZjMWt1/YWM0T1ZBbUxnSGFH/dSZwaWQ9QXBp" alt="" width="80" height="80" />
                 </a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

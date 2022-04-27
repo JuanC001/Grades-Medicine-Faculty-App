@@ -3,7 +3,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import axios from 'axios';
-const ip = 'http://192.168.50.141:5000';
+const ip = 'http://'+ process.env.REACT_APP_URL_API+ ':5000';
 
 export default class MostrarEstudiante extends React.Component {
 

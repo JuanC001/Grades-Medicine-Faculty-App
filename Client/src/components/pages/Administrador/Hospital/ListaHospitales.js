@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 export default function ListaHospitales(props) {
 
     const id_hsp = props.hsp._id;
-    const ip = 'http://192.168.50.141:5000';
+    const ip = 'http://'+ process.env.REACT_APP_URL_API+ ':5000';
 
     const eliminarHospital = async (e) => {
         const ipBuilder = ip + '/api/admin/eliminarHospital';
