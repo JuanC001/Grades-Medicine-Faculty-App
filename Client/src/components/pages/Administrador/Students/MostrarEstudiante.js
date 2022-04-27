@@ -43,7 +43,7 @@ export default class MostrarEstudiante extends React.Component {
     render() {
         return (
             <div>
-                <button onClick={this.toggle} className="btn btn-primary w-50"><FontAwesomeIcon icon="fa-solid fa-eye" /></button>
+                <button onClick={this.toggle} className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-eye" /></button>
                 <Modal isOpen={this.state.modalOpen} className="modal-class" >
                 
                 <ModalHeader toggle= {this.toggle}>Informacion de {this.state.estudiante.nombres}</ModalHeader>

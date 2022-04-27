@@ -39,6 +39,7 @@ admCtrl.RegisEstudiante = (req,res) => {
         documento: documento,
         correo: correo,
         semestre: semestre,
+        rotacionActual: lugar1,
 
         rotacion1: {
 
@@ -103,7 +104,7 @@ admCtrl.ElimEstudiante = async (req,res) => {
 
     // eliminar el estudiante
     const {_id} = req.body;
-
+console.log("ENTROASFNOASFNoindgsubniadgbuipabdguip")
     await student.findByIdAndDelete(_id);
     
     res.json({terminado : true});

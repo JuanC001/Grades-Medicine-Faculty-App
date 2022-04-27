@@ -36,6 +36,7 @@ class AddStudent extends React.Component {
             fechaInicial: this.state.fechaInicial,
             fechaFinal: this.state.fechaFinal,
             semestre: this.state.semestre,
+            
         })
         let revision = true;
 
@@ -193,9 +194,7 @@ class AddStudent extends React.Component {
                                         </div>
                                     </div>
                                     <div className="col">
-                                        <button className="btn btn-primary" onClick={this.handleSubmit}>
-                                            Agregar Estudiante
-                                        </button>
+                                        <button className="btn btn-primary" onClick={this.handleSubmit}>Agregar Estudiante</button>
                                     </div>
 
                                 </div>
@@ -209,7 +208,7 @@ class AddStudent extends React.Component {
                                     <label className='input-group-text' htmlFor='archivo_foto'>Archivo Excel</label>
                                     <input type='file' className='form-control' id='archivo_foto' name='archivo_foto' />
                                 </div>
-                                <button className="btn btn-success">Subir</button>
+                                <button className="btn btn-success" type='button'>Subir</button>
                             </form>
 
                         </ModalBody>
