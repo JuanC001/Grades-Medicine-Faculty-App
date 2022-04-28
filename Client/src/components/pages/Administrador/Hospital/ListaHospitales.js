@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
+import Editarhospital from './EditarHospital';
+
 export default function ListaHospitales(props) {
 
     const id_hsp = props.hsp._id;
@@ -82,7 +84,7 @@ export default function ListaHospitales(props) {
                     <div className="col align-self-center">
                         <div className="btn-group" role="group" aria-label="buttonGroup">
 
-                            <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-pen-to-square" /></button>
+                            <Editarhospital id={props.hsp._id}/>
                             <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-eye" /></button>
                             <button className="btn btn-danger" onClick={askEliminarHospital}><FontAwesomeIcon icon="fa-solid fa-trash" /></button>
 

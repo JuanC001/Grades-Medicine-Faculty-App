@@ -6,21 +6,45 @@ import { Accordion } from 'react-bootstrap'
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-const ip = 'http://'+ process.env.REACT_APP_URL_API+ ':5000';
+const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
 
 class EditarEstudiante extends React.Component {
+
+    modificarEstudiante = async (e) => {
+
+        e.preventDefault();
+
+        let ipBuilder = ip + '/api/admin/modEst'
+        const res = await axios.post(ipBuilder,
+            {
+                _id: this.props.id,
+                ed_nombres: this.state.ed_nombres,
+                documento: this.state.documento,
+                correo: this.state.correo,
+                semestre: this.state.semestre,
+
+            }).then(
+                Swal.fire(
+                    '¡Completado!',
+                    'Se modifico al estudiante',
+                    'success'
+                ).then((result) => {
+                    if(result.isConfirmed){
+                        window.location.reload(false);
+                    }
+                })
+            )
+
+    }
 
     async componentDidMount() {
         let ipBuilder = ip + '/api/admin/unEstudiante';
         let res = await axios.post(ipBuilder, { _id: this.props.id })
         this.setState({ estudiante: res.data });
         const estudiantef = res.data;
+
         this.setState({ rotacion1: estudiantef.rotacion1 })
-        this.setState({ rotacion2: estudiantef.rotacion2 })
-        this.setState({ rotacion3: estudiantef.rotacion3 })
-        this.setState({ rotacion4: estudiantef.rotacion4 })
-        this.setState({ rotacion5: estudiantef.rotacion5 })
-        this.setState({ rotacion6: estudiantef.rotacion6 })
+
         ipBuilder = ip + '/api/admin/allHospital';
         res = await axios.get(ipBuilder);
         this.setState({ hospitales: res.data });
@@ -34,13 +58,11 @@ class EditarEstudiante extends React.Component {
         estudiante: {},
         hospitales: [],
 
-        reg_nombres: '',
+        ed_nombres: '',
         documento: '',
         correo: '',
-        lugar1: '',
-        fechaInicial: '',
-        fechaFinal: '',
         semestre: '',
+
 
         rotacion1: {},
         rotacion2: {},
@@ -53,7 +75,11 @@ class EditarEstudiante extends React.Component {
     }
 
     toggle = () => {
-
+        console.log('toggle')
+        this.setState({ ed_nombres: this.state.estudiante.nombres });
+        this.setState({ documento: this.state.estudiante.documento });
+        this.setState({ correo: this.state.estudiante.correo });
+        this.setState({ semestre: this.state.estudiante.semestre });
         this.setState({ modalOpen: !this.state.modalOpen })
 
     }
@@ -76,19 +102,19 @@ class EditarEstudiante extends React.Component {
                             <div className='row pb-2'>
                                 <div className='col-5'>
                                     <div className='form-floating'>
-                                        <input type='text' className="form-control" id='nombres' name='nombres' placeholder='nombres' value={this.state.estudiante.nombres} onChange={(e) => this.setState({ reg_nombres: e.target.value })} />
+                                        <input type='text' className="form-control" id='nombres' name='nombres' placeholder='nombres' value={this.state.ed_nombres} onChange={(e) => this.setState({ ed_nombres: e.target.value })} />
                                         <label htmlFor='nombres'>APELLIDO(S) NOMBRE(S)</label>
                                     </div>
                                 </div>
                                 <div className="col-5">
                                     <div className='form-floating'>
-                                        <input type='text' className="form-control" id='documento' name='documento' placeholder='nombres' value={this.state.estudiante.documento} onChange={(e) => this.setState({ documento: e.target.value })} />
+                                        <input type='text' className="form-control" id='documento' name='documento' placeholder='nombres' value={this.state.documento} onChange={(e) => this.setState({ documento: e.target.value })} />
                                         <label htmlFor='documento'>Documento Estudiante</label>
                                     </div>
                                 </div>
                                 <div className="col-2">
                                     <div className='form-floating'>
-                                        <select className="form-control form-select" value={this.state.estudiante.semestre} onChange={(e) => this.setState({ semestre: e.target.value })}>
+                                        <select className="form-control form-select" value={this.state.semestre} onChange={(e) => this.setState({ semestre: e.target.value })}>
 
                                             <option defaultValue>Semestre...</option>
                                             <option value="11">11</option>
@@ -102,7 +128,7 @@ class EditarEstudiante extends React.Component {
 
                             <div className='row pb-2'>
                                 <div className='form-floating'>
-                                    <input type='text' className="form-control" id='correo' name='correo' placeholder='correo' value={this.state.estudiante.correo} onChange={(e) => this.setState({ correo: e.target.value })} />
+                                    <input type='text' className="form-control" id='correo' name='correo' placeholder='correo' value={this.state.correo} onChange={(e) => this.setState({ correo: e.target.value })} />
                                     <label htmlFor='correo'> Correo Institucional</label>
                                 </div>
                             </div>
@@ -145,7 +171,7 @@ class EditarEstudiante extends React.Component {
                                                 </div>
                                             </li>
                                             <li className="list-group-item active">
-                                            <div className="row">
+                                                <div className="row">
                                                     <div className="col">
                                                         <label htmlFor="">Nota:</label>
                                                     </div>
@@ -160,14 +186,14 @@ class EditarEstudiante extends React.Component {
                                 <Accordion.Item eventKey="1">
                                     <Accordion.Header>Rotacion 2: {this.state.rotacion2.lugar}</Accordion.Header>
                                     <Accordion.Body>
-                                        
+
                                     </Accordion.Body>
                                 </Accordion.Item>
                             </Accordion>
 
                             <div>
                                 <div className="col">
-                                    <button className="btn btn-primary" onClick={this.handleSubmit}>Guardar Estudiante</button>
+                                    <button className="btn btn-success" onClick={this.modificarEstudiante}>Guardar Estudiante</button>
                                 </div>
 
                             </div>

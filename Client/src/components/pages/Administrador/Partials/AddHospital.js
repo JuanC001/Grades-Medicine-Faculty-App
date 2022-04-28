@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-const ip = 'http://'+ process.env.REACT_APP_URL_API+ ':5000';
+const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
 
 class AddHospital extends React.Component {
 
@@ -69,8 +69,7 @@ class AddHospital extends React.Component {
 
         return (
 
-            <div>
-                <button className="btn btn-primary" onClick={this.toggle}><FontAwesomeIcon icon="fa-solid fa-plus" /></button>
+            <button className="btn btn-primary" onClick={this.toggle}><FontAwesomeIcon icon="fa-solid fa-plus" />
                 <div className="modal-div">
                     <Modal isOpen={this.state.modalOpen} className="modal-class" size='xl'>
                         <ModalHeader toggle={this.toggle}>Agregar Hospital</ModalHeader>
@@ -145,7 +144,8 @@ class AddHospital extends React.Component {
                         </ModalFooter>
                     </Modal>
                 </div>
-            </div>
+            </button>
+
         );
     }
 }

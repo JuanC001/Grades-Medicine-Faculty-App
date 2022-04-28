@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
 
 import AddHospital from '../Partials/AddHospital';
+import EditarEstudiante from '../Hospital/EditarHospital';
 import ListaHospitales from '../Hospital/ListaHospitales';
 
 const ip = 'http://'+ process.env.REACT_APP_URL_API+ ':5000';
