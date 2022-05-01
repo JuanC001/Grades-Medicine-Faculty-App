@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom';
 
 
 import axios from 'axios';
-const ip = 'http://192.168.50.141:5000';
+
+const ip = 'http://'+ process.env.REACT_APP_URL_API+ ':5000';
 
 const Home = () => {
 

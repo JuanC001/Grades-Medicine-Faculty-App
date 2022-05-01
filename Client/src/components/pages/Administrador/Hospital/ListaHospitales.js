@@ -3,10 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
+import Editarhospital from './EditarHospital';
+import MostrarHospital from './MostrarHospital';
+
 export default function ListaHospitales(props) {
 
     const id_hsp = props.hsp._id;
-    const ip = 'http://192.168.50.141:5000';
+    const ip = 'http://'+ process.env.REACT_APP_URL_API+ ':5000';
 
     const eliminarHospital = async (e) => {
         const ipBuilder = ip + '/api/admin/eliminarHospital';
@@ -38,11 +41,7 @@ export default function ListaHospitales(props) {
 
             }
 
-          });
-       
-            
-              
-              
+          });    
             
     }
 
@@ -82,8 +81,8 @@ export default function ListaHospitales(props) {
                     <div className="col align-self-center">
                         <div className="btn-group" role="group" aria-label="buttonGroup">
 
-                            <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-pen-to-square" /></button>
-                            <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-eye" /></button>
+                            <Editarhospital id={props.hsp._id}/>
+                            <MostrarHospital id={props.hsp._id}/>
                             <button className="btn btn-danger" onClick={askEliminarHospital}><FontAwesomeIcon icon="fa-solid fa-trash" /></button>
 
                         </div>

@@ -3,7 +3,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import axios from 'axios';
-const ip = 'http://192.168.50.141:5000';
+const ip = 'http://'+ process.env.REACT_APP_URL_API+ ':5000';
 
 export default class MostrarEstudiante extends React.Component {
 
@@ -43,8 +43,8 @@ export default class MostrarEstudiante extends React.Component {
     render() {
         return (
             <div>
-                <button onClick={this.toggle} className="btn btn-primary w-50"><FontAwesomeIcon icon="fa-solid fa-eye" /></button>
-                <Modal isOpen={this.state.modalOpen} className="modal-class" >
+                <button onClick={this.toggle} className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-eye" /></button>
+                <Modal isOpen={this.state.modalOpen} className="modal-class" size='xl'>
                 
                 <ModalHeader toggle= {this.toggle}>Informacion de {this.state.estudiante.nombres}</ModalHeader>
                 <ModalBody>

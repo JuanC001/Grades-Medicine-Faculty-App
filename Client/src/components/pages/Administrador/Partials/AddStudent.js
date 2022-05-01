@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-const ip = 'http://192.168.50.141:5000';
+const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
 
 class AddStudent extends React.Component {
 
@@ -36,6 +36,7 @@ class AddStudent extends React.Component {
             fechaInicial: this.state.fechaInicial,
             fechaFinal: this.state.fechaFinal,
             semestre: this.state.semestre,
+
         })
         let revision = true;
 
@@ -92,8 +93,8 @@ class AddStudent extends React.Component {
 
         return (
 
-            <div>
-                <button className="btn btn-primary" onClick={this.toggle}><FontAwesomeIcon icon="fa-solid fa-plus" /></button>
+
+            <button className="btn btn-primary" onClick={this.toggle}><FontAwesomeIcon icon="fa-solid fa-plus" />
                 <div className="modal-div">
                     <Modal isOpen={this.state.modalOpen} className="modal-class" size='xl'>
                         <ModalHeader toggle={this.toggle}>Agregar Estudiante</ModalHeader>
@@ -193,9 +194,7 @@ class AddStudent extends React.Component {
                                         </div>
                                     </div>
                                     <div className="col">
-                                        <button className="btn btn-primary" onClick={this.handleSubmit}>
-                                            Agregar Estudiante
-                                        </button>
+                                        <button className="btn btn-primary" onClick={this.handleSubmit}>Agregar Estudiante</button>
                                     </div>
 
                                 </div>
@@ -209,7 +208,7 @@ class AddStudent extends React.Component {
                                     <label className='input-group-text' htmlFor='archivo_foto'>Archivo Excel</label>
                                     <input type='file' className='form-control' id='archivo_foto' name='archivo_foto' />
                                 </div>
-                                <button className="btn btn-success">Subir</button>
+                                <button className="btn btn-success" type='button'>Subir</button>
                             </form>
 
                         </ModalBody>
@@ -218,7 +217,8 @@ class AddStudent extends React.Component {
                         </ModalFooter>
                     </Modal>
                 </div>
-            </div>
+        
+            </button>
         );
     }
 }
