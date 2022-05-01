@@ -4,6 +4,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 import Editarhospital from './EditarHospital';
+import MostrarHospital from './MostrarHospital';
 
 export default function ListaHospitales(props) {
 
@@ -40,11 +41,7 @@ export default function ListaHospitales(props) {
 
             }
 
-          });
-       
-            
-              
-              
+          });    
             
     }
 
@@ -85,7 +82,7 @@ export default function ListaHospitales(props) {
                         <div className="btn-group" role="group" aria-label="buttonGroup">
 
                             <Editarhospital id={props.hsp._id}/>
-                            <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-eye" /></button>
+                            <MostrarHospital id={props.hsp._id}/>
                             <button className="btn btn-danger" onClick={askEliminarHospital}><FontAwesomeIcon icon="fa-solid fa-trash" /></button>
 
                         </div>
