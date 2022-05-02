@@ -2,6 +2,8 @@ import React from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import GenerarAcordion from './EstudianteRotaciones/GenerarAcordion'
+
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
@@ -10,10 +12,33 @@ const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
 class AddStudent extends React.Component {
 
     async componentDidMount() {
+
         const ipBuilder = ip + '/api/admin/allHospital';
         const res = await axios.get(ipBuilder);
         this.setState({ hospitales: res.data });
 
+
+    }
+
+    generarAcordion = () => {
+
+        const id_l = this.state.rotaciones.length + 1
+        const nuevaRotacion = {
+            text: 'Rotacion ' + id_l,
+            id: id_l
+        }
+        this.setState({ rotaciones: this.state.rotaciones.concat(nuevaRotacion) })
+
+    }
+
+    eliminarRotacion = (e) => {
+        const id = parseInt(e) - 1;
+        let arregloaux = this.state.rotaciones;
+        console.log(this.state.rotaciones.length);
+        arregloaux.splice(id);
+        console.log(arregloaux);
+        
+        this.setState({rotaciones: arregloaux});
     }
 
     handleSubmit = async (e) => {
@@ -71,7 +96,6 @@ class AddStudent extends React.Component {
     state = {
 
         modalOpen: false,
-        hospitales: [],
 
         reg_nombres: '',
         documento: '',
@@ -79,7 +103,10 @@ class AddStudent extends React.Component {
         lugar1: '',
         fechaInicial: '',
         fechaFinal: '',
-        semestre: ''
+        semestre: '',
+
+        hospitales: [],
+        rotaciones: []
 
     }
 
@@ -146,57 +173,18 @@ class AddStudent extends React.Component {
 
                                 </div>
 
+                                <GenerarAcordion rotaciones={this.state.rotaciones} hospitales= {this.state.hospitales} eliminarRotaciones={this.eliminarRotacion}/>
 
                                 <hr />
-                                <h6 className="pb-2">Sitio de Practica</h6>
 
-                                <div className="row pb-2">
+                                <button type="button" className="btn btn-secondary" onClick={this.generarAcordion}>Nueva Rotacion</button>
 
-                                    <div className="col-4 input-group mb-3">
+                                <hr />
 
-                                        <label className="input-group-text" htmlFor="hspselect">Hospital</label>
-                                        <select onChange={(e) => this.setState({ lugar1: e.target.value })} className="form-select" id='hspselect'>
-
-                                            <option defaultValue >Hospital Inicial...</option>
-                                            {
-
-                                                this.state.hospitales.map(e =>
-                                                    <option key={e._id} value={e.nombre_hospital
-                                                    }>{e.nombre_hospital
-                                                        }</option>)
-
-                                            }
-
-
-
-                                        </select>
-
-
-                                    </div>
-
-                                </div>
-                                <div className="row pb-2">
-                                    <div className="col">
-
-                                        <div className='input-group input-group-sm mb-3'>
-                                            <label className="input-group-text" htmlFor="date1">Fecha Inicial</label>
-                                            <input className='px-1' type="date" id='date1' name="date1" onChange={(e) => this.setState({ fechaInicial: e.target.value })}></input>
-
-                                        </div>
-                                    </div>
-
-                                    <div className="col">
-
-                                        <div className='input-group input-group-sm mb-3'>
-                                            <label className="input-group-text" htmlFor="date2">Fecha Final</label>
-                                            <input className='px-1' type="date" id='date2' name="date2" onChange={(e) => this.setState({ fechaFinal: e.target.value })}></input>
-
-                                        </div>
-                                    </div>
+                                <div className="row">
                                     <div className="col">
                                         <button className="btn btn-primary" onClick={this.handleSubmit}>Agregar Estudiante</button>
                                     </div>
-
                                 </div>
 
                             </form>
@@ -217,10 +205,12 @@ class AddStudent extends React.Component {
                         </ModalFooter>
                     </Modal>
                 </div>
-        
+
             </button>
         );
     }
 }
+
+
 
 export default AddStudent;

@@ -148,7 +148,8 @@ admCtrl.RegisHospital = (req, res) => {
         nombre_hospital: nombre,
         nombre_lider: n_lider,
         correo_administrador: correo,
-        cupo: cupo
+        cupo: cupo,
+        cupoDisponible: cupo
 
     });
 

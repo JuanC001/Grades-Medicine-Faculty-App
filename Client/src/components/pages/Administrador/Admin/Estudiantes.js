@@ -27,9 +27,9 @@ export default class Estudiantes extends React.Component {
     return (
       <div>
         <NavBar />
-        <div className="text-center m-3">
+        <div className="text-center m-3 lista">
 
-          <div className="bg-light mx-auto container-fluid w-80 rounded rounded-3">
+          <div className="bg-light mx-auto container-fluid w-80 rounded rounded-3 " >
 
             <h1 className="display-1 ">Listado de Estudiantes</h1>
 
@@ -47,7 +47,7 @@ export default class Estudiantes extends React.Component {
 
               </div>
             </div>
-            <div className="text-center mx-auto container-fluid">
+            <div className="text-center mx-auto container-fluid extrascroll">
               {
 
                 this.state.estudiantes.map(e =>

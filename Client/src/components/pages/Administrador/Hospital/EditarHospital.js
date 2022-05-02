@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-import { Accordion } from 'react-bootstrap'
+
 
 const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
 

@@ -1,5 +1,15 @@
-.w-80{
+.w-80 {
 
-    width : 85%;
+    width: 85%;
 
+}
+
+.lista {
+    padding-top: 80px;
+}
+
+.extrascroll {
+    overflow: scroll;
+    
+    height: 800px;
 }

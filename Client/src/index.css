@@ -9,6 +9,7 @@ body {
   background: #69b363;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #fcfcfc, #cbff0f);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #003605, #ff9100); 
+  overflow-x: hidden;
 }
 
 code {

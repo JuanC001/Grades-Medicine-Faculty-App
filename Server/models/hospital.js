@@ -9,7 +9,7 @@ const hospSchema = new mongoose.Schema({
     cupoDisponible: {type: Number,required: true},
     
 
-    estudiantesAfiliados: {type: Array, required: false},
+    estudiantesAfiliados: [],
 
 });
 
