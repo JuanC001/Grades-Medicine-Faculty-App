@@ -17,6 +17,12 @@ export default class Hospitales extends React.Component {
     hospitales: []
   }
 
+  actualizarLista = async () => {
+    const ipBuilder = ip + '/api/admin/allHospital';
+    const res = await axios.get(ipBuilder);
+    this.setState({ hospitales: res.data });
+  }
+
   async componentDidMount() {
 
     const ipBuilder = ip + '/api/admin/allHospital';
@@ -44,7 +50,7 @@ export default class Hospitales extends React.Component {
 
                 <div className="btn-group me-2 text-center">
 
-                  <AddHospital className="btn btn-primary" />
+                  <AddHospital className="btn btn-primary" actualizar= {this.actualizarLista}/>
                   <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-print" /></button>
                   <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-pen-to-square" /></button>
 
@@ -53,7 +59,7 @@ export default class Hospitales extends React.Component {
               </div>
             </div>
 
-            <div className="text-center mx-auto container-fluid extrascroll" style={{overflow: "scroll"}}>
+            <div className="text-center mx-auto container-fluid extrascroll" style={{ overflow: "scroll" }}>
 
               {
 
@@ -61,7 +67,7 @@ export default class Hospitales extends React.Component {
 
                   e =>
 
-                    <ListaHospitales key={e._id} hsp={e} />
+                    <ListaHospitales key={e._id} hsp={e} actualizar= {this.actualizarLista}/>
 
                 )
 

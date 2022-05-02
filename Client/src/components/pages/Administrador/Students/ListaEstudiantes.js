@@ -43,7 +43,7 @@ export default function ListaEstudiantes(props) {
         ).then((result) => {
           if (result.isConfirmed) {
 
-            window.location.reload(false);
+            props.actualizar()
           }
         });
 

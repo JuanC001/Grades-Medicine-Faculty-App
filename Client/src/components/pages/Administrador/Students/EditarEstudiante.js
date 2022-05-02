@@ -41,9 +41,6 @@ class EditarEstudiante extends React.Component {
         let ipBuilder = ip + '/api/admin/unEstudiante';
         let res = await axios.post(ipBuilder, { _id: this.props.id })
         this.setState({ estudiante: res.data });
-        const estudiantef = res.data;
-
-        this.setState({ rotacion1: estudiantef.rotacion1 })
 
         ipBuilder = ip + '/api/admin/allHospital';
         res = await axios.get(ipBuilder);
@@ -63,13 +60,6 @@ class EditarEstudiante extends React.Component {
         correo: '',
         semestre: '',
 
-
-        rotacion1: {},
-        rotacion2: {},
-        rotacion3: {},
-        rotacion4: {},
-        rotacion5: {},
-        rotacion6: {}
 
 
     }
@@ -145,7 +135,7 @@ class EditarEstudiante extends React.Component {
 
                             <Accordion className="mb-2">
                                 <Accordion.Item eventKey="0">
-                                    <Accordion.Header>Rotacion 1: {this.state.rotacion1.lugar}</Accordion.Header>
+                                    <Accordion.Header></Accordion.Header>
                                     <Accordion.Body>
                                         <ul className="list-group">
                                             <li className="list-group-item">
@@ -155,7 +145,7 @@ class EditarEstudiante extends React.Component {
                                                         <label htmlFor="">Fecha Inicial:</label>
                                                     </div>
                                                     <div className="col">
-                                                        {this.state.rotacion1.fechaInicial}
+                                                        fecha i
                                                     </div>
                                                 </div>
 
@@ -166,7 +156,7 @@ class EditarEstudiante extends React.Component {
                                                         <label htmlFor="">Fecha Final:</label>
                                                     </div>
                                                     <div className="col">
-                                                        {this.state.rotacion1.fechaFinal}
+                                                        fecha f
                                                     </div>
                                                 </div>
                                             </li>
@@ -176,7 +166,7 @@ class EditarEstudiante extends React.Component {
                                                         <label htmlFor="">Nota:</label>
                                                     </div>
                                                     <div className="col">
-                                                        {this.state.rotacion1.nota}
+                                                        nota
                                                     </div>
                                                 </div>
                                             </li>
@@ -184,7 +174,7 @@ class EditarEstudiante extends React.Component {
                                     </Accordion.Body>
                                 </Accordion.Item>
                                 <Accordion.Item eventKey="1">
-                                    <Accordion.Header>Rotacion 2: {this.state.rotacion2.lugar}</Accordion.Header>
+                                    <Accordion.Header>Rot 1</Accordion.Header>
                                     <Accordion.Body>
 
                                     </Accordion.Body>

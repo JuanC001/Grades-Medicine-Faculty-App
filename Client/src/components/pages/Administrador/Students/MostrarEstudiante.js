@@ -16,13 +16,6 @@ export default class MostrarEstudiante extends React.Component {
         const res = await axios.post(ipBuilder,
             { _id: this.props.id });
         this.setState({ estudiante: res.data });
-        const estudiantef = res.data;
-        this.setState({rotacion1: estudiantef.rotacion1})
-        this.setState({rotacion2: estudiantef.rotacion2})
-        this.setState({rotacion3: estudiantef.rotacion3})
-        this.setState({rotacion4: estudiantef.rotacion4})
-        this.setState({rotacion5: estudiantef.rotacion5})
-        this.setState({rotacion6: estudiantef.rotacion6})
     }
 
     state = {
@@ -53,12 +46,7 @@ export default class MostrarEstudiante extends React.Component {
                     <p>Nombre: {this.state.estudiante.nombres} </p>
                     <p>Correo: {this.state.estudiante.correo} </p>
                     <p>Documento: {this.state.estudiante.documento} </p>
-                    <p>Rotacion 1: </p>
-                    <ul>
-                        <li>Lugar : {this.state.rotacion1.lugar}</li>
-                        <li>Fecha de Inicio : {this.state.rotacion1.fechaInicial}</li>
-                        <li>Fecha de Fin : {this.state.rotacion1.fechaFinal}</li>
-                    </ul>
+                    
                
 
 

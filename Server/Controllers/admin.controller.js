@@ -39,35 +39,7 @@ admCtrl.RegisEstudiante = (req, res) => {
         documento: documento,
         correo: correo,
         semestre: semestre,
-        rotacionActual: lugar1,
-
-        rotacion1: {
-
-            "id_r": 1,
-            lugar: lugar1,
-            fechaInicial: fechaInicial,
-            fechaFinal: fechaFinal,
-            nota: 0
-
-        },
-
-        rotacion2: {
-
-            nota: 0
-
-        },
-        rotacion3: {
-            nota: 0
-        },
-        rotacion4: {
-            nota: 0
-        },
-        rotacion5: {
-            nota: 0
-        },
-        rotacion6: {
-            nota: 0
-        }
+        rotacionActual: 'No asignado aun',
 
     });
 

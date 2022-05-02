@@ -35,7 +35,7 @@ export default function ListaHospitales(props) {
                 eliminarHospital();
                 Swal.fire('¡Eliminado!','Se borro al hospital','success').then((result) => {
                     if(result.isConfirmed){
-                        window.location.reload(false);
+                        props.actualizar()
                     }
                 })
 

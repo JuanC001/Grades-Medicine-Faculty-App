@@ -38,7 +38,8 @@ class AddHospital extends React.Component {
                 confirmButtonText: 'OK!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.reload(false);
+                    this.setState({ modalOpen: false });
+                    this.props.actualizar()
                 }
             })
 

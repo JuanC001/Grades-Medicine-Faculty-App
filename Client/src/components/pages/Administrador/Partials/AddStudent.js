@@ -24,21 +24,28 @@ class AddStudent extends React.Component {
 
         const id_l = this.state.rotaciones.length + 1
         const nuevaRotacion = {
+            id: id_l,
             text: 'Rotacion ' + id_l,
-            id: id_l
+            hospital: '',
+            fechaInicial: '',
+            fechaFinal: ''
         }
         this.setState({ rotaciones: this.state.rotaciones.concat(nuevaRotacion) })
+        console.log(this.state.rotaciones);
 
+    }
+
+    actualizarRotacion = (e) => {
+        console.log('RR:' + e.hospital)
+        console.log('RR:' + e.fechaInicial)
+        console.log('RR:' + e.fechaFinal)
     }
 
     eliminarRotacion = (e) => {
         const id = parseInt(e) - 1;
         let arregloaux = this.state.rotaciones;
-        console.log(this.state.rotaciones.length);
         arregloaux.splice(id);
-        console.log(arregloaux);
-        
-        this.setState({rotaciones: arregloaux});
+        this.setState({ rotaciones: arregloaux });
     }
 
     handleSubmit = async (e) => {
@@ -83,7 +90,8 @@ class AddStudent extends React.Component {
                 confirmButtonText: 'OK!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.reload(false);
+                    this.setState({modalOpen: false});
+                    this.props.actualizar()
                 }
             })
 
@@ -117,6 +125,8 @@ class AddStudent extends React.Component {
     }
 
     render() {
+
+        
 
         return (
 
@@ -173,11 +183,13 @@ class AddStudent extends React.Component {
 
                                 </div>
 
-                                <GenerarAcordion rotaciones={this.state.rotaciones} hospitales= {this.state.hospitales} eliminarRotaciones={this.eliminarRotacion}/>
+
 
                                 <hr />
-
-                                <button type="button" className="btn btn-secondary" onClick={this.generarAcordion}>Nueva Rotacion</button>
+                                <div className="pb-3">
+                                    <GenerarAcordion rotaciones={this.state.rotaciones} hospitales={this.state.hospitales} eliminarRotaciones={this.eliminarRotacion} actualizarRotacion={this.actualizarRotacion}/>
+                                </div>
+                                <button type="button" className="btn btn-warning" onClick={this.generarAcordion}>Nueva Rotacion</button>
 
                                 <hr />
 

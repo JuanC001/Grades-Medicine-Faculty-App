@@ -14,6 +14,14 @@ export default class Estudiantes extends React.Component {
     estudiantes: []
   }
 
+  actualizarLista = async () => {
+
+    const ipBuilder = ip + '/api/admin/allStudents';
+    const res = await axios.get(ipBuilder);
+    this.setState({ estudiantes: res.data });
+
+  }
+
   async componentDidMount() {
     
     const ipBuilder = ip + '/api/admin/allStudents';
@@ -39,7 +47,7 @@ export default class Estudiantes extends React.Component {
 
                 <div className="btn-group me-2 text-center">
 
-                  <AddStudent />
+                  <AddStudent actualizar = {this.actualizarLista}/>
                   <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-print" /></button>
                   <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-pen-to-square" /></button>
 
@@ -52,7 +60,7 @@ export default class Estudiantes extends React.Component {
 
                 this.state.estudiantes.map(e =>
 
-                  <ListaEstudiantes key={e._id} estudiante={e} />
+                  <ListaEstudiantes actualizar = {this.actualizarLista} key={e._id} estudiante={e} />
 
                 )
 
