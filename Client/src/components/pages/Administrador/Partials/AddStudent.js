@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import { Accordion } from 'react-bootstrap'
 import GenerarAcordion from './EstudianteRotaciones/GenerarAcordion'
 
 import Swal from 'sweetalert2';
@@ -31,7 +32,6 @@ class AddStudent extends React.Component {
             fechaFinal: ''
         }
         this.setState({ rotaciones: this.state.rotaciones.concat(nuevaRotacion) })
-        console.log(this.state.rotaciones);
 
     }
 
@@ -90,8 +90,11 @@ class AddStudent extends React.Component {
                 confirmButtonText: 'OK!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.setState({modalOpen: false});
+
+                    this.setState({ rotaciones: [] });
+                    this.setState({ modalOpen: false });
                     this.props.actualizar()
+
                 }
             })
 
@@ -121,12 +124,13 @@ class AddStudent extends React.Component {
     toggle = () => {
 
         this.setState({ modalOpen: !this.state.modalOpen })
+        this.setState({ rotaciones: [] });
 
     }
 
     render() {
 
-        
+
 
         return (
 
@@ -187,7 +191,13 @@ class AddStudent extends React.Component {
 
                                 <hr />
                                 <div className="pb-3">
-                                    <GenerarAcordion rotaciones={this.state.rotaciones} hospitales={this.state.hospitales} eliminarRotaciones={this.eliminarRotacion} actualizarRotacion={this.actualizarRotacion}/>
+                                    {
+                                        this.state.rotaciones.map((e) => {
+
+                                            <GenerarAcordion rotacion={e} hospitales={this.state.hospitales} />
+
+                                        })
+                                    }
                                 </div>
                                 <button type="button" className="btn btn-warning" onClick={this.generarAcordion}>Nueva Rotacion</button>
 

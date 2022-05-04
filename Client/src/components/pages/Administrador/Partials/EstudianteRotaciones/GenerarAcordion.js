@@ -14,58 +14,18 @@ class GenerarAcordion extends React.Component {
         fechaFinal: ''
     }
 
-
-    nombreHospital = (e) => { 
-
-        e.preventDefault();
-        const nombre = e.target.value
-        this.setState({nombre_hospital: nombre});
-        
-        const rotacion = {
-
-            hospital: nombre,
-            fechaInicial: this.state.fechaInicial,
-            fechaFinal: this.state.fechaFinal
-           
-
-        }
-        this.props.actualizarRotacion(rotacion);
-    }
-
-    fechaInicial = (e) => { 
-
-        e.preventDefault();
-        const fecha1 = e.target.value
-        this.setState({fechaInicial: fecha1});
-        
-        const rotacion = {
-
-            hospital: this.state.nombre_hospital,
-            fechaInicial: fecha1,
-            fechaFinal: this.state.fechaFinal
-           
-
-        }
-        this.props.actualizarRotacion(rotacion);
-    }
-
     render() {
-        const {eliminarRotaciones} = this.props
+        const {rotacion} = this.props
         return (
-            <Accordion>
 
-                {this.props.rotaciones.map(rotacion => (
+            <div>
+                <Accordion.Item>
 
-                    <Accordion.Item eventKey={rotacion.id} key={rotacion.id} >
+                    <Accordion.Header>
+                    </Accordion.Header>
+                    <Accordion.Body>
 
-                        <Accordion.Header bg="primary">
-
-                            {rotacion.text}
-
-                        </Accordion.Header>
-
-                        <Accordion.Body>
-                            <div className="container">
+                    <div className="container">
                                 <h6 className="pb-2">Sitio de Practica</h6>
 
                                 <div className="row pb-2">
@@ -119,18 +79,18 @@ class GenerarAcordion extends React.Component {
                             <div className="row">
                                 <div className="col">
 
-                                        <button type="button" className="btn btn-danger" onClick={() => eliminarRotaciones(rotacion.id)}>Eliminar Rotación </button>
+                                        <button type="button" className="btn btn-danger" >Eliminar Rotación </button>
 
                                 </div>
 
                             </div>
 
-                        </Accordion.Body>
+                    </Accordion.Body>
 
-                    </Accordion.Item>
+                </Accordion.Item>
+            </div>
 
-                ))}
-            </Accordion>
+         
         )
     }
 }
