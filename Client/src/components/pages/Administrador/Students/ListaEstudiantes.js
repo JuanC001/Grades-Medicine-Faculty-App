@@ -7,7 +7,7 @@ import MostrarEstudiante from './MostrarEstudiante';
 
 import Swal from 'sweetalert2';
 
-const ip = 'http://192.168.50.141:5000';
+const ip = 'http://localhost:5000';
 
 export default function ListaEstudiantes(props) {
 

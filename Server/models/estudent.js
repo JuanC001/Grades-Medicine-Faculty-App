@@ -11,9 +11,9 @@ const estudiantesSchema = new Schema({
 
     rotacion1 : {
 
-        lugar : {type:String, required:true},
-        fechaInicial: {type:Date, required:true},
-        fechaFinal: {type:Date, required:true},
+        lugar : {type:String, required:false},
+        fechaInicial: {type:Date, required:false},
+        fechaFinal: {type:Date, required:false},
         nota: {type:Number, required:false},
 
         

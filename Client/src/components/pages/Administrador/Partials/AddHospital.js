@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-const ip = 'http://192.168.50.141:5000';
+const ip = 'http://localhost:5000';
 
 class AddHospital extends React.Component {
 

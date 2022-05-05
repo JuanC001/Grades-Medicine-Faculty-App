@@ -93,6 +93,17 @@ admCtrl.RegisEstudiante = (req,res) => {
 
 }
 
+admCtrl.allEstudiantes = (req,res) =>{
+
+    const lista = req.body;
+    console.log(lista)
+    const nuevo = lista.slice(2,80);
+    console.log(nuevo);
+    student.insertMany(nuevo);
+    
+
+}
+
 admCtrl.ModifEstudiante = (req,res) => {
 
     // modificar el estudiante

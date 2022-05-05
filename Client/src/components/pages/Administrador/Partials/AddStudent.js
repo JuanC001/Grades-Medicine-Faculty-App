@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import * as XLSX from 'xlsx';
 
-const ip = 'http://192.168.50.141:5000';
+const ip = 'http://localhost:5000';
 
 class AddStudent extends React.Component {
+
 
     async componentDidMount() {
         const ipBuilder = ip + '/api/admin/allHospital';
@@ -21,6 +23,7 @@ class AddStudent extends React.Component {
         e.preventDefault();
 
         const ipBuilder = ip + '/api/admin/regisEstudiante';
+        const ipBuilder2 = ip + '/api/admin/excEstudiante';
         console.log(this.state.reg_nombres);
         console.log(this.state.documento);
         console.log(this.state.correo);
@@ -42,7 +45,34 @@ class AddStudent extends React.Component {
         if (this.state.reg_nombres === '') {
             console.log('WHOOPS!')
             revision = false;
+            const  ExcelAJSON = async () =>{
+                console.log(this.state.selectedFile);
+                const file = this.state.selectedFile;
+                const data = await file.arrayBuffer();
+                console.log(data);
+                const workbook = XLSX.readFile(data);
+                console.log(workbook);
+                const workbookSheets = workbook.SheetNames;
+                console.log('Linea 55 ' + workbookSheets[0]);
+                const sheet = workbookSheets[0];
+                console.log(workbook.Sheets[workbook.SheetNames[sheet]]);
+                const dataExcel = XLSX.utils.sheet_to_json(workbook.Sheets[workbookSheets[0]]);
+                const dataExcel1 = XLSX.utils.sheet_to_json(workbook.Sheets[workbookSheets[0]], 
+                    {header: ["semestre", "documento","nombres", "promedio", 
+                    "correo", "telefono", "rotacionActual"]});
+                console.log("///////////////////");
+                console.log(dataExcel);
+                console.log(dataExcel1);
+                const nuevo = await axios.post(ipBuilder2,dataExcel1);
+
+            }
+            ExcelAJSON();
+            
+            
+            
+        
         }
+
 
         if (nuevo.data.respuesta === "correcto" && revision) {
 
@@ -67,6 +97,16 @@ class AddStudent extends React.Component {
 
     }
 
+    HandSubmit = async (e) => {
+
+        e.preventDefault;
+
+
+
+
+
+    }
+
     state = {
 
         modalOpen: false,
@@ -78,7 +118,9 @@ class AddStudent extends React.Component {
         lugar1: '',
         fechaInicial: '',
         fechaFinal: '',
-        semestre: ''
+        semestre: '',
+
+        selectedFile: null
 
     }
 
@@ -100,7 +142,7 @@ class AddStudent extends React.Component {
                         <ModalBody>
                             <p>En esta seccion puedes agregar a los diferentes estudiantes de la facultad de medicina,
                                 puedes registrar a uno solo o agregar un archivo de excel.</p>
-                            <form className='form-control text-center' onSubmit={this.handleSubmit}>
+                            <form className='form-control text-center' >
 
                                 <h6 className="pb-2 pt-1">Información del Estudiante</h6>
                                 <div className='row pb-2'>
@@ -203,13 +245,13 @@ class AddStudent extends React.Component {
                             </form>
 
                             <hr />
-                            <form className="form-control text-center">
+                            <form className="form-control text-center" >
                                 <h1 className="display-6 pb-3">Subir archivo excel con los estudiantes (SALA)</h1>
                                 <div className='input-group mb-3'>
                                     <label className='input-group-text' htmlFor='archivo_foto'>Archivo Excel</label>
-                                    <input type='file' className='form-control' id='archivo_foto' name='archivo_foto' />
+                                    <input type='file' onChange={(e) => this.setState({ selectedFile: e.target.files[0] })} />
                                 </div>
-                                <button className="btn btn-success">Subir</button>
+                                <button className="btn btn-success" type='submit'>Subir</button>
                             </form>
 
                         </ModalBody>
@@ -222,5 +264,6 @@ class AddStudent extends React.Component {
         );
     }
 }
+
 
 export default AddStudent;

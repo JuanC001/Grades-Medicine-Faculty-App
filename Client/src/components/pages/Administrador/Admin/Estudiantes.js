@@ -7,7 +7,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './CSS/Estudiantes.css'
 
-const ip = 'http://192.168.50.141:5000';
+const ip = 'http://localhost:5000';
 
 export default class Estudiantes extends React.Component {
   state = {
