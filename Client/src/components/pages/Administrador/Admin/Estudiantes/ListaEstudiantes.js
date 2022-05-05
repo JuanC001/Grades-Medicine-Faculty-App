@@ -1,5 +1,5 @@
 import React from 'react'
-import './LE.css';
+import './CSS/LE.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
 
@@ -135,7 +135,7 @@ export default function ListaEstudiantes(props) {
             </div>
             <div className="row pb-1">
               <div>
-                <EditarEstudiante id={props.estudiante._id} />
+                <EditarEstudiante id={props.estudiante._id} actualizar = {props.actualizar}/>
               </div>
             </div>
             <div className="row pb-1">

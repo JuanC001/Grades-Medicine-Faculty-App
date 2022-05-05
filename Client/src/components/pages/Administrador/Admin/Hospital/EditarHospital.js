@@ -29,10 +29,14 @@ class Editarhospital extends Component {
                     'success'
                 ).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.reload(false);
+                        this.props.actualizar()
+                        this.setState({ modalOpen: false })
                     }
                 })
             )
+
+        console.log(res)
+
     }
 
     async componentDidMount() {
@@ -40,9 +44,6 @@ class Editarhospital extends Component {
         let ipBuilder = ip + '/api/admin/unHospital'
         let res = await axios.post(ipBuilder, { _id: this.props.id })
         this.setState({ hospital: res.data });
-
-
-
 
     }
 
@@ -115,18 +116,27 @@ class Editarhospital extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="row pb-2">
-                                <div className="col align-self-center">
 
-                                    <button className="btn btn-success" onClick={this.modificarHospital}>
-                                        Guardar Hospital
-                                    </button>
-
-                                </div>
-                            </div>
 
                         </form>
                     </ModalBody>
+
+                    <ModalFooter>
+                        <div className="row pb-2">
+                            <div className="col align-self-center">
+
+                                <button className="btn btn-success" onClick={this.modificarHospital}>
+                                    Guardar
+                                </button>
+
+                            </div>
+
+                            <div className="col align-self-center">
+                                <button className="btn btn-danger" onClick={(e) => this.setState({ modalOpen: false })}>Cerrar</button>
+                            </div>
+
+                        </div>
+                    </ModalFooter>
 
                 </Modal>
             </button>

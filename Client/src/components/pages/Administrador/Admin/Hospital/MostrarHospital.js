@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import axios from 'axios';
 const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
-export default class extends Component {
+export default class MostrarHospital extends Component {
 
     async componentDidMount() {
         const ipBuilder = ip + '/api/admin/unHospital';
@@ -53,6 +53,12 @@ export default class extends Component {
                             
                         </div>
                     </ModalBody>
+
+                    <ModalFooter>
+
+                        <button className="btn btn-danger" onClick={(e) => this.setState({modalOpen: false})}>Cerrar</button>
+
+                    </ModalFooter>
 
                 </Modal>
             </button>

@@ -1,12 +1,10 @@
 import React from 'react'
-import AdminNavigation from '../Partials/AdminNavigation'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
 
-import AddHospital from '../Partials/AddHospital';
-import EditarEstudiante from '../Hospital/EditarHospital';
-import ListaHospitales from '../Hospital/ListaHospitales';
+import AdminNavigation from '../Partials/AdminNavigation'
+import AddHospital from './Hospital/AddHospital';
+import ListaHospitales from './Hospital/ListaHospitales';
 import './CSS/Estudiantes.css'
 
 const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
@@ -50,7 +48,7 @@ export default class Hospitales extends React.Component {
 
                 <div className="btn-group me-2 text-center">
 
-                  <AddHospital className="btn btn-primary" actualizar= {this.actualizarLista}/>
+                  <AddHospital className="btn btn-primary" actualizar={this.actualizarLista} />
                   <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-print" /></button>
                   <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-pen-to-square" /></button>
 
@@ -67,7 +65,7 @@ export default class Hospitales extends React.Component {
 
                   e =>
 
-                    <ListaHospitales key={e._id} hsp={e} actualizar= {this.actualizarLista}/>
+                    <ListaHospitales key={e._id} hsp={e} actualizar={this.actualizarLista} />
 
                 )
 

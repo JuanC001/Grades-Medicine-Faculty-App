@@ -22,7 +22,7 @@ admCtrl.RegisEstudiante = (req, res) => {
 
 
     // registro estudiante
-    const { reg_nombres, documento, correo, lugar1, fechaInicial, fechaFinal, semestre } = req.body;
+    const { reg_nombres, documento, correo, semestre, rotaciones } = req.body;
     console.log(req.body);
     let respuesta = "correcto";
 
@@ -39,6 +39,7 @@ admCtrl.RegisEstudiante = (req, res) => {
         documento: documento,
         correo: correo,
         semestre: semestre,
+        rotaciones: rotaciones,
         rotacionActual: 'No asignado aun',
 
     });

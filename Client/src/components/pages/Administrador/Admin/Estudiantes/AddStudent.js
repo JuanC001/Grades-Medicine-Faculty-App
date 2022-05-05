@@ -3,7 +3,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { Accordion } from 'react-bootstrap'
-import GenerarAcordion from './EstudianteRotaciones/GenerarAcordion'
+import GenerarAcordion from './EstudianteRotaciones/AgregarRotacionesADD'
 
 import Swal from 'sweetalert2';
 import axios from 'axios';
@@ -23,29 +23,46 @@ class AddStudent extends React.Component {
 
     generarAcordion = () => {
 
+        console.log('----------generarAcordion')
         const id_l = this.state.rotaciones.length + 1
         const nuevaRotacion = {
             id: id_l,
-            text: 'Rotacion ' + id_l,
             hospital: '',
             fechaInicial: '',
             fechaFinal: ''
         }
+
         this.setState({ rotaciones: this.state.rotaciones.concat(nuevaRotacion) })
+        console.log('----------generarAcordion')
+
 
     }
 
     actualizarRotacion = (e) => {
-        console.log('RR:' + e.hospital)
-        console.log('RR:' + e.fechaInicial)
-        console.log('RR:' + e.fechaFinal)
+        
+        const id = e.id;
+        let rotacionesaux = this.state.rotaciones;
+
+        for(let i = 0; i < rotacionesaux.length; i++) {
+
+            if(rotacionesaux[i].id === id) {
+
+                rotacionesaux[i] = e;
+
+            }
+
+        }
+
+        this.setState({rotacion: rotacionesaux});
+
     }
 
     eliminarRotacion = (e) => {
         const id = parseInt(e) - 1;
-        let arregloaux = this.state.rotaciones;
-        arregloaux.splice(id);
-        this.setState({ rotaciones: arregloaux });
+        const arrayfor = this.state.rotaciones;
+        arrayfor.splice(id)
+        this.setState({ rotaciones: arrayfor })
+        console.log(this.state.rotaciones)
     }
 
     handleSubmit = async (e) => {
@@ -56,18 +73,15 @@ class AddStudent extends React.Component {
         console.log(this.state.reg_nombres);
         console.log(this.state.documento);
         console.log(this.state.correo);
-        console.log(this.state.lugar1);
-        console.log(this.state.fechaInicial);
-        console.log(this.state.fechaFinal);
+        console.log(this.state.rotaciones);
+
 
         const nuevo = await axios.post(ipBuilder, {
             reg_nombres: this.state.reg_nombres,
             documento: this.state.documento,
             correo: this.state.correo,
-            lugar1: this.state.lugar1,
-            fechaInicial: this.state.fechaInicial,
-            fechaFinal: this.state.fechaFinal,
             semestre: this.state.semestre,
+            rotaciones: this.state.rotaciones,
 
         })
         let revision = true;
@@ -142,7 +156,7 @@ class AddStudent extends React.Component {
                         <ModalBody>
                             <p>En esta seccion puedes agregar a los diferentes estudiantes de la facultad de medicina,
                                 puedes registrar a uno solo o agregar un archivo de excel.</p>
-                            <form className='form-control text-center' onSubmit={this.handleSubmit}>
+                            <form className='form-control text-center'>
 
                                 <h6 className="pb-2 pt-1">Información del Estudiante</h6>
                                 <div className='row pb-2'>
@@ -187,20 +201,35 @@ class AddStudent extends React.Component {
 
                                 </div>
 
-
-
                                 <hr />
+
                                 <div className="pb-3">
-                                    {
-                                        this.state.rotaciones.map((e) => {
 
-                                            <GenerarAcordion rotacion={e} hospitales={this.state.hospitales} />
+                                    <Accordion>
 
-                                        })
-                                    }
+                                        {
+                                            this.state.rotaciones.map((e) => (
+
+
+
+                                                <GenerarAcordion
+
+                                                    rotacion={e}
+                                                    hospitales={this.state.hospitales}
+
+                                                    actualizarRotacion={this.actualizarRotacion}
+                                                    eliminarRotacion={this.eliminarRotacion}
+                                                    key={e.id}
+
+                                                />
+
+                                            ))
+                                        }
+                                    </Accordion>
+
                                 </div>
-                                <button type="button" className="btn btn-warning" onClick={this.generarAcordion}>Nueva Rotacion</button>
 
+                                <button type="button" className="btn btn-warning" onClick={this.generarAcordion}>Nueva Rotacion</button>
                                 <hr />
 
                                 <div className="row">

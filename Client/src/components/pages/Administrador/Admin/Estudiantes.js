@@ -1,10 +1,11 @@
 import React from 'react';
-import ListaEstudiantes from '../Students/ListaEstudiantes'
-import NavBar from '../Partials/AdminNavigation'
-import AddStudent from '../Partials/AddStudent';
-
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import NavBar from '../Partials/AdminNavigation';
+import AddStudent from './Estudiantes/AddStudent';
+import ListaEstudiantes from './Estudiantes/ListaEstudiantes'
+
 import './CSS/Estudiantes.css'
 
 const ip = 'http://'+ process.env.REACT_APP_URL_API+ ':5000';
@@ -56,6 +57,7 @@ export default class Estudiantes extends React.Component {
               </div>
             </div>
             <div className="text-center mx-auto container-fluid extrascroll">
+            
               {
 
                 this.state.estudiantes.map(e =>
