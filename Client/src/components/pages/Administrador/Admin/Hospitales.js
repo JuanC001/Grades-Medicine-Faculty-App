@@ -1,19 +1,24 @@
 import React from 'react'
-import AdminNavigation from '../Partials/AdminNavigation'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
 
-import AddHospital from '../Partials/AddHospital';
-import EditarEstudiante from '../Hospital/EditarHospital';
-import ListaHospitales from '../Hospital/ListaHospitales';
+import AdminNavigation from '../Partials/AdminNavigation'
+import AddHospital from './Hospital/AddHospital';
+import ListaHospitales from './Hospital/ListaHospitales';
+import './CSS/Estudiantes.css'
 
-const ip = 'http://'+ process.env.REACT_APP_URL_API+ ':5000';
+const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
 
 export default class Hospitales extends React.Component {
 
   state = {
     hospitales: []
+  }
+
+  actualizarLista = async () => {
+    const ipBuilder = ip + '/api/admin/allHospital';
+    const res = await axios.get(ipBuilder);
+    this.setState({ hospitales: res.data });
   }
 
   async componentDidMount() {
@@ -30,9 +35,9 @@ export default class Hospitales extends React.Component {
       <div>
 
         <AdminNavigation />
-        <div className="text-center m-3">
+        <div className="text-center m-3 lista">
 
-          <div className="bg-light mx-auto container-fluid w-75 rounded rounded-3">
+          <div className="bg-light mx-auto container-fluid  w-80 h-100 rounded rounded-3">
 
             <h1 className="display-1 ">Listado de Hospitales</h1>
 
@@ -43,7 +48,7 @@ export default class Hospitales extends React.Component {
 
                 <div className="btn-group me-2 text-center">
 
-                  <AddHospital className="btn btn-primary"/>
+                  <AddHospital className="btn btn-primary" actualizar={this.actualizarLista} />
                   <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-print" /></button>
                   <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-pen-to-square" /></button>
 
@@ -52,15 +57,15 @@ export default class Hospitales extends React.Component {
               </div>
             </div>
 
-            <div className="text-center mx-auto container-fluid">
+            <div className="text-center mx-auto container-fluid extrascroll" style={{ overflow: "scroll" }}>
 
               {
-                
+
                 this.state.hospitales.map(
 
-                  e => 
+                  e =>
 
-                    <ListaHospitales key={e._id} hsp = {e}/>
+                    <ListaHospitales key={e._id} hsp={e} actualizar={this.actualizarLista} />
 
                 )
 

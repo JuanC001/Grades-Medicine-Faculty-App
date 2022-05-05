@@ -35,7 +35,7 @@ export default function ListaHospitales(props) {
                 eliminarHospital();
                 Swal.fire('¡Eliminado!','Se borro al hospital','success').then((result) => {
                     if(result.isConfirmed){
-                        window.location.reload(false);
+                        props.actualizar()
                     }
                 })
 
@@ -81,7 +81,7 @@ export default function ListaHospitales(props) {
                     <div className="col align-self-center">
                         <div className="btn-group" role="group" aria-label="buttonGroup">
 
-                            <Editarhospital id={props.hsp._id}/>
+                            <Editarhospital id={props.hsp._id} actualizar= {props.actualizar}/>
                             <MostrarHospital id={props.hsp._id}/>
                             <button className="btn btn-danger" onClick={askEliminarHospital}><FontAwesomeIcon icon="fa-solid fa-trash" /></button>
 

@@ -2,6 +2,9 @@ import React from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import { Accordion } from 'react-bootstrap'
+import GenerarAcordion from './EstudianteRotaciones/AgregarRotacionesADD'
+
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
@@ -10,10 +13,56 @@ const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
 class AddStudent extends React.Component {
 
     async componentDidMount() {
+
         const ipBuilder = ip + '/api/admin/allHospital';
         const res = await axios.get(ipBuilder);
         this.setState({ hospitales: res.data });
 
+
+    }
+
+    generarAcordion = () => {
+
+        console.log('----------generarAcordion')
+        const id_l = this.state.rotaciones.length + 1
+        const nuevaRotacion = {
+            id: id_l,
+            hospital: '',
+            fechaInicial: '',
+            fechaFinal: ''
+        }
+
+        this.setState({ rotaciones: this.state.rotaciones.concat(nuevaRotacion) })
+        console.log('----------generarAcordion')
+
+
+    }
+
+    actualizarRotacion = (e) => {
+        
+        const id = e.id;
+        let rotacionesaux = this.state.rotaciones;
+
+        for(let i = 0; i < rotacionesaux.length; i++) {
+
+            if(rotacionesaux[i].id === id) {
+
+                rotacionesaux[i] = e;
+
+            }
+
+        }
+
+        this.setState({rotacion: rotacionesaux});
+
+    }
+
+    eliminarRotacion = (e) => {
+        const id = parseInt(e) - 1;
+        const arrayfor = this.state.rotaciones;
+        arrayfor.splice(id)
+        this.setState({ rotaciones: arrayfor })
+        console.log(this.state.rotaciones)
     }
 
     handleSubmit = async (e) => {
@@ -24,18 +73,15 @@ class AddStudent extends React.Component {
         console.log(this.state.reg_nombres);
         console.log(this.state.documento);
         console.log(this.state.correo);
-        console.log(this.state.lugar1);
-        console.log(this.state.fechaInicial);
-        console.log(this.state.fechaFinal);
+        console.log(this.state.rotaciones);
+
 
         const nuevo = await axios.post(ipBuilder, {
             reg_nombres: this.state.reg_nombres,
             documento: this.state.documento,
             correo: this.state.correo,
-            lugar1: this.state.lugar1,
-            fechaInicial: this.state.fechaInicial,
-            fechaFinal: this.state.fechaFinal,
             semestre: this.state.semestre,
+            rotaciones: this.state.rotaciones,
 
         })
         let revision = true;
@@ -58,7 +104,11 @@ class AddStudent extends React.Component {
                 confirmButtonText: 'OK!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.reload(false);
+
+                    this.setState({ rotaciones: [] });
+                    this.setState({ modalOpen: false });
+                    this.props.actualizar()
+
                 }
             })
 
@@ -71,7 +121,6 @@ class AddStudent extends React.Component {
     state = {
 
         modalOpen: false,
-        hospitales: [],
 
         reg_nombres: '',
         documento: '',
@@ -79,17 +128,23 @@ class AddStudent extends React.Component {
         lugar1: '',
         fechaInicial: '',
         fechaFinal: '',
-        semestre: ''
+        semestre: '',
+
+        hospitales: [],
+        rotaciones: []
 
     }
 
     toggle = () => {
 
         this.setState({ modalOpen: !this.state.modalOpen })
+        this.setState({ rotaciones: [] });
 
     }
 
     render() {
+
+
 
         return (
 
@@ -101,7 +156,7 @@ class AddStudent extends React.Component {
                         <ModalBody>
                             <p>En esta seccion puedes agregar a los diferentes estudiantes de la facultad de medicina,
                                 puedes registrar a uno solo o agregar un archivo de excel.</p>
-                            <form className='form-control text-center' onSubmit={this.handleSubmit}>
+                            <form className='form-control text-center'>
 
                                 <h6 className="pb-2 pt-1">Información del Estudiante</h6>
                                 <div className='row pb-2'>
@@ -146,57 +201,41 @@ class AddStudent extends React.Component {
 
                                 </div>
 
-
                                 <hr />
-                                <h6 className="pb-2">Sitio de Practica</h6>
 
-                                <div className="row pb-2">
+                                <div className="pb-3">
 
-                                    <div className="col-4 input-group mb-3">
+                                    <Accordion>
 
-                                        <label className="input-group-text" htmlFor="hspselect">Hospital</label>
-                                        <select onChange={(e) => this.setState({ lugar1: e.target.value })} className="form-select" id='hspselect'>
-
-                                            <option defaultValue >Hospital Inicial...</option>
-                                            {
-
-                                                this.state.hospitales.map(e =>
-                                                    <option key={e._id} value={e.nombre_hospital
-                                                    }>{e.nombre_hospital
-                                                        }</option>)
-
-                                            }
+                                        {
+                                            this.state.rotaciones.map((e) => (
 
 
 
-                                        </select>
+                                                <GenerarAcordion
 
+                                                    rotacion={e}
+                                                    hospitales={this.state.hospitales}
 
-                                    </div>
+                                                    actualizarRotacion={this.actualizarRotacion}
+                                                    eliminarRotacion={this.eliminarRotacion}
+                                                    key={e.id}
+
+                                                />
+
+                                            ))
+                                        }
+                                    </Accordion>
 
                                 </div>
-                                <div className="row pb-2">
-                                    <div className="col">
 
-                                        <div className='input-group input-group-sm mb-3'>
-                                            <label className="input-group-text" htmlFor="date1">Fecha Inicial</label>
-                                            <input className='px-1' type="date" id='date1' name="date1" onChange={(e) => this.setState({ fechaInicial: e.target.value })}></input>
+                                <button type="button" className="btn btn-warning" onClick={this.generarAcordion}>Nueva Rotacion</button>
+                                <hr />
 
-                                        </div>
-                                    </div>
-
-                                    <div className="col">
-
-                                        <div className='input-group input-group-sm mb-3'>
-                                            <label className="input-group-text" htmlFor="date2">Fecha Final</label>
-                                            <input className='px-1' type="date" id='date2' name="date2" onChange={(e) => this.setState({ fechaFinal: e.target.value })}></input>
-
-                                        </div>
-                                    </div>
+                                <div className="row">
                                     <div className="col">
                                         <button className="btn btn-primary" onClick={this.handleSubmit}>Agregar Estudiante</button>
                                     </div>
-
                                 </div>
 
                             </form>
@@ -217,10 +256,12 @@ class AddStudent extends React.Component {
                         </ModalFooter>
                     </Modal>
                 </div>
-        
+
             </button>
         );
     }
 }
+
+
 
 export default AddStudent;

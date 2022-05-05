@@ -1,10 +1,11 @@
 import React from 'react';
-import ListaEstudiantes from '../Students/ListaEstudiantes'
-import NavBar from '../Partials/AdminNavigation'
-import AddStudent from '../Partials/AddStudent';
-
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import NavBar from '../Partials/AdminNavigation';
+import AddStudent from './Estudiantes/AddStudent';
+import ListaEstudiantes from './Estudiantes/ListaEstudiantes'
+
 import './CSS/Estudiantes.css'
 
 const ip = 'http://'+ process.env.REACT_APP_URL_API+ ':5000';
@@ -12,6 +13,14 @@ const ip = 'http://'+ process.env.REACT_APP_URL_API+ ':5000';
 export default class Estudiantes extends React.Component {
   state = {
     estudiantes: []
+  }
+
+  actualizarLista = async () => {
+
+    const ipBuilder = ip + '/api/admin/allStudents';
+    const res = await axios.get(ipBuilder);
+    this.setState({ estudiantes: res.data });
+
   }
 
   async componentDidMount() {
@@ -27,9 +36,9 @@ export default class Estudiantes extends React.Component {
     return (
       <div>
         <NavBar />
-        <div className="text-center m-3">
+        <div className="text-center m-3 lista">
 
-          <div className="bg-light mx-auto container-fluid w-80 rounded rounded-3">
+          <div className="bg-light mx-auto container-fluid w-80 rounded rounded-3 " >
 
             <h1 className="display-1 ">Listado de Estudiantes</h1>
 
@@ -39,7 +48,7 @@ export default class Estudiantes extends React.Component {
 
                 <div className="btn-group me-2 text-center">
 
-                  <AddStudent />
+                  <AddStudent actualizar = {this.actualizarLista}/>
                   <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-print" /></button>
                   <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-pen-to-square" /></button>
 
@@ -47,12 +56,13 @@ export default class Estudiantes extends React.Component {
 
               </div>
             </div>
-            <div className="text-center mx-auto container-fluid">
+            <div className="text-center mx-auto container-fluid extrascroll">
+            
               {
 
                 this.state.estudiantes.map(e =>
 
-                  <ListaEstudiantes key={e._id} estudiante={e} />
+                  <ListaEstudiantes actualizar = {this.actualizarLista} key={e._id} estudiante={e} />
 
                 )
 

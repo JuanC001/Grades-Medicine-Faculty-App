@@ -3,12 +3,58 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Accordion } from 'react-bootstrap'
 
+import EditarRotaciones from './EstudianteRotaciones/EditarRotaciones'
+
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
 const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
 
 class EditarEstudiante extends React.Component {
+
+    generarAcordion = () => {
+
+        console.log('----------generarAcordion')
+        const id_l = this.state.rotaciones.length + 1
+        const nuevaRotacion = {
+            id: id_l,
+            hospital: '',
+            fechaInicial: '',
+            fechaFinal: ''
+        }
+
+        this.setState({ rotaciones: this.state.rotaciones.concat(nuevaRotacion) })
+        console.log('----------generarAcordion')
+
+
+    }
+
+    eliminarRotacion = (e) => {
+        const id = parseInt(e) - 1;
+        const arrayfor = this.state.rotaciones;
+        arrayfor.splice(id)
+        this.setState({ rotaciones: arrayfor })
+        console.log(this.state.rotaciones)
+    }
+
+    actualizarRotacion = (e) => {
+
+        const id = e.id;
+        let rotacionesaux = this.state.rotaciones;
+
+        for (let i = 0; i < rotacionesaux.length; i++) {
+
+            if (rotacionesaux[i].id === id) {
+
+                rotacionesaux[i] = e;
+
+            }
+
+        }
+
+        this.setState({ rotacion: rotacionesaux });
+
+    }
 
     modificarEstudiante = async (e) => {
 
@@ -22,6 +68,7 @@ class EditarEstudiante extends React.Component {
                 documento: this.state.documento,
                 correo: this.state.correo,
                 semestre: this.state.semestre,
+                rotaciones: this.state.rotaciones,
 
             }).then(
                 Swal.fire(
@@ -29,11 +76,14 @@ class EditarEstudiante extends React.Component {
                     'Se modifico al estudiante',
                     'success'
                 ).then((result) => {
-                    if(result.isConfirmed){
-                        window.location.reload(false);
+                    if (result.isConfirmed) {
+                        this.props.actualizar()
+                        this.setState({ modalOpen: false })
                     }
                 })
             )
+
+        console.log(res);
 
     }
 
@@ -41,9 +91,8 @@ class EditarEstudiante extends React.Component {
         let ipBuilder = ip + '/api/admin/unEstudiante';
         let res = await axios.post(ipBuilder, { _id: this.props.id })
         this.setState({ estudiante: res.data });
-        const estudiantef = res.data;
-
-        this.setState({ rotacion1: estudiantef.rotacion1 })
+        const est = res.data;
+        this.setState({ rotaciones: est.rotaciones });
 
         ipBuilder = ip + '/api/admin/allHospital';
         res = await axios.get(ipBuilder);
@@ -57,19 +106,13 @@ class EditarEstudiante extends React.Component {
         modalOpen: false,
         estudiante: {},
         hospitales: [],
+        rotaciones: [],
 
         ed_nombres: '',
         documento: '',
         correo: '',
         semestre: '',
 
-
-        rotacion1: {},
-        rotacion2: {},
-        rotacion3: {},
-        rotacion4: {},
-        rotacion5: {},
-        rotacion6: {}
 
 
     }
@@ -144,62 +187,42 @@ class EditarEstudiante extends React.Component {
                             <hr />
 
                             <Accordion className="mb-2">
-                                <Accordion.Item eventKey="0">
-                                    <Accordion.Header>Rotacion 1: {this.state.rotacion1.lugar}</Accordion.Header>
-                                    <Accordion.Body>
-                                        <ul className="list-group">
-                                            <li className="list-group-item">
+                                {
 
-                                                <div className="row">
-                                                    <div className="col">
-                                                        <label htmlFor="">Fecha Inicial:</label>
-                                                    </div>
-                                                    <div className="col">
-                                                        {this.state.rotacion1.fechaInicial}
-                                                    </div>
-                                                </div>
+                                    this.state.rotaciones.map(e => (
 
-                                            </li>
-                                            <li className="list-group-item">
-                                                <div className="row">
-                                                    <div className="col">
-                                                        <label htmlFor="">Fecha Final:</label>
-                                                    </div>
-                                                    <div className="col">
-                                                        {this.state.rotacion1.fechaFinal}
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li className="list-group-item active">
-                                                <div className="row">
-                                                    <div className="col">
-                                                        <label htmlFor="">Nota:</label>
-                                                    </div>
-                                                    <div className="col">
-                                                        {this.state.rotacion1.nota}
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </Accordion.Body>
-                                </Accordion.Item>
-                                <Accordion.Item eventKey="1">
-                                    <Accordion.Header>Rotacion 2: {this.state.rotacion2.lugar}</Accordion.Header>
-                                    <Accordion.Body>
+                                        <EditarRotaciones key={e.id}
+                                            rotacion={e}
+                                            hospitales={this.state.hospitales}
+                                            actualizarRotacion={this.actualizarRotacion}
+                                            eliminarRotacion={this.eliminarRotacion}
+                                        />
 
-                                    </Accordion.Body>
-                                </Accordion.Item>
+                                    ))
+
+                                }
                             </Accordion>
 
-                            <div>
+                            <div className="row">
                                 <div className="col">
-                                    <button className="btn btn-success" onClick={this.modificarEstudiante}>Guardar Estudiante</button>
+                                    <button type="button" className="btn btn-warning" onClick={this.generarAcordion}>Nueva Rotacion</button>
                                 </div>
-
                             </div>
 
                         </form>
                     </ModalBody>
+                    <ModalFooter>
+                        <div className="row">
+                            <div className="col">
+                                <button className="btn btn-success" onClick={this.modificarEstudiante}>Guardar</button>
+                            </div>
+
+                            <div className="col">
+                                <button className="btn btn-danger" onClick={this.toggle}>Cerrar</button>
+                            </div>
+
+                        </div>
+                    </ModalFooter>
                 </Modal>
 
 
