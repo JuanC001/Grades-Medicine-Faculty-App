@@ -16,6 +16,17 @@ class AddHospital extends React.Component {
         console.log(this.state.cupo)
         console.log(this.state.correo)
         const url = ip + '/api/admin/RegisHospital';
+        const url2 = ip + '/api/admon/addUsuario'
+
+        const user = {
+
+            nombre: this.state.nombre_lider,
+            user: this.state.correo,
+            password: this.state.nombre_lider + '-' + this.state.cupo,
+            email: this.state.correo,
+            rol: 'doctor'
+
+        }
 
         const nuevo = await axios.post(url, {
 

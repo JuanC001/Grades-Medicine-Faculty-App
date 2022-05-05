@@ -1,6 +1,6 @@
 import Express from "express";
 
-const Route = Express.Router();
+const Router = Express.Router();
 
 
 export default Router;

@@ -34,6 +34,12 @@ const Home = () => {
 
         }
 
+        if(usuario.data.rol === 'doctor'){
+
+          return navigate('/admin/Estudiantes')
+
+        }
+
         
       }else{
         console.log('efe');
