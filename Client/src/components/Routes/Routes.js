@@ -14,7 +14,7 @@ const Routes = () => {
           <Route path="/" element={<Home />} />
           <Route path="admin/Estudiantes" element={<AdmEstudiantes />} />
           <Route path="admin/Hospitales" element={<AdmHospitales />} />
-          <Route path="doctor/estudiantes" element={<Estudiantes />} />
+          <Route path="doctor/estudiantes/:hospital" element={<Estudiantes />} />
         </Switch>
       </BrowserRouter>
       </div>

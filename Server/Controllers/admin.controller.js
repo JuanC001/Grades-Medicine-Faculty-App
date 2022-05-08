@@ -57,9 +57,12 @@ admCtrl.RegisEstudiante = (req, res) => {
         respuesta = "incorrecto"
     }
 
+    console.log('asjodnaosfa' + newStudent._id);
+
     res.json({
 
         "respuesta": respuesta,
+        'id': newStudent._id
 
     });
 
@@ -131,6 +134,20 @@ admCtrl.RegisHospital = (req, res) => {
     } else {
         res.json({ registera: 'no complete' })
     }
+
+}
+
+admCtrl.agregarEstudianteAHospital = async (req, res) => {
+
+    const {nombre_hospital, id_est} = req.body;
+
+    const hospitalres = await hospital.findOne({nombre_hospital: nombre_hospital});
+    const estudiantesAf = hospitalres.estudiantesAfiliados;
+    estudiantesAf.push(id_est);
+
+    const actual = await hospital.findByIdAndUpdate(hospitalres._id, {estudiantesAfiliados: estudiantesAf});
+
+    res.json(actual)
 
 }
 

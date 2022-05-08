@@ -1,15 +1,28 @@
-import React, { Component } from 'react'
+import { useParams } from 'react-router-dom'
+import React from 'react'
+import ListaEstudiantes from './ListaEstudiantes'
+import './CSS/Estudiantes.css'
 
-export default class Estudiantes extends Component {
-  render() {
-    return (
-      <div>
+export default function Estudiantes() {
 
-        <h1 className="display-1">
-            Estudiantes inscritos a: 
-        </h1>
+  const { hospital } = useParams()
+
+  return (
+    <div>
+
+      <div className="container-fluid bg-light w-80 p-5 mt-5 rounded rounded-3 shadow text-center">
+
+        <h1 className="display-5">Estudiantes en: {hospital}</h1>
+
+        <hr />
+        <div className="text-center">
+
+          <ListaEstudiantes />
+
+        </div>
 
       </div>
-    )
-  }
+
+    </div>
+  )
 }

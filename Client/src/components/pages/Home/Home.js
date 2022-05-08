@@ -25,6 +25,8 @@ const Home = () => {
         password: password
       })
 
+      console.log(usuario)
+
       if(usuario.data != null) {
 
         if(usuario.data.rol === 'admin'){
@@ -35,8 +37,8 @@ const Home = () => {
         }
 
         if(usuario.data.rol === 'doctor'){
-
-          return navigate('/admin/Estudiantes')
+          const route = 'doctor/estudiantes/' + usuario.data.hospital;
+          return navigate(route)
 
         }
 
