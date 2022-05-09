@@ -19,6 +19,7 @@ export default function ListaEstudiantes(props) {
 
     const ipBuilder = ip + '/api/admin/eliminarEstudiante';
     await axios.post(ipBuilder, { _id: id_estudiante });
+    props.actualizar()
 
   }
 
@@ -36,16 +37,12 @@ export default function ListaEstudiantes(props) {
     }).then((result) => {
       if (result.isConfirmed) {
         borrarEstudiante();
+        
         Swal.fire(
           '¡Eliminado!',
           'Se borro al estudiante',
           'success'
-        ).then((result) => {
-          if (result.isConfirmed) {
-
-            props.actualizar()
-          }
-        });
+        );
 
 
       }

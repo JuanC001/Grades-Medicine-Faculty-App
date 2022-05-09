@@ -1,7 +1,7 @@
 import React from 'react'
 import './CSS/LE.css';
 
-export default function ListaEstudiantes() {
+export default function ListaEstudiantes(props) {
     return (
         <div className="card mb-3 shadow-sm">
 
@@ -10,9 +10,9 @@ export default function ListaEstudiantes() {
                     <div className="row">
 
                         <div className="col-sm-2 text-end ">Estudiante:</div>
-                        <div className="col text-start ">NOMBRE_ESTUDIANTE</div>
+                        <div className="col text-start ">{props.estudiante.nombres}</div>
                         <div className="col text-end">CC:</div>
-                        <div className="col text-start">1023304713</div>
+                        <div className="col text-start">{props.estudiante.documento}</div>
 
                     </div>
                 </div>
@@ -32,7 +32,7 @@ export default function ListaEstudiantes() {
                                 </div>
                                 <div className="col">
 
-                                    <p htmlFor="" className="col-form-label text-start">CORREO</p>
+                                    <p htmlFor="" className="col-form-label text-start">{props.estudiante.correo}</p>
 
                                 </div>
 
@@ -41,7 +41,7 @@ export default function ListaEstudiantes() {
                                 </div>
                                 <div className="col">
 
-                                    <p htmlFor="" className="col-form-label text-start">SEMESTRE</p>
+                                    <p htmlFor="" className="col-form-label text-start">{props.estudiante.semestre}</p>
 
                                 </div>
 
@@ -53,7 +53,7 @@ export default function ListaEstudiantes() {
                                     <label>Rotacion Actual:</label>
                                 </div>
                                 <div className="col">
-                                    <label htmlFor="">ROT_ACTUAL</label>
+                                    <label htmlFor="">{props.estudiante.rotacionActual}</label>
                                 </div>
                                 <div className="col">
                                     <label htmlFor="">Area Actual:</label>

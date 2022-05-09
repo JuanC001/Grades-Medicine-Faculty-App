@@ -12,7 +12,8 @@ class AgregarRotacionesADD extends React.Component {
             nombre_hospital: this.state.nombre_hospital,
             fechaInicial : this.state.fechaInicial,
             fechaFinal : this.state.fechaFinal,
-            area: this.state.area
+            area: this.state.area,
+            id_hospital : this.state.id_hospital,
 
         }
 
@@ -20,11 +21,29 @@ class AgregarRotacionesADD extends React.Component {
 
     }
 
+    seleccionarHospital = (e) => {
+
+        const hospitales = this.props.hospitales;
+        this.setState({nombre_hospital: e.target.value })
+        for (let i = 0; i < hospitales.length; i++){
+
+            if(hospitales[i].nombre_hospital === e.target.value){
+
+                this.setState({id_hospital: hospitales[i]._id})
+
+            }
+
+        }
+
+
+    }
+
     state = {
         nombre_hospital: '',
         fechaInicial: '',
         fechaFinal: '',
-        area: ''
+        area: '',
+        id_hospital: '',
     }
 
     render() {
@@ -49,7 +68,7 @@ class AgregarRotacionesADD extends React.Component {
                                 <div className="col-4 input-group mb-3">
 
                                     <label className="input-group-text" htmlFor="hspselect">Hospital</label>
-                                    <select className="form-select" id='hspselect' onChange={(e) => this.setState({ nombre_hospital: e.target.value })} onClick= {this.enviarRotacion}>
+                                    <select className="form-select" id='hspselect' onChange={this.seleccionarHospital} onClick= {this.enviarRotacion}>
 
                                         <option defaultValue >Hospital Inicial...</option>
                                         {

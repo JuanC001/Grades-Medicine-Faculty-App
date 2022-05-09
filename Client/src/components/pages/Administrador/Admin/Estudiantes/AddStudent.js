@@ -18,7 +18,6 @@ class AddStudent extends React.Component {
         const res = await axios.get(ipBuilder);
         this.setState({ hospitales: res.data });
 
-
     }
 
     generarAcordion = () => {
@@ -29,7 +28,8 @@ class AddStudent extends React.Component {
             id: id_l,
             hospital: '',
             fechaInicial: '',
-            fechaFinal: ''
+            fechaFinal: '',
+            id_hospital: '',
         }
 
         this.setState({ rotaciones: this.state.rotaciones.concat(nuevaRotacion) })
