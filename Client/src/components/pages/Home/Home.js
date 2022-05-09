@@ -25,12 +25,20 @@ const Home = () => {
         password: password
       })
 
+      console.log(usuario)
+
       if(usuario.data != null) {
 
         if(usuario.data.rol === 'admin'){
 
           console.log('entro');
           return navigate('/admin/Estudiantes')
+
+        }
+
+        if(usuario.data.rol === 'doctor'){
+          const route = 'doctor/estudiantes/' + usuario.data.hospital;
+          return navigate(route)
 
         }
 

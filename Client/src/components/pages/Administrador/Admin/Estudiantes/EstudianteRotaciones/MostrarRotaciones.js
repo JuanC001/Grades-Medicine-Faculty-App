@@ -4,7 +4,6 @@ import { Accordion } from 'react-bootstrap'
 export default class MostrarRotaciones extends Component {
     render() {
         const rotaciones = this.props.rotaciones;
-        console.log(rotaciones.nombre_hospital);
         return (
 
             <Accordion>

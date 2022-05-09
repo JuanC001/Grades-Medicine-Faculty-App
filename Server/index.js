@@ -5,6 +5,7 @@ import cors from 'cors';
 
 import login from './Routes/login.js';
 import admin from './Routes/admin.js';
+import doctor from './Routes/doctor.js';
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(cors());
 
 app.use(login);
 app.use(admin);
+app.use(doctor);
  
 const CONNECT_URL = "mongodb+srv://juanDbMongo:juan123@cluster0.xh2hw.mongodb.net/ProyIng2?retryWrites=true&w=majority";
 const PORT = process.env.PORT || 5000;

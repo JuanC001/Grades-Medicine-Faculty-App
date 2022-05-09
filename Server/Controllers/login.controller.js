@@ -40,7 +40,7 @@ ctrl.login = async (req, res) => {
 
 ctrl.registrar = (req, res) => {
 
-    const {nombre, user, password, email, rol} = req.body;
+    const {nombre, user, password, email, rol, hospital} = req.body;
     
     const newUser = new User({
 
@@ -49,6 +49,7 @@ ctrl.registrar = (req, res) => {
         password: password,
         email: email,
         rol: rol,
+        hospital: hospital
 
     })
 

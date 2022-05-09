@@ -16,7 +16,8 @@ export default class MostrarHospital extends Component {
 
     state = {
         modalOpen: false,
-        hospital: {}
+        hospital: {},
+        estudiantes: {}
     }
 
     toggle = () => {
@@ -29,7 +30,7 @@ export default class MostrarHospital extends Component {
                 <Modal isOpen={this.state.modalOpen} className="modal-class" size='xl'>
 
                     <ModalHeader toggle={this.toggle}>
-                        Información de: {this.state.hospital.nombre_hospital}
+                        <h6 className="display-6">Información de: {this.state.hospital.nombre_hospital}</h6>
                     </ModalHeader>
 
                     <ModalBody>
@@ -51,6 +52,17 @@ export default class MostrarHospital extends Component {
 
                             </div>
                             
+                        </div>
+
+                        <hr />
+
+                        <div className="row">
+
+                            <h6 className="display-6">Lista estudiantes Afiliados</h6>
+
+                            
+
+
                         </div>
                     </ModalBody>
 

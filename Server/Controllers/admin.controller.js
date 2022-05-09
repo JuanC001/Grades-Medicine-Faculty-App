@@ -57,9 +57,12 @@ admCtrl.RegisEstudiante = (req, res) => {
         respuesta = "incorrecto"
     }
 
+    console.log('asjodnaosfa' + newStudent._id);
+
     res.json({
 
         "respuesta": respuesta,
+        'id': newStudent._id
 
     });
 
@@ -90,6 +93,21 @@ admCtrl.ElimEstudiante = async (req, res) => {
 
     // eliminar el estudiante
     const { _id } = req.body;
+    const estudiante = await student.findById(_id);
+    const rotaciones = estudiante.rotaciones;
+
+    for (let i = 0; i < rotaciones.length; i++){
+
+        console.log("Buscando:" + rotaciones[i].nombre_hospital)
+        let rotacion = rotaciones[i].id_hospital;
+        const a = await hospital.findById(rotacion);
+        let estudiantesAf = a.estudiantesAfiliados;
+        estudiantesAf.splice(estudiante._id)
+        await hospital.findByIdAndUpdate(rotacion, {estudiantesAfiliados: estudiantesAf});
+        console.log(a)
+
+    }
+
     await student.findByIdAndDelete(_id);
 
     res.json({ terminado: true });
@@ -131,6 +149,20 @@ admCtrl.RegisHospital = (req, res) => {
     } else {
         res.json({ registera: 'no complete' })
     }
+
+}
+
+admCtrl.agregarEstudianteAHospital = async (req, res) => {
+
+    const {nombre_hospital, id_est} = req.body;
+
+    const hospitalres = await hospital.findOne({nombre_hospital: nombre_hospital});
+    const estudiantesAf = hospitalres.estudiantesAfiliados;
+    estudiantesAf.push(id_est);
+
+    const actual = await hospital.findByIdAndUpdate(hospitalres._id, {estudiantesAfiliados: estudiantesAf});
+
+    res.json(actual)
 
 }
 

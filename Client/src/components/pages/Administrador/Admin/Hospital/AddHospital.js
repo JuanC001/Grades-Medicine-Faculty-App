@@ -16,6 +16,9 @@ class AddHospital extends React.Component {
         console.log(this.state.cupo)
         console.log(this.state.correo)
         const url = ip + '/api/admin/RegisHospital';
+        const url2 = ip + '/api/admon/addUsuario'
+
+
 
         const nuevo = await axios.post(url, {
 
@@ -25,6 +28,19 @@ class AddHospital extends React.Component {
             cupo: this.state.cupo
         }
         );
+
+        const user = {
+
+            nombre: this.state.nombre_lider,
+            user: this.state.correo,
+            password: this.state.nombre_hsp + this.state.cupo,
+            email: this.state.correo,
+            rol: 'doctor',
+            hospital: this.state.nombre_hsp
+
+        }
+
+        await axios.post(url2, user)
 
         if (nuevo.data.registera === "complete") {
 

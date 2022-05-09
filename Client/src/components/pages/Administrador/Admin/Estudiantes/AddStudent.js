@@ -18,7 +18,6 @@ class AddStudent extends React.Component {
         const res = await axios.get(ipBuilder);
         this.setState({ hospitales: res.data });
 
-
     }
 
     generarAcordion = () => {
@@ -29,7 +28,8 @@ class AddStudent extends React.Component {
             id: id_l,
             hospital: '',
             fechaInicial: '',
-            fechaFinal: ''
+            fechaFinal: '',
+            id_hospital: '',
         }
 
         this.setState({ rotaciones: this.state.rotaciones.concat(nuevaRotacion) })
@@ -70,11 +70,6 @@ class AddStudent extends React.Component {
         e.preventDefault();
 
         const ipBuilder = ip + '/api/admin/regisEstudiante';
-        console.log(this.state.reg_nombres);
-        console.log(this.state.documento);
-        console.log(this.state.correo);
-        console.log(this.state.rotaciones);
-
 
         const nuevo = await axios.post(ipBuilder, {
             reg_nombres: this.state.reg_nombres,
@@ -93,6 +88,21 @@ class AddStudent extends React.Component {
 
         if (nuevo.data.respuesta === "correcto" && revision) {
 
+
+            const id_estudiante = nuevo.data.id
+            const rotaciones = this.state.rotaciones;
+
+            for(let i = 0; i < rotaciones.length; i++) {
+    
+                const ipBuilder2 = ip + '/api/admin/regisEstudianteHsp'
+                const nuevoHospital = await axios.post(ipBuilder2, {nombre_hospital: rotaciones[i].nombre_hospital,
+                id_est: id_estudiante
+                })
+    
+                console.log(nuevoHospital.data);
+    
+            }    
+            this.props.actualizar()
             console.log("Completado!");
             Swal.fire({
                 title: 'Agregado!',
@@ -107,7 +117,7 @@ class AddStudent extends React.Component {
 
                     this.setState({ rotaciones: [] });
                     this.setState({ modalOpen: false });
-                    this.props.actualizar()
+                    
 
                 }
             })
@@ -116,6 +126,7 @@ class AddStudent extends React.Component {
             console.log("Revise bien las credenciales")
         }
 
+        
     }
 
     state = {
