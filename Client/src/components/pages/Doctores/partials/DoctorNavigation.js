@@ -10,7 +10,7 @@ import { Container, Navbar, Nav } from 'react-bootstrap'
 
 const DoctorNavigation = (props) => {
 
-    const direccionMain = `/doctor/Estudiantes/${props.hospital}`
+    const direccionMain = `/doctor/estudiantes/`
 
     return (
 
@@ -32,7 +32,7 @@ const DoctorNavigation = (props) => {
                     <Nav className="me-auto">
                         <NavLink className='nav-link' to= {direccionMain}><FontAwesomeIcon icon="fa-solid fa-graduation-cap" /> Estudiantes</NavLink>
                         <NavLink className='nav-link' to='/doctor/miCuenta'><FontAwesomeIcon icon="fa-solid fa-hospital-user" /> Mi Cuenta</NavLink>
-                        <NavLink className="nav-link" to='/'>Salir</NavLink>
+                        <NavLink className="nav-link" to='/'> Salir</NavLink>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

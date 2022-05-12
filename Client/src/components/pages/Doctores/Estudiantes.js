@@ -8,9 +8,10 @@ import './CSS/Estudiantes.css'
 
 const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
 
-export default function Estudiantes() {
+export default function Estudiantes(props) {
 
-  const { hospital } = useParams()
+  const user = props.user;
+  console.log('USER:' + user.nombre)
   const [estudiantes, setEstudiantes] = useState([]);
   const [hospitalf, setHospitalf] = useState(null);
 
@@ -27,7 +28,7 @@ export default function Estudiantes() {
 
   const obtenerHospital = async () => {
 
-    const ipBuilder2 = ip + '/api/doctor/' + hospital;
+    const ipBuilder2 = ip + '/api/doctor/' + user.hospital;
 
     let res = await axios.get(ipBuilder2);
     setHospitalf(res.data);
@@ -45,10 +46,10 @@ export default function Estudiantes() {
 
   return (
     <div>
-      <DoctorNavigation hospital= {hospital}/>
+      <DoctorNavigation setstatemt={props.setstatemt}/>
       <div className="container-fluid bg-light w-80 p-5 mt-5 rounded rounded-3 shadow text-center">
 
-        <h1 className="display-5">Estudiantes en: {hospital}</h1>
+        <h1 className="display-5">Estudiantes en: {user.hospital}</h1>
 
         <hr />
         <div className="text-center">
