@@ -9,7 +9,7 @@ import axios from 'axios';
 
 const ip = 'http://'+ process.env.REACT_APP_URL_API+ ':5000';
 
-const Home = () => {
+const Home = (props) => {
 
     let navigate = useNavigate();
 
@@ -27,17 +27,28 @@ const Home = () => {
 
       console.log(usuario)
 
+      const usuarioEnvio = {
+
+        user: usuario.data.user,
+        email: usuario.data.email,
+        nombre: usuario.data.nombre,
+        hospital: usuario.data.hospital,
+
+      }
+
       if(usuario.data != null) {
 
         if(usuario.data.rol === 'admin'){
 
           console.log('entro');
+          props.setstatemt(usuarioEnvio);
           return navigate('/admin/Estudiantes')
 
         }
 
         if(usuario.data.rol === 'doctor'){
-          const route = 'doctor/estudiantes/' + usuario.data.hospital;
+          const route = 'doctor/estudiantes/';
+          props.setstatemt(usuarioEnvio);
           return navigate(route)
 
         }
