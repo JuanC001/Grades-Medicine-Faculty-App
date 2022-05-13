@@ -198,6 +198,19 @@ admCtrl.ElimHospital = async (req, res) => {
 
 }
 
+admCtrl.allExcelEstudiantes = async (req,res) =>{
+
+    const lista = req.body;
+    //console.log(lista)
+    const nuevo = lista.slice(2,80);
+    //console.log(nuevo);
+    await student.insertMany(nuevo);
+    console.log("no entra");
+    let respuesta = await student.updateMany({},{semestre : 11});
+    res.send(respuesta);
+    console.log(respuesta);
+}
+
 export default admCtrl;
 
 

@@ -7,6 +7,7 @@ import GenerarAcordion from './EstudianteRotaciones/AgregarRotacionesADD'
 
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import * as XLSX from 'xlsx';
 
 const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
 
@@ -39,13 +40,13 @@ class AddStudent extends React.Component {
     }
 
     actualizarRotacion = (e) => {
-        
+
         const id = e.id;
         let rotacionesaux = this.state.rotaciones;
 
-        for(let i = 0; i < rotacionesaux.length; i++) {
+        for (let i = 0; i < rotacionesaux.length; i++) {
 
-            if(rotacionesaux[i].id === id) {
+            if (rotacionesaux[i].id === id) {
 
                 rotacionesaux[i] = e;
 
@@ -53,7 +54,7 @@ class AddStudent extends React.Component {
 
         }
 
-        this.setState({rotacion: rotacionesaux});
+        this.setState({ rotacion: rotacionesaux });
 
     }
 
@@ -63,6 +64,49 @@ class AddStudent extends React.Component {
         arrayfor.splice(id)
         this.setState({ rotaciones: arrayfor })
         console.log(this.state.rotaciones)
+    }
+
+    leerExcel = async () => {
+
+        const ipBuilder2 = ip + '/api/admin/excEstudiante';
+
+        console.log(this.state.selectedFile);
+        const file = this.state.selectedFile;
+        const data = await file.arrayBuffer();
+        console.log(data);
+        const workbook = XLSX.readFile(data);
+        console.log(workbook);
+        const workbookSheets = workbook.SheetNames;
+        console.log('Linea 55 ' + workbookSheets[0]);
+        const sheet = workbookSheets[0];
+        console.log(workbook.Sheets[workbook.SheetNames[sheet]]);
+        const dataExcel1 = XLSX.utils.sheet_to_json(workbook.Sheets[workbookSheets[0]],
+            {
+                header: ["semestre", "documento", "nombres", "promedio",
+                    "correo", "telefono", "rotacionActual"]
+            });
+        console.log("///////////////////");
+        console.log(dataExcel1);
+        const nuevo = await axios.post(ipBuilder2, dataExcel1);
+        this.props.actualizar();
+        Swal.fire({
+            title: 'Agregados!',
+            text: "Has agregado estudiantes por excel!",
+            icon: 'success',
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                this.setState({ rotaciones: [] });
+                this.setState({ modalOpen: false });
+                
+
+            }
+        })
+
     }
 
     handleSubmit = async (e) => {
@@ -92,16 +136,17 @@ class AddStudent extends React.Component {
             const id_estudiante = nuevo.data.id
             const rotaciones = this.state.rotaciones;
 
-            for(let i = 0; i < rotaciones.length; i++) {
-    
+            for (let i = 0; i < rotaciones.length; i++) {
+
                 const ipBuilder2 = ip + '/api/admin/regisEstudianteHsp'
-                const nuevoHospital = await axios.post(ipBuilder2, {nombre_hospital: rotaciones[i].nombre_hospital,
-                id_est: id_estudiante
+                const nuevoHospital = await axios.post(ipBuilder2, {
+                    nombre_hospital: rotaciones[i].nombre_hospital,
+                    id_est: id_estudiante
                 })
-    
+
                 console.log(nuevoHospital.data);
-    
-            }    
+
+            }
             this.props.actualizar()
             console.log("Completado!");
             Swal.fire({
@@ -117,7 +162,7 @@ class AddStudent extends React.Component {
 
                     this.setState({ rotaciones: [] });
                     this.setState({ modalOpen: false });
-                    
+
 
                 }
             })
@@ -126,7 +171,7 @@ class AddStudent extends React.Component {
             console.log("Revise bien las credenciales")
         }
 
-        
+
     }
 
     state = {
@@ -142,7 +187,9 @@ class AddStudent extends React.Component {
         semestre: '',
 
         hospitales: [],
-        rotaciones: []
+        rotaciones: [],
+
+        selectedFile: null
 
     }
 
@@ -256,9 +303,9 @@ class AddStudent extends React.Component {
                                 <h1 className="display-6 pb-3">Subir archivo excel con los estudiantes (SALA)</h1>
                                 <div className='input-group mb-3'>
                                     <label className='input-group-text' htmlFor='archivo_foto'>Archivo Excel</label>
-                                    <input type='file' className='form-control' id='archivo_foto' name='archivo_foto' />
+                                    <input type='file' className='form-control' id='archivo_foto' name='archivo_foto' onChange={(e) => this.setState({ selectedFile: e.target.files[0] })} />
                                 </div>
-                                <button className="btn btn-success" type='button'>Subir</button>
+                                <button className="btn btn-success" type='button' onClick={(e) => this.leerExcel()}>Subir</button>
                             </form>
 
                         </ModalBody>
