@@ -46,28 +46,30 @@ export default function Estudiantes(props) {
 
   return (
     <div>
-      <DoctorNavigation setstatemt={props.setstatemt}/>
-      <div className="container-fluid bg-light w-80 p-5 mt-5 rounded rounded-3 shadow text-center">
+      <DoctorNavigation setstatemt={props.setstatemt} />
+      <div className="lista">
+        <div className="container-fluid bg-light w-80 p-5 mt-4 rounded rounded-3 shadow text-center">
 
-        <h1 className="display-5">Estudiantes en: {user.hospital}</h1>
+          <h1 className="display-5">Estudiantes en: {user.hospital}</h1>
 
-        <hr />
-        <div className="text-center">
+          <hr />
+          <div className="text-center">
 
-          {
+            {
 
-            estudiantes.map(e =>
+              estudiantes.map(e =>
 
-              <ListaEstudiantes key={e._id} estudiante={e} />
+                <ListaEstudiantes key={e._id} estudiante={e} />
 
-            )
+              )
 
-          }
+            }
 
 
+
+          </div>
 
         </div>
-
       </div>
 
     </div>
