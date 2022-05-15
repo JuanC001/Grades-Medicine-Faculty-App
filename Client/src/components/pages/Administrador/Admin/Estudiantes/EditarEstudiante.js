@@ -77,12 +77,12 @@ class EditarEstudiante extends React.Component {
                     'success'
                 ).then((result) => {
                     if (result.isConfirmed) {
-                        this.props.actualizar()
-                        this.setState({ modalOpen: false })
+
+                        this.setState({ modalOpen: false });
                     }
                 })
             )
-
+        this.props.actualizar();
         console.log(res);
 
     }
@@ -118,7 +118,7 @@ class EditarEstudiante extends React.Component {
     }
 
     toggle = () => {
-        console.log('toggle')
+
         this.setState({ ed_nombres: this.state.estudiante.nombres });
         this.setState({ documento: this.state.estudiante.documento });
         this.setState({ correo: this.state.estudiante.correo });

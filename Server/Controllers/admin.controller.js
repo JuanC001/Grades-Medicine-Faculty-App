@@ -73,14 +73,15 @@ admCtrl.RegisEstudiante = (req, res) => {
 admCtrl.ModifEstudiante = async (req, res) => {
 
     // modificar el estudiante
-    const { ed_nombres, documento, correo, semestre, _id } = req.body;
+    const { ed_nombres, documento, correo, semestre, rotaciones,_id } = req.body;
 
     await student.findByIdAndUpdate(_id, {
 
         nombres: ed_nombres,
         documento: documento,
         correo: correo,
-        semestre: semestre
+        semestre: semestre,
+        rotaciones: rotaciones
 
     })
 

@@ -20,6 +20,7 @@ export default class Estudiantes extends React.Component {
     const ipBuilder = ip + '/api/admin/allStudents';
     const res = await axios.get(ipBuilder);
     this.setState({ estudiantes: res.data });
+    console.log('REFRESH!')
 
   }
 

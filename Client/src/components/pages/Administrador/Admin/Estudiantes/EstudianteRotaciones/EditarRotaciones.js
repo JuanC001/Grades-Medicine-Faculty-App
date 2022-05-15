@@ -20,10 +20,10 @@ class Editarrotaciones extends Component {
     }
 
     state = {
-        nombre_hospital: '',
-        fechaInicial: '',
-        fechaFinal: '',
-        area: ''
+        nombre_hospital: this.props.rotacion.nombre_hospital,
+        fechaInicial: this.props.rotacion.fechaInicial,
+        fechaFinal: this.props.rotacion.fechaInicial,
+        area: this.props.rotacion.area
     }
 
     render() {
@@ -66,7 +66,7 @@ class Editarrotaciones extends Component {
 
                                 <div className='input-group input-group-sm mb-3'>
                                     <label className="input-group-text" htmlFor="date1">Fecha Inicial</label>
-                                    <input className='px-1' type="date" id='date1' name="date1" onChange={(e) => this.setState({ fechaInicial: e.target.value })} onClick={this.enviarRotacion} value={rotacion.fechaInicial}></input>
+                                    <input className='px-1' type="date" id='date1' name="date1" onChange={(e) => this.setState({ fechaInicial: e.target.value })} onClick={this.enviarRotacion} value={this.state.fechaInicial}></input>
 
                                 </div>
                             </div>
@@ -75,7 +75,7 @@ class Editarrotaciones extends Component {
 
                                 <div className='input-group input-group-sm mb-3'>
                                     <label className="input-group-text" htmlFor="date2">Fecha Final</label>
-                                    <input className='px-1' type="date" id='date2' name="date2" onChange={(e) => this.setState({ fechaFinal: e.target.value })} onClick={this.enviarRotacion} value={rotacion.fechaFinal}></input>
+                                    <input className='px-1' type="date" id='date2' name="date2" onChange={(e) => this.setState({ fechaFinal: e.target.value })} onClick={this.enviarRotacion} value={this.state.fechaFinal}></input>
 
                                 </div>
                             </div>

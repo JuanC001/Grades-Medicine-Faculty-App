@@ -87,7 +87,7 @@ class AddStudent extends React.Component {
             });
         console.log("///////////////////");
         console.log(dataExcel1);
-        const nuevo = await axios.post(ipBuilder2, dataExcel1);
+        await axios.post(ipBuilder2, dataExcel1);
         this.props.actualizar();
         Swal.fire({
             title: 'Agregados!',
@@ -103,7 +103,6 @@ class AddStudent extends React.Component {
                 this.setState({ rotaciones: [] });
                 this.setState({ modalOpen: false });
                 
-
             }
         })
 

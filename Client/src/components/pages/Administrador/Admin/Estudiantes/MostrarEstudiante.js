@@ -13,7 +13,8 @@ export default class MostrarEstudiante extends React.Component {
         console.log(this.props.id);
     }
 
-    async componentDidMount() {
+    async actualizarEstudiante() {
+
         const ipBuilder = ip + '/api/admin/unEstudiante';
         const res = await axios.post(ipBuilder,
             { _id: this.props.id });
@@ -22,7 +23,6 @@ export default class MostrarEstudiante extends React.Component {
 
         this.setState({ estudiante: est });
         this.setState({ rotaciones: est.rotaciones });
-
 
     }
 
@@ -33,6 +33,7 @@ export default class MostrarEstudiante extends React.Component {
     }
 
     toggle = () => {
+        this.actualizarEstudiante();
         this.setState({ modalOpen: !this.state.modalOpen });
     }
 
