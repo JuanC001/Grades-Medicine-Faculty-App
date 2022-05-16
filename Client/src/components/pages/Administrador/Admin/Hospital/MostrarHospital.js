@@ -1,23 +1,17 @@
 import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Accordion } from 'react-bootstrap'
 
-import axios from 'axios';
-const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
+import EstudianteAfiliado from './EstudianteAfiliado';
+
 export default class MostrarHospital extends Component {
 
-    async componentDidMount() {
-        const ipBuilder = ip + '/api/admin/unHospital';
-        const res = await axios.post(ipBuilder,
-            { _id: this.props.id });
-        this.setState({ hospital: res.data })
-
-    }
 
     state = {
         modalOpen: false,
-        hospital: {},
-        estudiantes: {}
+        hospital: this.props.hsp,
+        estudiantes: this.props.hsp.estudiantesAfiliados
     }
 
     toggle = () => {
@@ -30,7 +24,7 @@ export default class MostrarHospital extends Component {
                 <Modal isOpen={this.state.modalOpen} className="modal-class" size='xl'>
 
                     <ModalHeader toggle={this.toggle}>
-                        <h6 className="display-6">Información de: {this.state.hospital.nombre_hospital}</h6>
+                        Información de: {this.state.hospital.nombre_hospital}
                     </ModalHeader>
 
                     <ModalBody>
@@ -41,7 +35,7 @@ export default class MostrarHospital extends Component {
                                 <input readOnly type="text" className=" form-control-plaintext" id="nombreL" value={this.state.hospital.nombre_lider} />
 
                             </div>
-                            
+
                         </div>
 
                         <div className="row">
@@ -51,7 +45,7 @@ export default class MostrarHospital extends Component {
                                 <input readOnly type="text" className=" form-control-plaintext" id="nombreL" value={this.state.hospital.correo_administrador} />
 
                             </div>
-                            
+
                         </div>
 
                         <hr />
@@ -60,7 +54,11 @@ export default class MostrarHospital extends Component {
 
                             <h6 className="display-6">Lista estudiantes Afiliados</h6>
 
-                            
+                            {
+                                
+                                <Listas estudiantes = {this.state.estudiantes} hospital= {this.state.hospital}/>
+
+                            }
 
 
                         </div>
@@ -68,7 +66,7 @@ export default class MostrarHospital extends Component {
 
                     <ModalFooter>
 
-                        <button className="btn btn-danger" onClick={(e) => this.setState({modalOpen: false})}>Cerrar</button>
+                        <button className="btn btn-danger" onClick={(e) => this.setState({ modalOpen: false })}>Cerrar</button>
 
                     </ModalFooter>
 
@@ -76,4 +74,23 @@ export default class MostrarHospital extends Component {
             </button>
         )
     }
+}
+
+function Listas(props){
+
+    const {estudiantes, hospital} = props;
+
+    if(estudiantes.length > 0){
+
+        return estudiantes.map(e =>
+            <Accordion>
+                <EstudianteAfiliado est={e} key={e} hsp_id= {hospital._id}/>
+            </Accordion>
+        )
+
+    }
+
+    return <div>No hay estudiantes aun</div>
+
+    
 }

@@ -82,7 +82,7 @@ export default function ListaHospitales(props) {
                         <div className="btn-group" role="group" aria-label="buttonGroup">
 
                             <Editarhospital id={props.hsp._id} actualizar= {props.actualizar}/>
-                            <MostrarHospital id={props.hsp._id}/>
+                            <MostrarHospital id={props.hsp._id} hsp = {props.hsp}/>
                             <button className="btn btn-danger" onClick={askEliminarHospital}><FontAwesomeIcon icon="fa-solid fa-trash" /></button>
 
                         </div>

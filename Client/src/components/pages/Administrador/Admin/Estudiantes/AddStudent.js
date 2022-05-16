@@ -31,6 +31,7 @@ class AddStudent extends React.Component {
             fechaInicial: '',
             fechaFinal: '',
             id_hospital: '',
+            nota: 'No Definido'
         }
 
         this.setState({ rotaciones: this.state.rotaciones.concat(nuevaRotacion) })
@@ -146,7 +147,7 @@ class AddStudent extends React.Component {
                 console.log(nuevoHospital.data);
 
             }
-            this.props.actualizar()
+            this.props.actualizar();
             console.log("Completado!");
             Swal.fire({
                 title: 'Agregado!',

@@ -25,8 +25,6 @@ const Home = (props) => {
         password: password
       })
 
-      console.log(usuario)
-
       const usuarioEnvio = {
 
         user: usuario.data.user,

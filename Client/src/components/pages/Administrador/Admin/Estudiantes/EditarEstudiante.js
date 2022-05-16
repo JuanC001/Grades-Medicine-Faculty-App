@@ -20,7 +20,9 @@ class EditarEstudiante extends React.Component {
             id: id_l,
             hospital: '',
             fechaInicial: '',
-            fechaFinal: ''
+            fechaFinal: '',
+            id_hospital: '',
+            nota: 'No Definido'
         }
 
         this.setState({ rotaciones: this.state.rotaciones.concat(nuevaRotacion) })
@@ -70,24 +72,39 @@ class EditarEstudiante extends React.Component {
                 semestre: this.state.semestre,
                 rotaciones: this.state.rotaciones,
 
-            }).then(
-                Swal.fire(
-                    '¡Completado!',
-                    'Se modifico al estudiante',
-                    'success'
-                ).then((result) => {
-                    if (result.isConfirmed) {
+            })
 
-                        this.setState({ modalOpen: false });
-                    }
-                })
-            )
+        const id_estudiante = this.props.id
+        const rotaciones = this.state.rotaciones;
+        for (let i = 0; i < rotaciones.length; i++) {
+
+            const ipBuilder2 = ip + '/api/admin/regisEstudianteHsp'
+            const nuevoHospital = await axios.post(ipBuilder2, {
+                nombre_hospital: rotaciones[i].nombre_hospital,
+                id_est: id_estudiante
+            })
+
+            console.log('HOSPITAL ACUTIALIZADO: ' + nuevoHospital.data);
+
+        }
+
+        Swal.fire(
+            '¡Completado!',
+            'Se modifico al estudiante',
+            'success'
+        ).then((result) => {
+            if (result.isConfirmed) {
+                this.setState({ modalOpen: false });
+            }
+        })
+
+
         this.props.actualizar();
-        console.log(res);
 
     }
 
     async componentDidMount() {
+
         let ipBuilder = ip + '/api/admin/unEstudiante';
         let res = await axios.post(ipBuilder, { _id: this.props.id })
         this.setState({ estudiante: res.data });
@@ -97,7 +114,6 @@ class EditarEstudiante extends React.Component {
         ipBuilder = ip + '/api/admin/allHospital';
         res = await axios.get(ipBuilder);
         this.setState({ hospitales: res.data });
-
 
     }
 
