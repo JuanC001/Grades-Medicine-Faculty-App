@@ -25,6 +25,13 @@ const Home = (props) => {
         password: password
       })
 
+      if(usuario.data === null) {
+
+        console.log('User Not Found!')
+
+        return null;
+      }
+
       const usuarioEnvio = {
 
         user: usuario.data.user,
