@@ -1,11 +1,29 @@
 import student from '../models/estudent.js';
 import hospital from '../models/hospital.js';
+import user from '../models/user.js';
 
 const docCtrl = {};
 
-docCtrl.Formulario = (req,res) => {
+docCtrl.CambiarPass = (req,res) => {
 
-    // formulario de notas
+    const {id, pass, npass, npassv} = req.body;
+
+    const testUser = user.findById(id);
+
+    if(pass === testUser.password){
+
+        const usuario = user.findByIdAndUpdate(id, {
+
+            password: npass
+    
+        });
+
+        
+
+    }
+    
+    
+
 
 }
 
