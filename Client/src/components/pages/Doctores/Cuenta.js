@@ -13,7 +13,9 @@ export default function Cuenta(props) {
 
     let toggle = () => {
         setModalOpen(!modalOpen)
-        console.log(modalOpen)
+        setContrasenaActual('')
+        setContrasenaNueva('')
+        setContrasenaRepetida('')
     }
 
     return (

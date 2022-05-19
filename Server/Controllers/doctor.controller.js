@@ -8,9 +8,9 @@ docCtrl.CambiarPass = (req,res) => {
 
     const {id, pass, npass, npassv} = req.body;
 
-    const testUser = user.findById(id);
+    const auxUser = user.findById(id);
 
-    if(pass === testUser.password){
+    if(pass === auxUser.password){
 
         const usuario = user.findByIdAndUpdate(id, {
 
@@ -18,13 +18,12 @@ docCtrl.CambiarPass = (req,res) => {
     
         });
 
-        
-
+        res.json({confirmado: true})
+        return;
     }
-    
-    
 
-
+    res.json({confirmado: false})
+    return;
 }
 
 docCtrl.ObtenerHospital= async (req,res) => {
