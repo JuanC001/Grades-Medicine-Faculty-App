@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './CSS/LE.css';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+
+import MostrarEstudiante from './partials/MostrarEstudiante';
+
 export default function ListaEstudiantes(props) {
+
+    const [verStudiante, setVerStudiante] = useState(false);
+
     return (
         <div className="card mb-3 shadow-sm">
 
@@ -59,9 +67,20 @@ export default function ListaEstudiantes(props) {
                                     <label htmlFor="">Area Actual:</label>
                                 </div>
                                 <div className="col"> <u>Area del estudiante</u></div>
+
                             </div>
                         </li>
                     </div>
+
+                    <div className="col-sm-1">
+
+                        <button className="btn btn-primary" onClick={e => setVerStudiante(true)}><FontAwesomeIcon icon="fa-solid fa-eye" /></button>
+
+                    </div>
+
+                    asdf {props.hsp_id}
+
+                    <MostrarEstudiante modalOpen={verStudiante} setModal={setVerStudiante} estudiante={props.estudiante} />
 
                 </div>
             </div>

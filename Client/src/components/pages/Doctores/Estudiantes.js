@@ -17,7 +17,6 @@ export default function Estudiantes(props) {
 
   const obtenerEstudiantes = async (hosp) => {
 
-    console.log('Obteniendo Estudiantes')
     const ipBuilder = ip + '/api/doctor/estudiantes';
 
     let res = await axios.post(ipBuilder, { estudiantesafiliados: hosp[0].estudiantesAfiliados })
@@ -59,13 +58,11 @@ export default function Estudiantes(props) {
 
               estudiantes.map(e =>
 
-                <ListaEstudiantes key={e._id} estudiante={e} />
+                <ListaEstudiantes key={e._id} estudiante={e} hsp_id={hospitalf._id}/>
 
               )
 
             }
-
-
 
           </div>
 

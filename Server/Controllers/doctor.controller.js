@@ -4,15 +4,15 @@ import user from '../models/user.js';
 
 const docCtrl = {};
 
-docCtrl.CambiarPass = (req,res) => {
+docCtrl.CambiarPass = async (req,res) => {
 
-    const {id, pass, npass, npassv} = req.body;
+    const {id, pass, npass} = req.body;
 
-    const auxUser = user.findById(id);
+    const auxUser = await user.findById(id);
 
     if(pass === auxUser.password){
 
-        const usuario = user.findByIdAndUpdate(id, {
+        const usuario = await user.findByIdAndUpdate(id, {
 
             password: npass
     
