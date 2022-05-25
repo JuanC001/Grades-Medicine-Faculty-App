@@ -30,7 +30,7 @@ docCtrl.ObtenerHospital= async (req,res) => {
 
     const hospital_name = req.params.hospital;
 
-    const hospitaln = await hospital.find({nombre_hospital: hospital_name});
+    const hospitaln = await hospital.findOne({nombre_hospital: hospital_name});
     res.json(hospitaln)
 
 }

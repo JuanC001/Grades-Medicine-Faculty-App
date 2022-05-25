@@ -12,5 +12,4 @@ Router.post('/api/doctor/cambiarPass', doctorControl.CambiarPass);
 
 Router.get('/api/doctor/:hospital', doctorControl.ObtenerHospital);
 
-
 export default Router;

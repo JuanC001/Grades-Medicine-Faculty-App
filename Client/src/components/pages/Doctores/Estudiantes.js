@@ -13,13 +13,13 @@ export default function Estudiantes(props) {
   const user = props.user;
   console.log('USER:' + user.nombre)
   const [estudiantes, setEstudiantes] = useState([]);
-  const [hospitalf, setHospitalf] = useState(null);
+  const [hospitalf, setHospitalf] = useState({});
 
   const obtenerEstudiantes = async (hosp) => {
 
     const ipBuilder = ip + '/api/doctor/estudiantes';
-
-    let res = await axios.post(ipBuilder, { estudiantesafiliados: hosp[0].estudiantesAfiliados })
+    setHospitalf(hosp);
+    let res = await axios.post(ipBuilder, { estudiantesafiliados: hosp.estudiantesAfiliados })
 
     setEstudiantes(res.data);
 
@@ -30,9 +30,28 @@ export default function Estudiantes(props) {
     const ipBuilder2 = ip + '/api/doctor/' + user.hospital;
 
     let res = await axios.get(ipBuilder2);
-    setHospitalf(res.data);
-
+    console.log(res.data)
     obtenerEstudiantes(res.data);
+
+
+
+  }
+
+  const obtenerRotaciones = (e) => {
+
+    const rotacionesEspecificas = []
+
+    for (let i = 0; i < e.rotaciones.length; i++) {
+
+      if (e.rotaciones[i].id_hospital === hospitalf._id) {
+
+        rotacionesEspecificas.push(e.rotaciones[i]);
+
+      }
+
+    }
+
+    return rotacionesEspecificas;
 
   }
 
@@ -58,7 +77,11 @@ export default function Estudiantes(props) {
 
               estudiantes.map(e =>
 
-                <ListaEstudiantes key={e._id} estudiante={e} hsp_id={hospitalf._id}/>
+                <ListaEstudiantes key={e._id} estudiante={e} hsp_id={hospitalf._id} rotaciones={
+
+                  obtenerRotaciones(e)
+
+                } />
 
               )
 

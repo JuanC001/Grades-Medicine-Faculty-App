@@ -10,7 +10,7 @@ export default class MostrarRotaciones extends Component {
                 {
 
                     rotaciones.map(e => (
-                        <Accordion.Item eventKey={e.id}>
+                        <Accordion.Item eventKey={e.id} key= {e.id}>
                             <Accordion.Header>
                                 Rotacion #{e.id}: {e.nombre_hospital}
                             </Accordion.Header>

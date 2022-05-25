@@ -78,9 +78,7 @@ export default function ListaEstudiantes(props) {
 
                     </div>
 
-                    asdf {props.hsp_id}
-
-                    <MostrarEstudiante modalOpen={verStudiante} setModal={setVerStudiante} estudiante={props.estudiante} />
+                    <MostrarEstudiante modalOpen={verStudiante} setModal={setVerStudiante} estudiante={props.estudiante} rotaciones={props.rotaciones}/>
 
                 </div>
             </div>

@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { Accordion } from 'react-bootstrap'
+
+import RotacionesEstudiante from './RotacionesEstudiante'
 
 import axios from 'axios';
 const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
 
+
+
 const MostrarEstudiante = (props) => {
 
     const estudiante = props.estudiante;
+    const rotaciones = props.rotaciones;
 
     const guardarCambio = () => {
 
         console.log('SAVE')
+
 
     }
 
@@ -30,6 +37,21 @@ const MostrarEstudiante = (props) => {
                 <div className="row">
                     <p>Correo: <u>{estudiante.correo}</u></p>
                 </div>
+
+                <Accordion defaultActiveKey="0">
+
+                    {
+
+                        rotaciones.map((e) => (
+                            <Accordion.Item eventKey={e.id}>
+                                <RotacionesEstudiante rotacion={e} key={e.id} />
+                            </Accordion.Item>
+
+                        ))
+                    }
+
+                </Accordion>
+
             </ModalBody>
 
             <ModalFooter>
