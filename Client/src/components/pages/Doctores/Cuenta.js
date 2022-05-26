@@ -32,7 +32,7 @@ export default function Cuenta(props) {
             if (res.data.confirmado === true) {
 
                 Swal.fire({
-                    title: 'Contraseña cambiada!!',
+                    title: '¡Contraseña cambiada!',
                     text: "",
                     icon: 'success',
                     showCancelButton: false,

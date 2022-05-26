@@ -47,8 +47,12 @@ class AgregarRotacionesADD extends React.Component {
 
         for (let i = 0; i <meses.length; i++) {
 
-            if(meses[i] === fi){
+            if(meses[i] === fi && fi !== 'Diciembre'){
                 this.setState({ fechaFinal: meses[i+1]});
+            }else if(fi === 'Diciembre'){
+
+                this.setState({fechaFinal: 'Enero'});
+
             }
 
         }
@@ -112,7 +116,7 @@ class AgregarRotacionesADD extends React.Component {
                                         <label className="input-group-text" htmlFor="fechaInicial">Fecha Inicial</label>
                                         <select id="fechaInicial" className="form-select" onChange={(e) => this.seleccionarFechaAuto(e)} onClick={this.enviarRotacion}>
 
-                                            <option value="vacio" defaultValue>Seleccione Uno</option>
+                                            <option value="vacio">Seleccione Uno</option>
                                             {
 
                                                 meses.map(e =>
@@ -132,7 +136,7 @@ class AgregarRotacionesADD extends React.Component {
 
                                     <div className="input-group">
                                         <label className="input-group-text" htmlFor="fechaFinal">Fecha Final</label>
-                                        <select defaultValue={this.state.fechaFinal} id="fechaFinal" className="form-select" onChange={(e) => this.setState({ fechaFinal: e.target.value })} onClick={this.enviarRotacion}>
+                                        <select defaultValue={this.state.fechaFinal} value={this.state.fechaFinal} id="fechaFinal" className="form-select" onChange={(e) => this.setState({ fechaFinal: e.target.value })} onClick={this.enviarRotacion}>
 
                                             <option value="" defaultValue>Seleccione Uno</option>
                                             {
