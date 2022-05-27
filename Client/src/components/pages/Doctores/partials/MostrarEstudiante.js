@@ -43,10 +43,9 @@ const MostrarEstudiante = (props) => {
                     {
 
                         rotaciones.map((e) => (
-                            <Accordion.Item eventKey={e.id}>
-                                <RotacionesEstudiante rotacion={e} key={e.id} />
+                            <Accordion.Item eventKey={e.id} key={e.id}>
+                                <RotacionesEstudiante rotacion={e} estudiante={estudiante} />
                             </Accordion.Item>
-
                         ))
                     }
 

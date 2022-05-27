@@ -23,10 +23,11 @@ Router.post('/api/admin/eliminarEstudiante' , ElimEstudiante)
 Router.post('/api/admin/eliminarHospital' , ElimHospital)
 Router.post('/api/admin/unEstudiante', ObtenerUnEstudiante);
 Router.post('/api/admin/unHospital', ObtenerUnHospital);
-Router.get('/api/admin/allStudents', ObtenerEstudiantes);
-Router.get('/api/admin/allHospital', ObtenerHospitales);
 Router.post('/api/admin/modEst', ModifEstudiante);
 Router.post('/api/admin/modHsp', ModifHospital);
+
+Router.get('/api/admin/allStudents', ObtenerEstudiantes);
+Router.get('/api/admin/allHospital', ObtenerHospitales);
 
 
 export default Router;

@@ -28,11 +28,11 @@ export default function ListaEstudiantes(props) {
 
             <div className="card-body">
                 <div className="row">
-                    <div className="col-sm-2">
+                    <div className="col-sm-2 my-auto">
                         <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="hola" className="cardimg" />
                     </div>
 
-                    <div className="col-sm-9">
+                    <div className="col-sm-9 my-auto">
                         <li className="list-group-item">
                             <div className="row">
                                 <div className="col">
@@ -72,7 +72,7 @@ export default function ListaEstudiantes(props) {
                         </li>
                     </div>
 
-                    <div className="col-sm-1">
+                    <div className="col-sm-1 my-auto">
 
                         <button className="btn btn-primary" onClick={e => setVerStudiante(true)}><FontAwesomeIcon icon="fa-solid fa-eye" /></button>
 

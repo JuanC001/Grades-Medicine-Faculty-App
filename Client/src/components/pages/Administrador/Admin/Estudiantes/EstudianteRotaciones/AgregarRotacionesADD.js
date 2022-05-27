@@ -88,7 +88,7 @@ class AgregarRotacionesADD extends React.Component {
 
                             <div className="row pb-2">
 
-                                <div className="col-4 input-group mb-3">
+                                <div className="col-4 input-group">
 
                                     <label className="input-group-text" htmlFor="hspselect">Hospital</label>
                                     <select className="form-select" id='hspselect' onChange={this.seleccionarHospital} onClick={this.enviarRotacion}>
@@ -112,7 +112,7 @@ class AgregarRotacionesADD extends React.Component {
                             <div className="row pb-2">
                                 <div className="col">
 
-                                    <div className='input-group input-group-sm mb-3'>
+                                    <div className='input-group'>
                                         <label className="input-group-text" htmlFor="fechaInicial">Fecha Inicial</label>
                                         <select id="fechaInicial" className="form-select" onChange={(e) => this.seleccionarFechaAuto(e)} onClick={this.enviarRotacion}>
 

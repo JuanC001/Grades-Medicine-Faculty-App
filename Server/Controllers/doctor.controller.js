@@ -49,6 +49,42 @@ docCtrl.ObtenerEstudiantes = async (req,res) => {
 
 }
 
+docCtrl.AsignarNota = async (req,res) => {
+
+    const {c1,c2,c3,c4,c5,srvs,cmt, id, id_r} = req.body;
+
+    const re = await student.findById(id);
+
+    const rotaciones = re.rotaciones;
+
+    for(let i = 0; i < rotaciones.length; i++){
+
+        if(rotaciones[i].id == id_r){
+
+            rotaciones[i].nota = {
+
+                c1: c1,
+                c2: c2,
+                c3: c3,
+                c4: c4,
+                c5: c5,
+                srvs: srvs,
+                cmt: cmt
+
+            }
+
+        }
+
+    }
+
+    const ff = await student.findByIdAndUpdate(id, {rotaciones: rotaciones});
+
+    res.json({terminado: true})
+    console.log(ff)
+    
+
+}
+
 export default docCtrl;
 
 
