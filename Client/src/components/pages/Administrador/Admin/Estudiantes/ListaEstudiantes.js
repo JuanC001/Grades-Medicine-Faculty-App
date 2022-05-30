@@ -15,6 +15,15 @@ export default function ListaEstudiantes(props) {
 
   const id_estudiante = props.estudiante._id;
 
+  let coincideRotacion = false;
+  for (let i = 0; i < props.estudiante.rotaciones.length; i++) {
+
+    if(props.estudiante.rotaciones[i].nombre_hospital === props.hsp_select){
+      coincideRotacion = true;
+    }
+
+  }
+
   const borrarEstudiante = async (e) => {
 
     const ipBuilder = ip + '/api/admin/eliminarEstudiante';
@@ -53,101 +62,107 @@ export default function ListaEstudiantes(props) {
 
   }
 
-  return (
-    <div className="card mb-3 shadow-sm">
+  if(coincideRotacion || props.hsp_select === 'All'){
 
-      <div className="card-header">
-        <div className="container">
+    return (
+      <div className="card mb-3 shadow-sm">
+  
+        <div className="card-header">
+          <div className="container">
+            <div className="row">
+              <div className="col">
+                <div className="row">
+                  <label htmlFor="nombreL" className="col-sm-2 col-form-label text-start">Estudiante:</label>
+                  <label htmlFor="" className="col-sm-5 col-form-label text-start"><u>{props.estudiante.nombres}</u></label>
+                </div>
+              </div>
+              <div className="col-sm-3 align-self-end">
+                <div className="roq">
+                  <label htmlFor="nombreL" className="col-sm-2 col-form-label text-end align-self-end">CC:</label>
+                  <label htmlFor="" className="col col-form-label">{props.estudiante.documento}</label>
+                </div>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+  
+        <div className="card-body">
           <div className="row">
-            <div className="col">
-              <div className="row">
-                <label htmlFor="nombreL" className="col-sm-2 col-form-label text-start">Estudiante:</label>
-                <label htmlFor="" className="col-sm-5 col-form-label text-start"><u>{props.estudiante.nombres}</u></label>
-              </div>
+            <div className="col-sm-2">
+              <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" className="cardimg" />
             </div>
-            <div className="col-sm-3 align-self-end">
-              <div className="roq">
-                <label htmlFor="nombreL" className="col-sm-2 col-form-label text-end align-self-end">CC:</label>
-                <label htmlFor="" className="col col-form-label">{props.estudiante.documento}</label>
-              </div>
+            <div className="col-sm-9">
+  
+              <ul className="list-group">
+                <li className="list-group-item">
+                  <div className="row">
+                    <div className="col">
+                      <label htmlFor="" className="col-form-label">Correo:</label>
+                    </div>
+                    <div className="col">
+  
+                      <p htmlFor="" className="col-form-label text-start">{props.estudiante.correo}</p>
+  
+                    </div>
+  
+                    <div className="col">
+                      <label htmlFor="" className="col-form-label">Semestre:</label>
+                    </div>
+                    <div className="col">
+  
+                      <p htmlFor="" className="col-form-label text-start">{props.estudiante.semestre}</p>
+  
+                    </div>
+  
+                  </div>
+                </li>
+                <li className="list-group-item active">
+                  <div className="row">
+                    <div className="col">
+                      <label>Rotacion Actual:</label>
+                    </div>
+                    <div className="col">
+                      <label htmlFor="">{props.estudiante.rotacionActual}</label>
+                    </div>
+                    <div className="col">
+                      <label htmlFor="">Area Actual:</label>
+                    </div>
+                    <div className="col"> <u>Area del estudiante</u></div>
+                  </div>
+                </li>
+  
+              </ul>
+  
             </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div className="card-body">
-        <div className="row">
-          <div className="col-sm-2">
-            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" className="cardimg" />
-          </div>
-          <div className="col-sm-9">
-
-            <ul className="list-group">
-              <li className="list-group-item">
-                <div className="row">
-                  <div className="col">
-                    <label htmlFor="" className="col-form-label">Correo:</label>
-                  </div>
-                  <div className="col">
-
-                    <p htmlFor="" className="col-form-label text-start">{props.estudiante.correo}</p>
-
-                  </div>
-
-                  <div className="col">
-                    <label htmlFor="" className="col-form-label">Semestre:</label>
-                  </div>
-                  <div className="col">
-
-                    <p htmlFor="" className="col-form-label text-start">{props.estudiante.semestre}</p>
-
-                  </div>
-
+  
+            <div className="col-sm-1">
+  
+              <div className="row pb-1">
+                <MostrarEstudiante id={props.estudiante._id} />
+              </div>
+              <div className="row pb-1">
+                <div>
+                  <EditarEstudiante id={props.estudiante._id} actualizar = {props.actualizar}/>
                 </div>
-              </li>
-              <li className="list-group-item active">
-                <div className="row">
-                  <div className="col">
-                    <label>Rotacion Actual:</label>
-                  </div>
-                  <div className="col">
-                    <label htmlFor="">{props.estudiante.rotacionActual}</label>
-                  </div>
-                  <div className="col">
-                    <label htmlFor="">Area Actual:</label>
-                  </div>
-                  <div className="col"> <u>Area del estudiante</u></div>
+              </div>
+              <div className="row pb-1">
+                <div>
+                  <button className="btn btn-danger" onClick={askEliminarEstudiante}><FontAwesomeIcon icon="fa-solid fa-trash-can" /> </button>
                 </div>
-              </li>
-
-            </ul>
-
-          </div>
-
-          <div className="col-sm-1">
-
-            <div className="row pb-1">
-              <MostrarEstudiante id={props.estudiante._id} />
-            </div>
-            <div className="row pb-1">
-              <div>
-                <EditarEstudiante id={props.estudiante._id} actualizar = {props.actualizar}/>
               </div>
             </div>
-            <div className="row pb-1">
-              <div>
-                <button className="btn btn-danger" onClick={askEliminarEstudiante}><FontAwesomeIcon icon="fa-solid fa-trash-can" /> </button>
-              </div>
-            </div>
+  
           </div>
-
+  
         </div>
-
+  
+  
       </div>
+  
+    )
 
+  }
 
-    </div>
-
-  )
+  
 }
