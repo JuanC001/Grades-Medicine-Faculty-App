@@ -78,7 +78,7 @@ export default function ListaEstudiantes(props) {
 
                     </div>
 
-                    <MostrarEstudiante modalOpen={verStudiante} setModal={setVerStudiante} estudiante={props.estudiante} rotaciones={props.rotaciones}/>
+                    <MostrarEstudiante modalOpen={verStudiante} setModal={setVerStudiante} actualizarEstudiantes = {props.actualizarEstudiantes} estudiante={props.estudiante} rotaciones={props.rotaciones}/>
 
                 </div>
             </div>

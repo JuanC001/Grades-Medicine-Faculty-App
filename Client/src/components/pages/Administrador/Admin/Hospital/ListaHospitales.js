@@ -13,7 +13,9 @@ export default function ListaHospitales(props) {
 
     const eliminarHospital = async (e) => {
         const ipBuilder = ip + '/api/admin/eliminarHospital';
-        await axios.post(ipBuilder, {_id: id_hsp})
+        await axios.post(ipBuilder, {_id: id_hsp});
+        const ipBuilder2 = ip + '/api/eliminarUser';
+        await axios.post(ipBuilder2, { user: props.hsp.correo_administrador})
 
     }
 

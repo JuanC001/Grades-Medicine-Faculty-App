@@ -15,7 +15,8 @@ export default class Estudiantes extends React.Component {
     hsp_select: 'All',
     estudiantes: [],
     hospitales: [],
-    term: ''
+    term: '',
+    active_filter: "form-select bg-primary text-white w-75 mx-auto"
   }
 
   actualizarLista = async () => {
@@ -37,27 +38,36 @@ export default class Estudiantes extends React.Component {
 
   }
 
+  organizarFiltro = (e) => {
 
+    this.setState({ hsp_select: e.target.value });
 
+    if (e.target.value != 'All') {
 
+      this.setState({ active_filter: "form-select bg-success text-white w-75 mx-auto" });
+
+    } else {
+      this.setState({ active_filter: "form-select bg-primary text-white w-75 mx-auto" });
+    }
+
+  }
 
   render() {
 
-
     function searchTerm(term) {
 
-      let nterm = term;
+      let nterm = term.toLowerCase();
       let isNumber = false;
 
       for (let i = 0; i < 10; i++) {
 
-        if(nterm.includes(i)){
+        if (nterm.includes(i)) {
           isNumber = true;
         }
 
       }
 
-      if(isNumber){
+      if (isNumber) {
         return function (x) {
           return x.documento.includes(nterm);
         }
@@ -76,16 +86,16 @@ export default class Estudiantes extends React.Component {
 
           <div className="bg-light mx-auto container-fluid w-80 rounded rounded-3 " >
 
-            <h1 className="display-1 ">Listado de Estudiantes</h1>
+            <h5 className="display-5 ">Listado de Estudiantes</h5>
 
             <hr />
-            <div className="text-right pb-4 pt-1 px-2">
+            <div className="text-right mx-auto container-fluid p-1 shadow-sm border-bottom rounded-3">
 
               <div className="row">
                 <div className="col">
                   <div className="btn-toolbar">
 
-                    <div className="btn-group me-2 text-center">
+                    <div className="btn-group mx-auto">
 
                       <AddStudent actualizar={this.actualizarLista} />
                       <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-print" /></button>
@@ -97,7 +107,7 @@ export default class Estudiantes extends React.Component {
                 </div>
                 <div className="col">
 
-                  <select name="" id="select" className="form-select bg-primary text-white" aria-label='Default select' style={{ width: '250px' }} onChange={e => this.setState({ hsp_select: e.target.value })}>
+                  <select name="" id="select_filter_hsp" className={this.state.active_filter} aria-label='Default select' onChange={e => this.organizarFiltro(e)}>
 
                     <option value="All" className='text-white'>Todos los Hospitales</option>
                     {this.state.hospitales.map(
@@ -112,11 +122,11 @@ export default class Estudiantes extends React.Component {
 
                 <div className="col">
 
-                  <div className="row">
+                  <div className="row mx-auto">
 
 
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control" onChange={e => this.setState({ term: e.target.value })} />
+                    <div className="col-sm-8">
+                      <input type="text" className="form-control" onChange={e => this.setState({ term: e.target.value })} placeholder='Busque por Documento o Nombre' />
                     </div>
 
                     <div className="col-sm-1">
@@ -131,7 +141,7 @@ export default class Estudiantes extends React.Component {
               </div>
 
             </div>
-            <div className="text-center mx-auto container-fluid extrascroll">
+            <div className="text-center mx-auto mt-2 container-fluid extrascroll">
 
               {
 

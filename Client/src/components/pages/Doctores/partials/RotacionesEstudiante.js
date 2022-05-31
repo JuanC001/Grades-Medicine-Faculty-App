@@ -47,13 +47,22 @@ const RotacionesEstudiante = (props) => {
             });
 
             Swal.fire({
-                title: 'Wohoo!',
-                text: 'Se ha enviado la nota',
-                icon: 'Success',
+                title: '¡Completado!',
+                text: 'Se ha enviado las notas',
+                icon: 'success',
                 showCancelButton: false,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'OK!'
+            }).then((result) => {
+
+                if(result.isConfirmed){
+
+                    props.setModal(false);
+                    props.actualizarEstudiantes();
+                    
+                }
+
             })
 
 
@@ -370,7 +379,7 @@ const AccordionHeader = (props) => {
 
     return (
 
-        <Accordion.Header eventKey={rotacion.id}>
+        <Accordion.Header>
             <div className="row">
                 <div className="col">
                     Fecha Rotación: {rotacion.fechaInicial} - {rotacion.fechaFinal}

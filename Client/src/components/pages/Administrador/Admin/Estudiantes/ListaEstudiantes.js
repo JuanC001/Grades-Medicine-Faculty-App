@@ -164,5 +164,4 @@ export default function ListaEstudiantes(props) {
 
   }
 
-  
 }

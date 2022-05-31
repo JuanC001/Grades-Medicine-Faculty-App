@@ -71,16 +71,11 @@ class AddStudent extends React.Component {
 
         const ipBuilder2 = ip + '/api/admin/excEstudiante';
 
-        console.log(this.state.selectedFile);
         const file = this.state.selectedFile;
         const data = await file.arrayBuffer();
-        console.log(data);
         const workbook = XLSX.readFile(data);
-        console.log(workbook);
         const workbookSheets = workbook.SheetNames;
-        console.log('Linea 55 ' + workbookSheets[0]);
         const sheet = workbookSheets[0];
-        console.log(workbook.Sheets[workbook.SheetNames[sheet]]);
         const dataExcel1 = XLSX.utils.sheet_to_json(workbook.Sheets[workbookSheets[0]],
             {
                 header: ["semestre", "documento", "nombres", "promedio",

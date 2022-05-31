@@ -15,13 +15,6 @@ const MostrarEstudiante = (props) => {
     const estudiante = props.estudiante;
     const rotaciones = props.rotaciones;
 
-    const guardarCambio = () => {
-
-        console.log('SAVE')
-
-
-    }
-
     return (
         <Modal isOpen={props.modalOpen} size='lg'>
 
@@ -44,7 +37,7 @@ const MostrarEstudiante = (props) => {
 
                         rotaciones.map((e) => (
                             <Accordion.Item eventKey={e.id} key={e.id}>
-                                <RotacionesEstudiante rotacion={e} estudiante={estudiante} />
+                                <RotacionesEstudiante rotacion={e} estudiante={estudiante} setModal = {props.setModal} actualizarEstudiantes = {props.actualizarEstudiantes}/>
                             </Accordion.Item>
                         ))
                     }
@@ -55,7 +48,6 @@ const MostrarEstudiante = (props) => {
 
             <ModalFooter>
 
-                <button className="btn btn-success" onClick={guardarCambio}>Guardar</button>
                 <button className="btn btn-danger" onClick={e => props.setModal(false)}>Cerrar</button>
 
             </ModalFooter>

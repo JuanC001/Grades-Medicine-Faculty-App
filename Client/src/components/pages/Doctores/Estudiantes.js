@@ -25,6 +25,14 @@ export default function Estudiantes(props) {
 
   }
 
+  const actualizarEstudiantes = async () => {
+
+    const ipBuilder = ip + '/api/doctor/estudiantes';
+    let res = await axios.post(ipBuilder, { estudiantesafiliados: hospitalf.estudiantesAfiliados })
+    setEstudiantes(res.data);
+
+  }
+
   const obtenerHospital = async () => {
 
     const ipBuilder2 = ip + '/api/doctor/' + user.hospital;
@@ -32,8 +40,6 @@ export default function Estudiantes(props) {
     let res = await axios.get(ipBuilder2);
     console.log(res.data)
     obtenerEstudiantes(res.data);
-
-
 
   }
 
@@ -79,9 +85,7 @@ export default function Estudiantes(props) {
 
                 <ListaEstudiantes key={e._id} estudiante={e} hsp_id={hospitalf._id} rotaciones={
 
-                  obtenerRotaciones(e)
-
-                } />
+                  obtenerRotaciones(e)}  actualizarEstudiantes = {actualizarEstudiantes} />
 
               )
 
