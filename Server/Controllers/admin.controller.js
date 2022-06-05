@@ -308,9 +308,6 @@ admCtrl.allExcelEstudiantes = async (req, res) => {
 
                     await hospital.findByIdAndUpdate(hospitalres._id, { estudiantesAfiliados: estudiantesAf });
 
-
-                    await hospital.findByIdAndUpdate(hospitalres._id, { estudiantesAfiliados: estudiantesAf });
-
                 }
             } catch (error) {
 

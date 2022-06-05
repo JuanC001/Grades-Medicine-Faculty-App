@@ -15,7 +15,7 @@ class AddHospital extends React.Component {
 
         e.preventDefault();
         Swal.fire({
-            title: 'Subiendo Estudiantes...',
+            title: 'Subiendo Hospitales...',
             html: 'Por favor, espere...',
             allowEscapeKey: false,
             allowOutsideClick: false,
