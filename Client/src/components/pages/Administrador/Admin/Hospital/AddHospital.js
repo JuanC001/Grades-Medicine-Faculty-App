@@ -3,10 +3,57 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import { Link } from 'react-router-dom'
+
+import * as XLSX from 'xlsx';
 
 const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
 
 class AddHospital extends React.Component {
+
+    handleExcel = async (e) => {
+
+        e.preventDefault();
+        Swal.fire({
+            title: 'Subiendo Estudiantes...',
+            html: 'Por favor, espere...',
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading()
+            }
+        });
+        const ipBuilder = ip + '/api/admin/excHospital';
+
+        const file = this.state.selectedFile;
+        const data = await file.arrayBuffer();
+        const workbook = XLSX.readFile(data);
+        const workbookSheets = workbook.SheetNames;
+
+        const dataexcel = XLSX.utils.sheet_to_json(workbook.Sheets[workbookSheets[0]],
+            {
+                header: ['nombre_hospital', 'nombre_lider', 'telefono', 'correo_administrador', 'cupo']
+            }
+
+        )
+
+        console.log(dataexcel);
+
+        const res = await axios.post(ipBuilder, dataexcel);
+        Swal.close();
+        this.props.actualizar()
+        this.setState({ modalOpen: false });
+        Swal.fire({
+            title: '¡Agregados!',
+            text: "Se han agregado los hospitales",
+            icon: 'success',
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK!'
+        })
+
+    }
 
     handleSubmit = async (e) => {
 
@@ -72,7 +119,8 @@ class AddHospital extends React.Component {
         nombre_hsp: '',
         nombre_lider: '',
         cupo: 0,
-        correo: ''
+        correo: '',
+        selectedFile: null
 
     }
 
@@ -144,14 +192,17 @@ class AddHospital extends React.Component {
 
                             <hr />
 
-                            <form action="" className="form-control text-center">
+                            <form className="form-control text-center" onSubmit={e => this.handleExcel(e)}>
 
                                 <h1 className="display-6 pb-3">Subir archivo excel con los Hospitales</h1>
+
+                                <p>Si no conoces con qué formato subir los datos da <Link to="/files/Formato_Hospitales.xlsx" target="_blank" download>click aquí</Link></p>
+
                                 <div className='input-group mb-3'>
                                     <label className='input-group-text' htmlFor='archExcel'>Archivo Excel</label>
-                                    <input type='file' className='form-control' id='archExcel' name='archExcel' />
+                                    <input type='file' className='form-control' id='archExcel' name='archExcel' onChange={e => this.setState({ selectedFile: e.target.files[0] })} />
                                 </div>
-                                <button className="btn btn-success">Subir</button>
+                                <button className="btn btn-success" type='submit'>Subir</button>
 
                             </form>
 

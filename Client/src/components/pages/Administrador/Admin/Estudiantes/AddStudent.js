@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {Link} from 'react-router-dom'
 
 import { Accordion } from 'react-bootstrap'
 import GenerarAcordion from './EstudianteRotaciones/AgregarRotacionesADD'
@@ -67,7 +68,31 @@ class AddStudent extends React.Component {
         console.log(this.state.rotaciones)
     }
 
-    leerExcel = async () => {
+    leerExcel = async (e) => {
+
+        e.preventDefault()
+
+        if(this.state.hospitales.length === 0){
+
+            Swal.fire({
+                title: 'No hay hospitales agregados',
+                text: 'Agregue al menos un hospital',
+                icon: 'error'
+
+            })
+            return;
+
+        }
+
+        Swal.fire({
+            title: 'Subiendo Estudiantes...',
+            text: 'Por favor, espere...',
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading()
+            }
+        });
 
         const ipBuilder2 = ip + '/api/admin/excEstudiante';
 
@@ -75,7 +100,7 @@ class AddStudent extends React.Component {
         const data = await file.arrayBuffer();
         const workbook = XLSX.readFile(data);
         const workbookSheets = workbook.SheetNames;
-        const sheet = workbookSheets[0];
+
         const dataExcel1 = XLSX.utils.sheet_to_json(workbook.Sheets[workbookSheets[0]],
             {
                 header: ["semestre", "documento", "nombres", "promedio",
@@ -83,24 +108,111 @@ class AddStudent extends React.Component {
             });
         console.log("///////////////////");
         console.log(dataExcel1);
-        await axios.post(ipBuilder2, dataExcel1);
-        this.props.actualizar();
-        Swal.fire({
-            title: 'Agregados!',
-            text: "Has agregado estudiantes por excel!",
-            icon: 'success',
-            showCancelButton: false,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'OK!'
-        }).then((result) => {
-            if (result.isConfirmed) {
 
-                this.setState({ rotaciones: [] });
-                this.setState({ modalOpen: false });
-                
+        const res = await axios.post(ipBuilder2, dataExcel1);
+        Swal.close();
+        this.setState({ modalOpen: false });
+
+        this.props.actualizar();
+        console.log(res)
+        console.log(res.data.txrepetidos)
+
+        if (res.data.txrepetidos !== null || res.data.errores !== null) {
+
+            if(res.data.txrepetidos !== '' && res.data.errores !== ''){
+
+                Swal.fire({
+                    title: '¡Agregados!',
+                    text: "Se han agregado algunos estudiantes excepto: " + res.data.txrepetidos,
+                    icon: 'warning',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'OK!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+    
+                        this.setState({ rotaciones: [] });
+                        this.setState({ modalOpen: false });
+                        Swal.fire({
+                            title: '¡Agregados!',
+                            text: "Se han agregado algunos estudiantes excepto: " + res.data.errores + ' (faltaba información)',
+                            icon: 'error',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'OK!'
+                        })
+    
+                    }
+                })
+
             }
-        })
+
+            else if(res.data.txrepetidos !== '' ){
+
+                Swal.fire({
+                    title: '¡Agregados!',
+                    text: "Se han agregado algunos estudiantes excepto: " + res.data.txrepetidos,
+                    icon: 'warning',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'OK!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+    
+                        this.setState({ rotaciones: [] });
+                        this.setState({ modalOpen: false });
+                        
+    
+                    }
+                })
+
+            }
+
+            else if(res.data.errores !== '') {
+
+                Swal.fire({
+                    title: '¡Agregados!',
+                    text: "Se han agregado algunos estudiantes excepto: " + res.data.errores + ' (faltaba información)',
+                    icon: 'error',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'OK!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+    
+                        this.setState({ rotaciones: [] });
+                        this.setState({ modalOpen: false });
+    
+                    }
+                })
+
+            }
+
+        } else {
+            Swal.fire({
+                title: '¡Agregados!',
+                text: "Has agregado estudiantes por excel!",
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'OK!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    this.setState({ rotaciones: [] });
+                    this.setState({ modalOpen: false });
+
+                }
+            })
+        }
+
+
+
 
     }
 
@@ -294,13 +406,14 @@ class AddStudent extends React.Component {
                             </form>
 
                             <hr />
-                            <form className="form-control text-center">
+                            <form className="form-control text-center" onSubmit={(e) => this.leerExcel(e)}>
                                 <h1 className="display-6 pb-3">Subir archivo excel con los estudiantes (SALA)</h1>
+                                <p>Si no conoces con qué formato subir los datos da <Link to="/files/Formato_Estudiantes.xlsx" target="_blank" download>click aquí</Link></p>
                                 <div className='input-group mb-3'>
                                     <label className='input-group-text' htmlFor='archivo_foto'>Archivo Excel</label>
                                     <input type='file' className='form-control' id='archivo_foto' name='archivo_foto' onChange={(e) => this.setState({ selectedFile: e.target.files[0] })} />
                                 </div>
-                                <button className="btn btn-success" type='button' onClick={(e) => this.leerExcel()}>Subir</button>
+                                <button className="btn btn-success" >Subir</button>
                             </form>
 
                         </ModalBody>

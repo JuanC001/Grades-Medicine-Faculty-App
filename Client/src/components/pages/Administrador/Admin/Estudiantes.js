@@ -6,6 +6,8 @@ import NavBar from '../Partials/AdminNavigation';
 import AddStudent from './Estudiantes/AddStudent';
 import ListaEstudiantes from './Estudiantes/ListaEstudiantes'
 
+import { Spinner } from 'react-bootstrap';
+
 import './CSS/Estudiantes.css'
 
 const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
@@ -16,14 +18,16 @@ export default class Estudiantes extends React.Component {
     estudiantes: [],
     hospitales: [],
     term: '',
+    loading: true,
     active_filter: "form-select bg-primary text-white w-75 mx-auto"
   }
 
   actualizarLista = async () => {
-
+    this.setState({loading: true});
     const ipBuilder = ip + '/api/admin/allStudents';
     const res = await axios.get(ipBuilder);
     this.setState({ estudiantes: res.data });
+    this.setState({loading: false});
 
   }
 
@@ -36,13 +40,15 @@ export default class Estudiantes extends React.Component {
     res = await axios.get(ipBuilder);
     this.setState({ hospitales: res.data });
 
+    this.setState({loading: false});
+
   }
 
   organizarFiltro = (e) => {
 
     this.setState({ hsp_select: e.target.value });
 
-    if (e.target.value != 'All') {
+    if (e.target.value !== 'All') {
 
       this.setState({ active_filter: "form-select bg-success text-white w-75 mx-auto" });
 
@@ -79,6 +85,32 @@ export default class Estudiantes extends React.Component {
 
     }
 
+    const Loading = () => {
+
+      if (this.state.loading) {
+
+        return <div className="loadingDiv0">
+          <div className="loadingDiv1">
+            <Spinner animation="border" variant="primary" className="loadingSpinner" />
+          </div>
+        </div>
+
+      }
+
+      return <div>
+        {
+
+          this.state.estudiantes.filter(searchTerm(this.state.term)).map(e =>
+
+            <ListaEstudiantes actualizar={this.actualizarLista} key={e._id} estudiante={e} hsp_select={this.state.hsp_select} />
+
+          )
+
+        }
+      </div>
+
+    }
+
     return (
       <div>
         <NavBar />
@@ -99,7 +131,7 @@ export default class Estudiantes extends React.Component {
 
                       <AddStudent actualizar={this.actualizarLista} />
                       <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-print" /></button>
-                      <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-pen-to-square" /></button>
+                      <button className="btn btn-primary" onClick={e => this.actualizarLista()}><FontAwesomeIcon icon="fa-solid fa-arrows-rotate" /></button>
 
                     </div>
 
@@ -141,17 +173,10 @@ export default class Estudiantes extends React.Component {
               </div>
 
             </div>
-            <div className="text-center mx-auto mt-2 container-fluid extrascroll">
+            <div className="text-center mx-auto my-auto mt-2 container-fluid extrascroll">
 
-              {
+              <Loading />
 
-                this.state.estudiantes.filter(searchTerm(this.state.term)).map(e =>
-
-                  <ListaEstudiantes actualizar={this.actualizarLista} key={e._id} estudiante={e} hsp_select={this.state.hsp_select} />
-
-                )
-
-              }
             </div>
 
           </div>
