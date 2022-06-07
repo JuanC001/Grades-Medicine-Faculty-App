@@ -31,12 +31,15 @@ export default class MostrarEstudiantes extends Component {
 
     }
 
+    this.setState({loaded: true})
+
   }
 
   state = {
 
     estudiante: {},
-    rotaciones: []
+    rotaciones: [],
+    loaded: false
 
   }
 
@@ -45,74 +48,85 @@ export default class MostrarEstudiantes extends Component {
     const { est } = this.props;
     const estudiante = this.state.estudiante;
     const rotaciones = this.state.rotaciones;
+    if (this.state.loaded) {
+      return (
+        <Accordion.Item eventKey={est}>
 
-    return (
-      <Accordion.Item eventKey={est}>
+          <Accordion.Header>
 
-        <Accordion.Header>
+            {estudiante.nombres}
 
-          {estudiante.nombres}
+          </Accordion.Header>
 
-        </Accordion.Header>
+          <Accordion.Body>
+            <div className="row">
 
-        <Accordion.Body>
-          <div className="row">
+              <div className="col">
 
-            <div className="col">
+                <label htmlFor="nombreL" className="col-sm-2 col-form-label text-start">Nombres:</label>
+                <label htmlFor="" className="col-sm-5 col-form-label text-start"><u>{estudiante.nombres}</u></label>
 
-              <label htmlFor="nombreL" className="col-sm-2 col-form-label text-start">Nombres:</label>
-              <label htmlFor="" className="col-sm-5 col-form-label text-start"><u>{estudiante.nombres}</u></label>
-
-            </div>
-
-            <div className="col">
-
-              <label htmlFor="nombreL" className="col-sm-2 col-form-label text-start">CC:</label>
-              <label htmlFor="" className="col-sm-5 col-form-label text-start"><u>{estudiante.documento}</u></label>
-
-            </div>
-
-          </div>
-
-          {
-
-            rotaciones.map(e =>
-
-              <div key={e.id}>
-              <hr />
-                <div className="row">
-
-                  <div className="col">
-
-                    <label htmlFor="nombreL" className="col-sm-2 col-form-label text-start">Area:</label>
-                    <label htmlFor="" className="col-sm-5 col-form-label text-start"><u>{e.area}</u></label>
-
-                  </div>
-
-                  <div className="col">
-
-                    <label htmlFor="nombreL" className="col-sm-4 col-form-label text-start">Fecha Inicio:</label>
-                    <label htmlFor="" className="col-sm-5 col-form-label text-start"><u>{e.fechaInicial}</u></label>
-
-                  </div>
-
-                  <div className="col">
-
-                    <label htmlFor="nombreL" className="col-sm-3 col-form-label text-start">Fecha Final:</label>
-                    <label htmlFor="" className="col-sm-5 col-form-label text-start"><u>{e.fechaFinal}</u></label>
-
-                  </div>
-
-                </div>
               </div>
 
-            )
+              <div className="col">
 
-          }
+                <label htmlFor="nombreL" className="col-sm-2 col-form-label text-start">CC:</label>
+                <label htmlFor="" className="col-sm-5 col-form-label text-start"><u>{estudiante.documento}</u></label>
 
-        </Accordion.Body>
+              </div>
 
-      </Accordion.Item>
-    )
+            </div>
+
+            {
+
+              rotaciones.map(e =>
+
+                <div key={e.id}>
+                  <hr />
+                  <div className="row">
+
+                    <div className="col">
+
+                      <label htmlFor="nombreL" className="col-sm-2 col-form-label text-start">Area:</label>
+                      <label htmlFor="" className="col-sm-5 col-form-label text-start"><u>{e.area}</u></label>
+
+                    </div>
+
+                    <div className="col">
+
+                      <label htmlFor="nombreL" className="col-sm-4 col-form-label text-start">Fecha Inicio:</label>
+                      <label htmlFor="" className="col-sm-5 col-form-label text-start"><u>{e.fechaInicial}</u></label>
+
+                    </div>
+
+                    <div className="col">
+
+                      <label htmlFor="nombreL" className="col-sm-3 col-form-label text-start">Fecha Final:</label>
+                      <label htmlFor="" className="col-sm-5 col-form-label text-start"><u>{e.fechaFinal}</u></label>
+
+                    </div>
+
+                  </div>
+                </div>
+
+              )
+
+            }
+
+          </Accordion.Body>
+
+        </Accordion.Item>)
+
+    }else{
+
+      return (
+
+        <h6 className="display-6">Loading...</h6>
+
+      )
+
+    }
+    
+    
   }
 }

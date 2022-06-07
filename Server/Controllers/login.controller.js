@@ -10,54 +10,74 @@ ctrl.loginPage = (req, res) => {
 }
 
 ctrl.login = async (req, res) => {
-// Verificar inicio de sesion!
+    // Verificar inicio de sesion!
 
-    const {user, password} = req.body;
-    console.log(user,password);
+    const { user, password } = req.body;
+    console.log(user, password);
 
-    const usuario = await User.findOne({user: user});
-    
+    const usuario = await User.findOne({ user: user });
 
-    if(usuario){
+
+    if (usuario) {
         console.log(usuario.password);
-        if (usuario.password == password){
+        if (usuario.password == password) {
 
             console.log("FUNCIONO XD");
             res.json(usuario);
-    
-        }else{
-    
+
+        } else {
+
             console.log("No funcionó, mancos todos :v");
             res.json(null);
-    
+
         }
-    }else{
+    } else {
         res.json(null);
     }
-    
+
 
 }
 
 ctrl.registrar = (req, res) => {
 
-    const {nombre, user, password, email, rol, hospital} = req.body;
-    
-    const newUser = new User({
+    try {
+        const { nombre, user, password, email, rol, hospital } = req.body;
 
-        nombre: nombre,
-        user: user,
-        password: password,
-        email: email,
-        rol: rol,
-        hospital: hospital
+        const newUser = new User({
 
-    })
+            nombre: nombre,
+            user: user,
+            password: password,
+            email: email,
+            rol: rol,
+            hospital: hospital
 
-    if(User.create(newUser)){
+        });
 
-        res.json({register: 'complete'})
+        if (User.create(newUser)) {
 
-    };
+            res.json({ register: 'complete' });
+
+        };
+    } catch (e) {
+
+        res.json({ register: 'no complete'});
+
+    }
+
+}
+
+ctrl.eliminarCuenta = async (req, res) => {
+
+    try {
+        const { user } = req.body;
+        await User.deleteOne({user: user});
+        res.json({ delete: 'complete' });
+    } catch (e) {
+
+        res.json({ delete: 'no complete' });
+
+    }
 
 }
 

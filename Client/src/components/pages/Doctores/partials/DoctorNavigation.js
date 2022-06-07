@@ -16,7 +16,7 @@ const DoctorNavigation = (props) => {
 
         <Navbar bg="light" expand="lg" fixed="top">
             <Container fluid>
-                <Navbar.Brand href="/admin/Estudiantes">
+                <Navbar.Brand href="/doctor/Estudiantes">
 
 
                     <img

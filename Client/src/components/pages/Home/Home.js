@@ -38,6 +38,7 @@ const Home = (props) => {
         email: usuario.data.email,
         nombre: usuario.data.nombre,
         hospital: usuario.data.hospital,
+        id: usuario.data._id
 
       }
 
