@@ -403,7 +403,7 @@ const RotacionesEstudiante = (props) => {
 
         );
 
-    } else if (rotacion.nota.toLowerCase() === 'No Definido'.toLowerCase()) {
+    } else if (rotacion.nota === 'No definido') {
 
         return (
             <div>
