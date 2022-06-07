@@ -5,12 +5,30 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NavBar from '../Partials/AdminNavigation';
 import AddStudent from './Estudiantes/AddStudent';
 import ListaEstudiantes from './Estudiantes/ListaEstudiantes'
+import Excel from "react-export-excel";
 
 import { Spinner } from 'react-bootstrap';
 
 import './CSS/Estudiantes.css'
 
 const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
+
+function ExcelDescarga(props) {
+
+  const ExcelFile = Excel.ExcelFile;
+  const ExcelHoja = Excel.ExcelFile;
+  const ExcelColumna = Excel.ExcelColumn;
+
+  return (
+    <ExcelFile element={<button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-print" /></button>} filename="Lista estudiantes">
+      <ExcelHoja data={props.estudiantes} name="Lista de estudiantes">
+        <ExcelColumna label="Documento" value="documento" />
+        <ExcelColumna label="Nombres y apellido" value="nombres" />
+        <ExcelColumna label="Rotación" value="rotacionActual" />
+      </ExcelHoja>
+    </ExcelFile>
+  )
+}
 
 export default class Estudiantes extends React.Component {
   state = {
@@ -23,13 +41,14 @@ export default class Estudiantes extends React.Component {
   }
 
   actualizarLista = async () => {
-    this.setState({loading: true});
+    this.setState({ loading: true });
     const ipBuilder = ip + '/api/admin/allStudents';
     const res = await axios.get(ipBuilder);
     this.setState({ estudiantes: res.data });
-    this.setState({loading: false});
+    this.setState({ loading: false });
 
   }
+
 
   async componentDidMount() {
 
@@ -40,7 +59,7 @@ export default class Estudiantes extends React.Component {
     res = await axios.get(ipBuilder);
     this.setState({ hospitales: res.data });
 
-    this.setState({loading: false});
+    this.setState({ loading: false });
 
   }
 
@@ -116,7 +135,7 @@ export default class Estudiantes extends React.Component {
         <NavBar />
         <div className="text-center m-3 lista">
 
-          <div className="bg-light mx-auto container-fluid rounded rounded-3 " style={{width: '98%'}}>
+          <div className="bg-light mx-auto container-fluid rounded rounded-3 " style={{ width: '98%' }}>
 
             <h5 className="display-5 ">Listado de Estudiantes</h5>
 
@@ -130,7 +149,7 @@ export default class Estudiantes extends React.Component {
                     <div className="btn-group mx-auto">
 
                       <AddStudent actualizar={this.actualizarLista} />
-                      <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-print" /></button>
+                      <ExcelDescarga estudiantes = {this.state.estudiantes}/>
                       <button className="btn btn-primary" onClick={e => this.actualizarLista()}><FontAwesomeIcon icon="fa-solid fa-arrows-rotate" /></button>
 
                     </div>
