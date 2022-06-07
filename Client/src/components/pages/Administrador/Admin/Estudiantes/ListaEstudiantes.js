@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './CSS/LE.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
@@ -12,7 +12,7 @@ const ip = 'http://'+ process.env.REACT_APP_URL_API+ ':5000';
 
 export default function ListaEstudiantes(props) {
 
-
+  const [estilo, setEstilo] = useState({backgroundColor: '#fffff'})
   const id_estudiante = props.estudiante._id;
 
   let coincideRotacion = false;
@@ -53,12 +53,9 @@ export default function ListaEstudiantes(props) {
           'success'
         );
 
-
       }
 
     });
-
-    // return navigate('/admin/Estudiantes');
 
   }
 
@@ -67,7 +64,7 @@ export default function ListaEstudiantes(props) {
     return (
       <div className="card mb-3 shadow-sm">
   
-        <div className="card-header">
+        <div className="card-header" style={estilo}>
           <div className="container">
             <div className="row">
               <div className="col">

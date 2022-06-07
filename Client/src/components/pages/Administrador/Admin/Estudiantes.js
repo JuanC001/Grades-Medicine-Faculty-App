@@ -116,7 +116,7 @@ export default class Estudiantes extends React.Component {
         <NavBar />
         <div className="text-center m-3 lista">
 
-          <div className="bg-light mx-auto container-fluid w-80 rounded rounded-3 " >
+          <div className="bg-light mx-auto container-fluid rounded rounded-3 " style={{width: '98%'}}>
 
             <h5 className="display-5 ">Listado de Estudiantes</h5>
 
