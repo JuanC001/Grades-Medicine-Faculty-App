@@ -37,7 +37,7 @@ const MostrarEstudiante = (props) => {
 
                         rotaciones.map((e) => (
                             <Accordion.Item eventKey={e.id} key={e.id}>
-                                <RotacionesEstudiante rotacion={e} estudiante={estudiante} setModal = {props.setModal} actualizarEstudiantes = {props.actualizarEstudiantes}/>
+                                <RotacionesEstudiante rotacion={e} estudiante={estudiante} setModal = {props.setModal} actualizarEstudiantes = {props.actualizarEstudiantes} setestudiante = {props.setestudiante}/>
                             </Accordion.Item>
                         ))
                     }

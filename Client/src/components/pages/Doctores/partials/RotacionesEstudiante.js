@@ -15,7 +15,9 @@ const RotacionesEstudiante = (props) => {
     const [editMode, setEditMode] = useState(false);
     const [rotacion, setRotacion] = useState({});
     const [notas, setNotas] = useState({});
+    const [isLoaded, setIsLoaded] = useState(false);
 
+    const [areaRotacion, setAreaRotacion] = useState('');
 
     const [cal1, setCal1] = useState(0);
     const [cal2, setCal2] = useState(0);
@@ -56,17 +58,62 @@ const RotacionesEstudiante = (props) => {
                 confirmButtonText: 'OK!'
             }).then((result) => {
 
-                if(result.isConfirmed){
+                if (result.isConfirmed) {
 
                     props.setModal(false);
                     props.actualizarEstudiantes();
-                    
+
                 }
 
             })
 
 
         }
+
+    }
+
+    const modificarArea = async (e) => {
+
+        Swal.fire({
+            title: '¿Seguro quieres asignar ' + areaRotacion + ' a ' + estudiante.nombres + '?',
+            text: 'Esta acción solo podra ser cambiada por el administrador',
+            icon: 'warning',
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: 'Sí',
+            denyButtonText: `No`,
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                cambiarArea();
+                Swal.fire('¡Cambios Realizados!', '', 'success')
+            }
+        })
+
+    }
+
+    const cambiarArea = async () => {
+        const ipBuilder = ip + '/api/doctor/asignarArea';
+        const rotacionNueva = {
+            area: areaRotacion,
+            fechaInicial: rotacion.fechaInicial,
+            fechaFinal: rotacion.fechaFinal,
+            id: rotacion.id,
+            id_hospital: rotacion.id_hospital,
+            nombre_hospital: rotacion.nombre_hospital,
+            nota: rotacion.nota
+        }
+        const res = await axios.post(ipBuilder, {
+
+            id: estudiante._id,
+            id_r: rotacion.id,
+            area: rotacionNueva.area,
+
+        });
+        setRotacion(rotacionNueva);
+        
+        props.actualizarEstudiantes();
+        props.setestudiante(res.data.estudiante)
 
     }
 
@@ -134,6 +181,7 @@ const RotacionesEstudiante = (props) => {
         setRotacion(rotacionPr);
         setNotas(rotacionPr.nota);
         console.log('Cargando rotaciones!')
+        setIsLoaded(true);
 
     }, [])
 
@@ -142,8 +190,51 @@ const RotacionesEstudiante = (props) => {
     }, [cal1, cal2, cal3, cal4])
 
 
+    if (!isLoaded) {
 
-    if (editMode) {
+        return (
+
+            <h6 className="">Cargando...</h6>
+
+        )
+
+    } else if (rotacion.area === 'No definido') {
+
+        return (
+            <div>
+                <Accordion.Header>
+                    <label className="text-danger">{rotacion.fechaInicial} - {rotacion.fechaFinal} <strong>¡NO HAY AREA!</strong></label>
+                </Accordion.Header>
+                <Accordion.Body>
+                    <div className="row">
+                        <div className="col">
+                            <h6 className=""><strong>¡Aun no se ha seleccionado un area!</strong></h6>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-sm-5">
+                            <select id="areselect" className="form-select" onChange={(e) => setAreaRotacion(e.target.value)}>
+
+                                <option value="vacio" defaultValue>Seleccione uno...</option>
+                                <option value="Cirugía General /qx gral" defaultValue>Cirugía General /qx gral</option>
+                                <option value="Pediatría/ped" defaultValue>Pediatría/ped</option>
+                                <option value="Medicina Interna" defaultValue>Medicina Interna</option>
+                                <option value="Ginecología y obstetricia G/O" defaultValue>Ginecología y obstetricia G/O</option>
+                                <option value="Urgencias" defaultValue>Urgencias</option>
+                                <option value="Electivas PCI-1" defaultValue>Electivas PCI-1</option>
+
+                            </select>
+                        </div>
+
+                        <div className="col-sm-1">
+                            <button className="btn btn-success" onClick={e => modificarArea(e)}>Guardar</button>
+                        </div>
+                    </div>
+                </Accordion.Body>
+            </div>
+        )
+
+    } else if (editMode) {
 
         return (
             <div>
@@ -312,7 +403,7 @@ const RotacionesEstudiante = (props) => {
 
         );
 
-    } else if (rotacion.nota === 'No Definido') {
+    } else if (rotacion.nota.toLowerCase() === 'No Definido'.toLowerCase()) {
 
         return (
             <div>

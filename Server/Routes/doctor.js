@@ -8,6 +8,7 @@ const Router = Express.Router();
 Router.post('/api/doctor/estudiantes', doctorControl.ObtenerEstudiantes);
 Router.post('/api/doctor/cambiarPass', doctorControl.CambiarPass);
 Router.post('/api/doctor/asignarNota', doctorControl.AsignarNota);
+Router.post('/api/doctor/asignarArea', doctorControl.AsignarArea);
 
 
 //get

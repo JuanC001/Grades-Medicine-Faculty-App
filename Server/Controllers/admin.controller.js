@@ -1,5 +1,7 @@
 import student from '../models/estudent.js';
 import hospital from '../models/hospital.js';
+import User from '../models/user.js';
+
 const admCtrl = {};
 
 admCtrl.ObtenerUnEstudiante = async (req, res) => {
@@ -225,7 +227,21 @@ admCtrl.allExcelHospitales = async (req, res) => {
             cupoDisponible: nuevo[i].cupo
 
         }
+
+        let user = {
+
+            nombre: nuevo[i].nombre_lider,
+            user: nuevo[i].correo_administrador,
+            password: nuevo[i].nombre_hospital + nuevo[i].cupo,
+            email: nuevo[i].correo_administrador,
+            rol: 'doctor',
+            hospital: nuevo[i].nombre_hospital
+
+        }
+
         await hospital.create(hospitalN);
+        await User.create(user)
+
 
     }
 
@@ -264,9 +280,10 @@ admCtrl.allExcelEstudiantes = async (req, res) => {
 
                 id: 0,
                 nombre_hospital: nombreHospital,
-                fechaInial: 'Diciembre',
+                fechaInicial: 'Diciembre',
                 fechaFinal: 'Enero',
                 nota: 'No definido',
+                area: 'No definido',
                 id_hospital: hspid
 
             }]
@@ -296,7 +313,7 @@ admCtrl.allExcelEstudiantes = async (req, res) => {
 
                         }
 
-                        if(!isIn) {
+                        if (!isIn) {
 
                             estudiantesAf.push(estudent0._id);
 

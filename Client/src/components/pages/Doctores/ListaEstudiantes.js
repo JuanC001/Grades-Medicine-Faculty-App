@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './CSS/LE.css';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
@@ -8,12 +7,40 @@ import MostrarEstudiante from './partials/MostrarEstudiante';
 
 export default function ListaEstudiantes(props) {
 
+    const [estudiante, setEstudiante] = useState(props.estudiante);
     const [verStudiante, setVerStudiante] = useState(false);
+    const [estilo, setEstilo] = useState({backgroundColor: ''})
+
+    useEffect(() => {
+
+        const rotaciones = estudiante.rotaciones;
+
+        console.log(rotaciones);
+
+        for (let i = 0; i < rotaciones.length; i++){
+
+            if(rotaciones[i].area === 'No definido'){
+
+                setEstilo({backgroundColor: '#ff5b45', color: 'white'});
+
+            }else if(rotaciones[i].nota === 'No definido'){
+
+                setEstilo({backgroundColor: '#e8c656', color: 'white'});
+
+            }else {
+
+                setEstilo({backgroundColor: '#079100', color: 'white'});
+
+            }
+
+        }
+
+    }, [estudiante])
 
     return (
         <div className="card mb-3 shadow-sm">
 
-            <div className="card-header">
+            <div className="card-header" style={estilo}>
                 <div className="container">
                     <div className="row">
 
@@ -26,7 +53,7 @@ export default function ListaEstudiantes(props) {
                 </div>
             </div>
 
-            <div className="card-body">
+            <div className="card-body ">
                 <div className="row">
                     <div className="col-sm-2 my-auto">
                         <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="hola" className="cardimg" />
@@ -78,7 +105,7 @@ export default function ListaEstudiantes(props) {
 
                     </div>
 
-                    <MostrarEstudiante modalOpen={verStudiante} setModal={setVerStudiante} actualizarEstudiantes = {props.actualizarEstudiantes} estudiante={props.estudiante} rotaciones={props.rotaciones}/>
+                    <MostrarEstudiante modalOpen={verStudiante} setModal={setVerStudiante} actualizarEstudiantes = {props.actualizarEstudiantes} estudiante={props.estudiante} rotaciones={props.rotaciones} setestudiante = {setEstudiante}/>
 
                 </div>
             </div>
