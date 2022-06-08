@@ -13,18 +13,62 @@ import './CSS/Estudiantes.css'
 
 const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
 
+
 function ExcelDescarga(props) {
 
   const ExcelFile = Excel.ExcelFile;
   const ExcelHoja = Excel.ExcelFile;
   const ExcelColumna = Excel.ExcelColumn;
+  var lista = props.estudiantes;
+  var i = 0;
+  var contador = 0
+  function Areas(nombre) {
+    if(contador === 6){
+      i ++;
+      contador = 0;
+    }
+    if (i === lista.length) {
+      i = 0;
+    }
+    for (let j = 0; j < lista[i].rotaciones.length; j++) {
+      if (lista[i].rotaciones[j].area === nombre) {
+        let medicina = lista[i].rotaciones[j].nota.c5;
+        contador++
+        return medicina
+      } else {
+        if (lista[i].rotaciones.length === j + 1) {
+          contador++
+          return 0;
+        }
+      }
+    }
+  }
 
   return (
     <ExcelFile element={<button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-print" /></button>} filename="Lista estudiantes">
-      <ExcelHoja data={props.estudiantes} name="Lista de estudiantes">
+      <ExcelHoja data={lista} name="Lista de estudiantes">
         <ExcelColumna label="Documento" value="documento" />
         <ExcelColumna label="Nombres y apellido" value="nombres" />
         <ExcelColumna label="Rotación" value="rotacionActual" />
+        <ExcelColumna label="Medicina Interna" value={(e) =>{
+          return Areas("Medicina Interna");
+        }} />
+        <ExcelColumna label="Cirugía General /qx gral" value={(e) => {
+          return Areas("Cirugía General /qx gral");
+        }} />
+        <ExcelColumna label="Pediatría/ped" value={(e) => {
+          return Areas("Pediatría/ped");
+        }} />
+        <ExcelColumna label="Ginecología y obstetricia G/O" value={(e) => {
+          return Areas("Ginecología y obstetricia G/O");
+        }} />
+        <ExcelColumna label="Urgencias" value={(e) => {
+          return Areas("Urgencias");
+        }} />
+        <ExcelColumna label="Electivas PCI-1" value={(e) => {
+          return Areas("Electivas PCI-1");
+        }} />
+
       </ExcelHoja>
     </ExcelFile>
   )
@@ -149,7 +193,7 @@ export default class Estudiantes extends React.Component {
                     <div className="btn-group mx-auto">
 
                       <AddStudent actualizar={this.actualizarLista} />
-                      <ExcelDescarga estudiantes = {this.state.estudiantes}/>
+                      <ExcelDescarga estudiantes={this.state.estudiantes} />
                       <button className="btn btn-primary" onClick={e => this.actualizarLista()}><FontAwesomeIcon icon="fa-solid fa-arrows-rotate" /></button>
 
                     </div>
