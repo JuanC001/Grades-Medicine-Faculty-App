@@ -5,12 +5,73 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NavBar from '../Partials/AdminNavigation';
 import AddStudent from './Estudiantes/AddStudent';
 import ListaEstudiantes from './Estudiantes/ListaEstudiantes'
+import Excel from "react-export-excel";
 
 import { Spinner } from 'react-bootstrap';
 
 import './CSS/Estudiantes.css'
 
 const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
+
+function ExcelDescarga(props) {
+
+  const ExcelFile = Excel.ExcelFile;
+  const ExcelHoja = Excel.ExcelFile;
+  const ExcelColumna = Excel.ExcelColumn;
+  var lista = props.estudiantes;
+  var i = 0;
+  var contador = 0
+  function Areas(nombre) {
+    if (contador === 6) {
+      i++;
+      contador = 0;
+    }
+    if (i === lista.length) {
+      i = 0;
+    }
+    for (let j = 0; j < lista[i].rotaciones.length; j++) {
+      if (lista[i].rotaciones[j].area === nombre) {
+        let medicina = lista[i].rotaciones[j].nota.c5;
+        contador++
+        return medicina
+      } else {
+        if (lista[i].rotaciones.length === j + 1) {
+          contador++
+          return 0;
+        }
+      }
+    }
+  }
+
+  return (
+    <ExcelFile element={<button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-print" /></button>} filename="Lista estudiantes">
+      <ExcelHoja data={lista} name="Lista de estudiantes">
+        <ExcelColumna label="Documento" value="documento" />
+        <ExcelColumna label="Nombres y apellido" value="nombres" />
+        <ExcelColumna label="Rotación" value="rotacionActual" />
+        <ExcelColumna label="Medicina Interna" value={(e) => {
+          return Areas("Medicina Interna");
+        }} />
+        <ExcelColumna label="Cirugía General /qx gral" value={(e) => {
+          return Areas("Cirugía General /qx gral");
+        }} />
+        <ExcelColumna label="Pediatría/ped" value={(e) => {
+          return Areas("Pediatría/ped");
+        }} />
+        <ExcelColumna label="Ginecología y obstetricia G/O" value={(e) => {
+          return Areas("Ginecología y obstetricia G/O");
+        }} />
+        <ExcelColumna label="Urgencias" value={(e) => {
+          return Areas("Urgencias");
+        }} />
+        <ExcelColumna label="Electivas PCI-1" value={(e) => {
+          return Areas("Electivas PCI-1");
+        }} />
+
+      </ExcelHoja>
+    </ExcelFile>
+  )
+}
 
 export default class Estudiantes extends React.Component {
   state = {
@@ -23,11 +84,11 @@ export default class Estudiantes extends React.Component {
   }
 
   actualizarLista = async () => {
-    this.setState({loading: true});
+    this.setState({ loading: true });
     const ipBuilder = ip + '/api/admin/allStudents';
     const res = await axios.get(ipBuilder);
     this.setState({ estudiantes: res.data });
-    this.setState({loading: false});
+    this.setState({ loading: false });
 
   }
 
@@ -40,7 +101,7 @@ export default class Estudiantes extends React.Component {
     res = await axios.get(ipBuilder);
     this.setState({ hospitales: res.data });
 
-    this.setState({loading: false});
+    this.setState({ loading: false });
 
   }
 
@@ -116,7 +177,7 @@ export default class Estudiantes extends React.Component {
         <NavBar />
         <div className="text-center m-3 lista">
 
-          <div className="bg-light mx-auto container-fluid rounded rounded-3 " style={{width: '98%'}}>
+          <div className="bg-light mx-auto container-fluid rounded rounded-3 " style={{ width: '98%' }}>
 
             <h5 className="display-5 ">Listado de Estudiantes</h5>
 
@@ -130,7 +191,7 @@ export default class Estudiantes extends React.Component {
                     <div className="btn-group mx-auto">
 
                       <AddStudent actualizar={this.actualizarLista} />
-                      <button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-print" /></button>
+                      <ExcelDescarga estudiantes={this.state.estudiantes} />
                       <button className="btn btn-primary" onClick={e => this.actualizarLista()}><FontAwesomeIcon icon="fa-solid fa-arrows-rotate" /></button>
 
                     </div>

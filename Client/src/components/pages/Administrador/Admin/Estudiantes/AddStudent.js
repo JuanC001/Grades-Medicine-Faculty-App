@@ -32,7 +32,7 @@ class AddStudent extends React.Component {
             fechaInicial: '',
             fechaFinal: '',
             id_hospital: '',
-            nota: 'No Definido'
+            nota: 'no definido'
         }
 
         this.setState({ rotaciones: this.state.rotaciones.concat(nuevaRotacion) })

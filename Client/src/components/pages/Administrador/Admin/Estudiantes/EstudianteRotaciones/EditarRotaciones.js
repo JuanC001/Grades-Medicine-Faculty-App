@@ -13,7 +13,7 @@ class Editarrotaciones extends Component {
             fechaFinal: this.state.fechaFinal,
             area: this.state.area,
             id_hospital: this.state.id_hospital,
-            nota: 'No Definido'
+            nota: 'no definido'
         }
 
         this.props.actualizarRotacion(user);

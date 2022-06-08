@@ -12,7 +12,7 @@ export default class MostrarRotaciones extends Component {
 
             const nota = props.nota
 
-            if (nota === 'No definido') {
+            if (nota === 'no definido') {
 
                 return (<div>Aun no se han enviado notas</div>)
 
