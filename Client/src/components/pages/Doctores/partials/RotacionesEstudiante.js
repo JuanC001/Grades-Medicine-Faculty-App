@@ -198,7 +198,7 @@ const RotacionesEstudiante = (props) => {
 
         )
 
-    } else if (rotacion.area === 'No definido') {
+    } else if (rotacion.area === 'no definido') {
 
         return (
             <div>
@@ -403,7 +403,7 @@ const RotacionesEstudiante = (props) => {
 
         );
 
-    } else if (rotacion.nota === 'No definido') {
+    } else if (rotacion.nota === 'no definido') {
 
         return (
             <div>

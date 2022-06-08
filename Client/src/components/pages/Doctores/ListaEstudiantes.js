@@ -19,11 +19,11 @@ export default function ListaEstudiantes(props) {
 
         for (let i = 0; i < rotaciones.length; i++){
 
-            if(rotaciones[i].area === 'No definido'){
+            if(rotaciones[i].area === 'no definido'){
 
                 setEstilo({backgroundColor: '#ff5b45', color: 'white'});
 
-            }else if(rotaciones[i].nota === 'No definido'){
+            }else if(rotaciones[i].nota === 'no definido'){
 
                 setEstilo({backgroundColor: '#e8c656', color: 'white'});
 
