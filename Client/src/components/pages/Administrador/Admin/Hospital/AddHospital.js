@@ -41,6 +41,7 @@ class AddHospital extends React.Component {
 
         const res = await axios.post(ipBuilder, dataexcel);
         Swal.close();
+        console.log(res.data);
         this.props.actualizar()
         this.setState({ modalOpen: false });
         Swal.fire({

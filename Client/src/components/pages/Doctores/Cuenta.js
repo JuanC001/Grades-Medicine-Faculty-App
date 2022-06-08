@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import DoctorNavigation from './partials/DoctorNavigation'
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { Modal, ModalHeader, ModalBody} from 'reactstrap'
 
 import axios from 'axios'
 import Swal from 'sweetalert2';

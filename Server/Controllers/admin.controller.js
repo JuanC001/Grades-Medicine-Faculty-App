@@ -1,3 +1,6 @@
+import path from 'path';
+import fs from 'fs';
+
 import student from '../models/estudent.js';
 import hospital from '../models/hospital.js';
 import User from '../models/user.js';
@@ -218,29 +221,46 @@ admCtrl.allExcelHospitales = async (req, res) => {
 
     for (let i = 0; i < nuevo.length; i++) {
 
-        let hospitalN = {
+        let repetido = false;
 
-            nombre_hospital: nuevo[i].nombre_hospital,
-            nombre_lider: nuevo[i].nombre_lider,
-            correo_administrador: nuevo[i].correo_administrador,
-            cupo: nuevo[i].cupo,
-            cupoDisponible: nuevo[i].cupo
+        if(await hospital.findOne({nombre_hospital: nuevo[i].nombre_hospital}) !== null){
 
-        }
-
-        let user = {
-
-            nombre: nuevo[i].nombre_lider,
-            user: nuevo[i].correo_administrador,
-            password: nuevo[i].nombre_hospital + nuevo[i].cupo,
-            email: nuevo[i].correo_administrador,
-            rol: 'doctor',
-            hospital: nuevo[i].nombre_hospital
+            console.log("repetido!")
+            repetido = true;
 
         }
 
-        await hospital.create(hospitalN);
-        await User.create(user)
+        if(!repetido){
+            let hospitalN = {
+
+                nombre_hospital: nuevo[i].nombre_hospital,
+                nombre_lider: nuevo[i].nombre_lider,
+                correo_administrador: nuevo[i].correo_administrador,
+                cupo: nuevo[i].cupo,
+                cupoDisponible: nuevo[i].cupo
+    
+            }
+    
+            let user = {
+    
+                nombre: nuevo[i].nombre_lider,
+                user: nuevo[i].correo_administrador,
+                password: nuevo[i].nombre_hospital + nuevo[i].cupo,
+                email: nuevo[i].correo_administrador,
+                rol: 'doctor',
+                hospital: nuevo[i].nombre_hospital
+    
+            }
+    
+            await hospital.create(hospitalN);
+    
+            if(await User.findOne({hospital: nuevo[i].nombre_hospital}) === null){
+    
+                await User.create(user)
+    
+            }
+        }
+        
 
 
     }
@@ -269,7 +289,7 @@ admCtrl.allExcelEstudiantes = async (req, res) => {
         } else {
 
             let hospitalres = await hospital.findOne({ nombre_hospital: nuevo[i].rotacionActual });
-            let hspid = 'No definido'
+            let hspid = 'no definido'
             if (hospitalres !== null) {
                 hspid = hospitalres._id
             }
@@ -282,8 +302,8 @@ admCtrl.allExcelEstudiantes = async (req, res) => {
                 nombre_hospital: nombreHospital,
                 fechaInicial: 'Diciembre',
                 fechaFinal: 'Enero',
-                nota: 'No definido',
-                area: 'No definido',
+                nota: 'no definido',
+                area: 'no definido',
                 id_hospital: hspid
 
             }]
@@ -349,6 +369,14 @@ admCtrl.allExcelEstudiantes = async (req, res) => {
     } else {
         res.json({ txrepetidos: null, errores: null });
     }
+
+}
+
+admCtrl.OtenerFirma = (req,res) => {
+
+    const {url} = req.body;
+
+    res.sendFile(url)
 
 }
 

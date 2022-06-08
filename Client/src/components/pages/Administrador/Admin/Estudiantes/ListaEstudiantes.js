@@ -20,6 +20,7 @@ export default function ListaEstudiantes(props) {
 
     if(props.estudiante.rotaciones[i].nombre_hospital === props.hsp_select){
       coincideRotacion = true;
+      setEstilo({backgroundColor: '#fffff'})
     }
 
   }

@@ -1,6 +1,7 @@
 import student from '../models/estudent.js';
 import hospital from '../models/hospital.js';
 import user from '../models/user.js';
+import fs from 'fs'
 
 const docCtrl = {};
 
@@ -85,9 +86,16 @@ docCtrl.AsignarArea = async (req, res) => {
 
 docCtrl.AsignarNota = async (req, res) => {
 
-    const { c1, c2, c3, c4, c5, srvs, cmt, id, id_r } = req.body;
+    const { c1, c2, c3, c4, c5, srvs, cmt, fr_url, id, id_r } = req.body;
 
     const re = await student.findById(id);
+
+    if(re === null){
+
+        res.json({terminado: false})
+        return;
+
+    }
 
     const rotaciones = re.rotaciones;
 
@@ -103,7 +111,8 @@ docCtrl.AsignarNota = async (req, res) => {
                 c4: c4,
                 c5: c5,
                 srvs: srvs,
-                cmt: cmt
+                cmt: cmt,
+                url: fr_url
 
             }
 
@@ -116,6 +125,16 @@ docCtrl.AsignarNota = async (req, res) => {
     res.json({ terminado: true })
     console.log(ff)
 
+
+}
+
+docCtrl.RecibirFirma = (req, res) => {
+
+    const {name} = req.body;
+    const url = 'uploads/' + name + '.' + req.file.mimetype.split('/')[1];
+    fs.renameSync(req.file.path, url)
+    console.log('URL: ' + url)
+    res.json({url: url})
 
 }
 

@@ -5,6 +5,14 @@ class Editarrotaciones extends Component {
 
     enviarRotacion = () => {
 
+        console.log('EASDASF')
+
+        if(this.state.area === '' || this.state.area === null || this.state.area === 'vacio'){
+
+            this.setState({area: 'no definido'});
+
+        }
+
         const user = {
 
             id: this.props.rotacion.id,
@@ -13,7 +21,7 @@ class Editarrotaciones extends Component {
             fechaFinal: this.state.fechaFinal,
             area: this.state.area,
             id_hospital: this.state.id_hospital,
-            nota: 'No Definido'
+            nota: 'no definido'
         }
 
         this.props.actualizarRotacion(user);

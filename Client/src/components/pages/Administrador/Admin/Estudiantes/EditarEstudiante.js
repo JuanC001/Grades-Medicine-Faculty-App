@@ -22,7 +22,7 @@ class EditarEstudiante extends React.Component {
             fechaInicial: '',
             fechaFinal: '',
             id_hospital: '',
-            nota: 'No Definido'
+            nota: 'no definido',
         }
 
         this.setState({ rotaciones: this.state.rotaciones.concat(nuevaRotacion) })
@@ -61,7 +61,7 @@ class EditarEstudiante extends React.Component {
     modificarEstudiante = async (e) => {
 
         e.preventDefault();
-
+        console.log('MODIFICANDO!');
         let ipBuilder = ip + '/api/admin/modEst'
         const res = await axios.post(ipBuilder,
             {
@@ -73,7 +73,7 @@ class EditarEstudiante extends React.Component {
                 rotaciones: this.state.rotaciones,
 
             })
-
+        console.log(res.data);
         const id_estudiante = this.props.id
         const rotaciones = this.state.rotaciones;
         for (let i = 0; i < rotaciones.length; i++) {
