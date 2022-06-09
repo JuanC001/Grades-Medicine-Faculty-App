@@ -5,6 +5,14 @@ class Editarrotaciones extends Component {
 
     enviarRotacion = () => {
 
+        console.log('EASDASF')
+
+        if(this.state.area === '' || this.state.area === null || this.state.area === 'vacio'){
+
+            this.setState({area: 'no definido'});
+
+        }
+
         const user = {
 
             id: this.props.rotacion.id,

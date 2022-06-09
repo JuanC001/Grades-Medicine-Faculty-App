@@ -14,7 +14,8 @@ const { RegisEstudiante,
         ObtenerUnHospital,
         agregarEstudianteAHospital,
         allExcelEstudiantes,
-        allExcelHospitales } = adminControl;
+        allExcelHospitales,
+        OtenerFirma } = adminControl;
 
 Router.post('/api/admin/excEstudiante', allExcelEstudiantes);
 Router.post('/api/admin/excHospital', allExcelHospitales);
@@ -29,8 +30,10 @@ Router.post('/api/admin/unHospital', ObtenerUnHospital);
 Router.post('/api/admin/modEst', ModifEstudiante);
 Router.post('/api/admin/modHsp', ModifHospital);
 
+
+Router.post('/api/admin/notFirma', OtenerFirma);
+
 Router.get('/api/admin/allStudents', ObtenerEstudiantes);
 Router.get('/api/admin/allHospital', ObtenerHospitales);
-
 
 export default Router;

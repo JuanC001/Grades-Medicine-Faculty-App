@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { Accordion } from 'react-bootstrap'
 
 import RotacionesEstudiante from './RotacionesEstudiante'
 
-import axios from 'axios';
-const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
+//import axios from 'axios';
+//const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
 
 
 

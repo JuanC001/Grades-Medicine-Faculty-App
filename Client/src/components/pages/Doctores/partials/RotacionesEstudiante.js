@@ -16,6 +16,7 @@ const RotacionesEstudiante = (props) => {
     const [rotacion, setRotacion] = useState({});
     const [notas, setNotas] = useState({});
     const [isLoaded, setIsLoaded] = useState(false);
+    const [file, setFile] = useState();
 
     const [areaRotacion, setAreaRotacion] = useState('');
 
@@ -30,11 +31,16 @@ const RotacionesEstudiante = (props) => {
 
     const enviarNotas = async () => {
 
-        console.log('Un mensaje de entrada')
-        const ipBuilder = ip + '/api/doctor/asignarNota';
         if (srvs !== '' && cmt !== '') {
 
-            const res = await axios.post(ipBuilder, {
+            let fileLc = file;
+            let formData = new FormData();
+            formData.append('image', fileLc);
+            formData.append('name', rotacion.nombre_hospital);
+            const ipBuilder2 = ip + '/api/doctor/recibirFirma';
+            let res2 = await axios.post(ipBuilder2, formData)
+
+            const notaEnvio = {
 
                 id: estudiante._id,
                 id_r: rotacion.id,
@@ -44,10 +50,14 @@ const RotacionesEstudiante = (props) => {
                 c4: cal4,
                 c5: cal5,
                 srvs: srvs,
-                cmt: cmt
+                cmt: cmt,
+                fr_url: res2.data.url
 
-            });
+            }
+            const ipBuilder = ip + '/api/doctor/asignarNota';
+            let res = await axios.post(ipBuilder, notaEnvio);
 
+            props.actualizarEstudiantes();
             Swal.fire({
                 title: '¡Completado!',
                 text: 'Se ha enviado las notas',
@@ -61,7 +71,7 @@ const RotacionesEstudiante = (props) => {
                 if (result.isConfirmed) {
 
                     props.setModal(false);
-                    props.actualizarEstudiantes();
+
 
                 }
 
@@ -111,7 +121,7 @@ const RotacionesEstudiante = (props) => {
 
         });
         setRotacion(rotacionNueva);
-        
+
         props.actualizarEstudiantes();
         props.setestudiante(res.data.estudiante)
 
@@ -182,11 +192,12 @@ const RotacionesEstudiante = (props) => {
         setNotas(rotacionPr.nota);
         console.log('Cargando rotaciones!')
         setIsLoaded(true);
-
-    }, [])
+        // eslint-disable-next-line
+    }, [rotacionPr])
 
     useEffect(() => {
         sumarNotas();
+        // eslint-disable-next-line
     }, [cal1, cal2, cal3, cal4])
 
 
@@ -379,7 +390,11 @@ const RotacionesEstudiante = (props) => {
                         <label htmlFor="srv" className="col-sm-3 col-form-label text-end">Firma:</label>
                         <div className="col-sm-7 text-start my-auto">
 
-                            <input type="file" className="form-control" id="srv" />
+                            <input type="file" accept='.png, .jpg' name='firma' className="form-control" id="srv" onChange={(e) =>
+
+                                setFile(e.target.files[0])
+
+                            } />
 
                         </div>
                     </div>

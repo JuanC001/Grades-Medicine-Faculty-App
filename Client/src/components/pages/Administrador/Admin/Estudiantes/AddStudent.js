@@ -24,7 +24,6 @@ class AddStudent extends React.Component {
 
     generarAcordion = () => {
 
-        console.log('----------generarAcordion')
         const id_l = this.state.rotaciones.length + 1
         const nuevaRotacion = {
             id: id_l,
@@ -36,7 +35,6 @@ class AddStudent extends React.Component {
         }
 
         this.setState({ rotaciones: this.state.rotaciones.concat(nuevaRotacion) })
-        console.log('----------generarAcordion')
 
 
     }
@@ -106,8 +104,6 @@ class AddStudent extends React.Component {
                 header: ["semestre", "documento", "nombres", "promedio",
                     "correo", "telefono", "rotacionActual"]
             });
-        console.log("///////////////////");
-        console.log(dataExcel1);
 
         const res = await axios.post(ipBuilder2, dataExcel1);
         Swal.close();

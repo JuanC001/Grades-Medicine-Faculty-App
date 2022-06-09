@@ -15,8 +15,6 @@ export default function ListaEstudiantes(props) {
 
         const rotaciones = estudiante.rotaciones;
 
-        console.log(rotaciones);
-
         for (let i = 0; i < rotaciones.length; i++){
 
             if(rotaciones[i].area === 'no definido'){
