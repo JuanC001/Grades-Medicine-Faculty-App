@@ -282,8 +282,8 @@ admCtrl.allExcelEstudiantes = async (req, res) => {
                 nombre_hospital: nombreHospital,
                 fechaInicial: 'Diciembre',
                 fechaFinal: 'Enero',
-                nota: 'No definido',
-                area: 'No definido',
+                nota: 'no definido',
+                area: 'no definido',
                 id_hospital: hspid
 
             }]

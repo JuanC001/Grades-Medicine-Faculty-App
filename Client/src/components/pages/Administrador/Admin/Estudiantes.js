@@ -48,7 +48,6 @@ function ExcelDescarga(props) {
       <ExcelHoja data={lista} name="Lista de estudiantes">
         <ExcelColumna label="Documento" value="documento" />
         <ExcelColumna label="Nombres y apellido" value="nombres" />
-        <ExcelColumna label="Rotación" value="rotacionActual" />
         <ExcelColumna label="Medicina Interna" value={(e) => {
           return Areas("Medicina Interna");
         }} />
