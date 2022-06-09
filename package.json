@@ -5,9 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon Server",
+    "dev": "nodemon server",
     "build": "npm run build --prefix Client",
-    "start": "node Server"
+    "start": "node server"
   },
   "engines": {
     "node": "16.14.2"
