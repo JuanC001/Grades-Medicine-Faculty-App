@@ -29,7 +29,6 @@ Router.post('/api/admin/unHospital', ObtenerUnHospital);
 Router.post('/api/admin/modEst', ModifEstudiante);
 Router.post('/api/admin/modHsp', ModifHospital);
 
-
 Router.get('/api/admin/allStudents', ObtenerEstudiantes);
 Router.get('/api/admin/allHospital', ObtenerHospitales);
 

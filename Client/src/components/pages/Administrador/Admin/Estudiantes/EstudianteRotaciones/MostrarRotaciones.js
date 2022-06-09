@@ -1,11 +1,71 @@
 import React, { Component } from 'react'
 import { Accordion } from 'react-bootstrap'
+import jsPDF from 'jspdf'
 
+import axios from 'axios';
+const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
 
 
 export default class MostrarRotaciones extends Component {
 
+    
+
+    pdfGenerate = (rotacionPropia) => {
+
+        const estudiante = this.props.estudiante;
+        const rt = rotacionPropia.e;
+        var nombre_hospital = '' + rt.nombre_hospital
+        console.log(rt.nombre_hospital)
+
+        var doc = new jsPDF('landscape', 'px', 'a4', 'false');
+
+        doc.setFont('Helvetica', 'bold')
+        doc.text(236, 60, "Universidad el Bosque")
+        doc.text(213, 80, 'Escuela Colombiana de medicina')
+        doc.text(210, 100, 'Guia de Evaluación de internos')
+        doc.text(210, 120, 'PRACTICA CLÍNICA INTEGRADA')
+        doc.setFont("Arial", "normal")
+        doc.text(60, 150, "NOMBRES Y APELLIDOS:")
+        doc.text(205, 150, estudiante.nombres)
+        doc.text(60, 170, "ROTACIÓN:")
+        doc.text(130, 170, "De " + rt.fechaInicial + " a " + rt.fechaFinal)
+        doc.text(60, 190, "HOSPITAL:")
+        doc.text(130, 190, rt.nombre_hospital)
+        doc.text(60, 210, "SEMESTRE:")
+        doc.text(130, 210, '' + estudiante.semestre)
+        doc.text(60, 250, "HISTORIA CLÍNICA:")
+        doc.text(180, 250, rt.nota.c1);
+        doc.text(60, 270, "RESPONSABILIDAD:")
+        doc.text(180, 270, rt.nota.c2)
+        doc.text(60, 290, "PRÁCTICA:")
+        doc.text(130, 290, rt.nota.c3)
+        doc.text(60, 310, "CONOCIMIENTOS Y ACTUALIZACIONES CIENTIFICAS:")
+        doc.text(370, 310, rt.nota.c4)
+        doc.text(60, 330, "CALIFICACIÓN")
+        doc.text(150, 330, "" + rt.nota.c5)
+        doc.text(60, 350, "OBSERVACIONES")
+        doc.text(60, 370, rt.nota.cmt)
+        doc.text(60, 390, "FIRMA")
+
+        doc.save('documento.pdf')
+
+    }
+
+    firmaGeneral = async (firma) => {
+
+        const ipBuilder = ip + '/api/admin/obtenerFirma';
+        const res = await axios.post(ip, )
+
+        return (
+
+            <img src={res.data}/>
+
+        )
+
+    }
+
     render() {
+
         const rotaciones = this.props.rotaciones;
 
         const Nota = (props) => {
@@ -17,6 +77,20 @@ export default class MostrarRotaciones extends Component {
                 return (<div>Aun no se han enviado notas</div>)
 
             } else {
+
+                const MostrarFirma = () => {
+
+                    
+        
+                    return (
+        
+                        <div>
+                            <h1>Aqui iria la firma</h1>
+                        </div>
+        
+                    )
+            
+                }
 
                 return (
 
@@ -81,8 +155,7 @@ export default class MostrarRotaciones extends Component {
 
                         </ul>
 
-
-
+                        <MostrarFirma/>
 
                     </div>)
 
@@ -107,6 +180,12 @@ export default class MostrarRotaciones extends Component {
                                     <label htmlFor="fecha" className="col-sm-2 my-auto text-center">Area:</label>
                                     <div className="col-sm-7">
                                         <input type="text" readOnly className="form-control-plaintext my-auto" value={e.area} />
+                                    </div>
+
+                                    <div className="col-sm-1" style={{ textAlign: 'center' }}>
+
+                                        <button onClick={a => this.pdfGenerate({ e })} className="btn btn-primary">PDF</button>
+
                                     </div>
 
                                 </div>
@@ -136,6 +215,8 @@ export default class MostrarRotaciones extends Component {
                                 <div className="row">
 
                                     <Nota nota={e.nota} />
+
+
 
                                 </div>
                             </Accordion.Body>

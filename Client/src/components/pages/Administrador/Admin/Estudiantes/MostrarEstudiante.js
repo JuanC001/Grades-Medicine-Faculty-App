@@ -51,7 +51,7 @@ export default class MostrarEstudiante extends React.Component {
                         <p>Correo: {this.state.estudiante.correo} </p>
                         <p>Documento: {this.state.estudiante.documento} </p>
                         <h1 className="display-6">Lista de rotaciones:</h1>
-                        <MostrarRotaciones rotaciones={this.state.rotaciones} />
+                        <MostrarRotaciones rotaciones={this.state.rotaciones} estudiante = {this.state.estudiante}/>
 
 
                     </ModalBody>
