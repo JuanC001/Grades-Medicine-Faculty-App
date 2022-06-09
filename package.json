@@ -9,6 +9,9 @@
     "build": "npm run build --prefix Client",
     "start": "node Server"
   },
+  "engines": {
+    "node": "16.14.2"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
