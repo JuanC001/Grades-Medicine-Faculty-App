@@ -93,7 +93,7 @@ class AddHospital extends React.Component {
         if (nuevo.data.registera === "complete") {
 
             Swal.fire({
-                title: 'Agregado!',
+                title: '¡Agregado!',
                 text: "Has agregado un hospital!",
                 icon: 'success',
                 showCancelButton: false,
@@ -140,7 +140,7 @@ class AddHospital extends React.Component {
                     <Modal isOpen={this.state.modalOpen} className="modal-class" size='xl'>
                         <ModalHeader toggle={this.toggle}>Agregar Hospital</ModalHeader>
                         <ModalBody>
-                            <p>En esta seccion puedes agregar a diferentes hospitales por los cuales rotarán los estudiantes</p>
+                            <p>En esta sección puedes agregar a diferentes hospitales por los cuales rotarán los estudiantes</p>
                             <form className='form-control text-center'>
 
                                 <div className="row pb-2 pt-2">
@@ -195,7 +195,7 @@ class AddHospital extends React.Component {
 
                             <form className="form-control text-center" onSubmit={e => this.handleExcel(e)}>
 
-                                <h1 className="display-6 pb-3">Subir archivo excel con los Hospitales</h1>
+                                <h1 className="display-6 pb-3">Subir archivo Excel con los Hospitales</h1>
 
                                 <p>Si no conoces con qué formato subir los datos da <Link to="/files/Formato_Hospitales.xlsx" target="_blank" download>click aquí</Link></p>
 

@@ -87,14 +87,14 @@ export default class MostrarEstudiantes extends Component {
 
                     <div className="col">
 
-                      <label htmlFor="nombreL" className="col-sm-2 col-form-label text-start">Area:</label>
+                      <label htmlFor="nombreL" className="col-sm-2 col-form-label text-start">Área:</label>
                       <label htmlFor="" className="col-sm-5 col-form-label text-start"><u>{e.area}</u></label>
 
                     </div>
 
                     <div className="col">
 
-                      <label htmlFor="nombreL" className="col-sm-4 col-form-label text-start">Fecha Inicio:</label>
+                      <label htmlFor="nombreL" className="col-sm-4 col-form-label text-start">Fecha de Inicio:</label>
                       <label htmlFor="" className="col-sm-5 col-form-label text-start"><u>{e.fechaInicial}</u></label>
 
                     </div>

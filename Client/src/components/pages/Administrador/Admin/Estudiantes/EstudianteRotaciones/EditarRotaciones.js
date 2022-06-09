@@ -5,8 +5,6 @@ class Editarrotaciones extends Component {
 
     enviarRotacion = () => {
 
-        console.log('EASDASF')
-
         if(this.state.area === '' || this.state.area === null || this.state.area === 'vacio'){
 
             this.setState({area: 'no definido'});
@@ -60,12 +58,12 @@ class Editarrotaciones extends Component {
         return (
             <Accordion.Item eventKey={rotacion.id}>
                 <Accordion.Header>
-                    Rotacione #{rotacion.id}: {rotacion.nombre_hospital}
+                    Rotación #{rotacion.id}: {rotacion.nombre_hospital}
                 </Accordion.Header>
 
                 <Accordion.Body>
                     <div className="container">
-                        <h6 className="pb-2">Sitio de Practica</h6>
+                        <h6 className="pb-2">Sitio de Práctica</h6>
 
                         <div className="row pb-2">
 
@@ -97,7 +95,7 @@ class Editarrotaciones extends Component {
                                     <label className="input-group-text" htmlFor="fechaInicial">Fecha Inicial</label>
                                     <select id="fechaInicial" defaultValue={this.state.fechaInicial} className="form-select" onChange={(e) => this.setState({ fechaInicial: e.target.value })} onClick={this.enviarRotacion}>
 
-                                        <option value="vacio" >Seleccione Uno</option>
+                                        <option value="vacio" >Seleccione uno...</option>
                                         {
 
                                             meses.map(e =>
@@ -119,7 +117,7 @@ class Editarrotaciones extends Component {
                                     <label className="input-group-text" htmlFor="fechaFinal">Fecha Final</label>
                                     <select id="fechaFinal" defaultValue={this.state.fechaFinal} className="form-select" onChange={(e) => this.setState({ fechaFinal: e.target.value })} onClick={this.enviarRotacion}>
 
-                                        <option value="vacio" >Seleccione Uno</option>
+                                        <option value="vacio" >Seleccione uno...</option>
                                         {
 
                                             meses.map(e =>
@@ -141,10 +139,10 @@ class Editarrotaciones extends Component {
                         <div className="row">
                             <div className="col pb-2">
                                 <div className="input-group">
-                                    <label className="input-group-text" htmlFor="areselect">Area</label>
+                                    <label className="input-group-text" htmlFor="areselect">Área</label>
                                     <select id="areselect" className="form-select" onChange={(e) => this.setState({ area: e.target.value })} onClick={this.enviarRotacion} value={rotacion.area}>
 
-                                        <option value="vacio" defaultValue>Seleccione Uno</option>
+                                        <option value="vacio" defaultValue>Seleccione uno...</option>
                                         <option value="Cirugía General /qx gral" defaultValue>Cirugía General /qx gral</option>
                                         <option value="Pediatría/ped" defaultValue>Pediatría/ped</option>
                                         <option value="Medicina Interna" defaultValue>Medicina Interna</option>

@@ -84,7 +84,7 @@ class AgregarRotacionesADD extends React.Component {
                     <Accordion.Body>
 
                         <div className="container">
-                            <h6 className="pb-2">Sitio de Practica</h6>
+                            <h6 className="pb-2">Sitio de Práctica</h6>
 
                             <div className="row pb-2">
 
@@ -116,7 +116,7 @@ class AgregarRotacionesADD extends React.Component {
                                         <label className="input-group-text" htmlFor="fechaInicial">Fecha Inicial</label>
                                         <select id="fechaInicial" className="form-select" onChange={(e) => this.seleccionarFechaAuto(e)} onClick={this.enviarRotacion}>
 
-                                            <option value="vacio">Seleccione Uno</option>
+                                            <option value="vacio">Seleccione uno...</option>
                                             {
 
                                                 meses.map(e =>
@@ -138,7 +138,7 @@ class AgregarRotacionesADD extends React.Component {
                                         <label className="input-group-text" htmlFor="fechaFinal">Fecha Final</label>
                                         <select defaultValue={this.state.fechaFinal} value={this.state.fechaFinal} id="fechaFinal" className="form-select" onChange={(e) => this.setState({ fechaFinal: e.target.value })} onClick={this.enviarRotacion}>
 
-                                            <option value="" defaultValue>Seleccione Uno</option>
+                                            <option value="" defaultValue>Seleccione Uno...</option>
                                             {
 
                                                 meses.map(e =>
@@ -159,10 +159,10 @@ class AgregarRotacionesADD extends React.Component {
                             <div className="row">
                                 <div className="col pb-2">
                                     <div className="input-group">
-                                        <label className="input-group-text" htmlFor="areselect">Area</label>
+                                        <label className="input-group-text" htmlFor="areselect">Área</label>
                                         <select id="areselect" className="form-select" onChange={(e) => this.setState({ area: e.target.value })} onClick={this.enviarRotacion}>
 
-                                            <option value="vacio" defaultValue>Seleccione Uno</option>
+                                            <option value="vacio" defaultValue>Seleccione Uno...</option>
                                             <option value="Cirugía General /qx gral" defaultValue>Cirugía General /qx gral</option>
                                             <option value="Pediatría/ped" defaultValue>Pediatría/ped</option>
                                             <option value="Medicina Interna" defaultValue>Medicina Interna</option>

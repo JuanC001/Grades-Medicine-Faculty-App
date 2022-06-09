@@ -91,7 +91,7 @@ class EditarEstudiante extends React.Component {
 
         Swal.fire(
             '¡Completado!',
-            'Se modifico al estudiante',
+            'Se modificó al estudiante',
             'success'
         ).then((result) => {
             if (result.isConfirmed) {
@@ -222,7 +222,7 @@ class EditarEstudiante extends React.Component {
 
                             <div className="row">
                                 <div className="col">
-                                    <button type="button" className="btn btn-warning" onClick={this.generarAcordion}>Nueva Rotacion</button>
+                                    <button type="button" className="btn btn-warning" onClick={this.generarAcordion}>Nueva Rotación</button>
                                 </div>
                             </div>
 

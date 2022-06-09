@@ -44,7 +44,7 @@ export default function ListaEstudiantes(props) {
 
                         <div className="col-sm-2 text-end ">Estudiante:</div>
                         <div className="col text-start ">{props.estudiante.nombres}</div>
-                        <div className="col text-end">CC:</div>
+                        <div className="col text-end">C.C:</div>
                         <div className="col text-start">{props.estudiante.documento}</div>
 
                     </div>
@@ -83,15 +83,15 @@ export default function ListaEstudiantes(props) {
                         <li className="list-group-item active">
                             <div className="row">
                                 <div className="col">
-                                    <label>Rotacion Actual:</label>
+                                    <label>Rotación Actual:</label>
                                 </div>
                                 <div className="col">
                                     <label htmlFor="">{props.estudiante.rotacionActual}</label>
                                 </div>
                                 <div className="col">
-                                    <label htmlFor="">Area Actual:</label>
+                                    <label htmlFor="">Área Actual:</label>
                                 </div>
-                                <div className="col"> <u>Area del estudiante</u></div>
+                                <div className="col"> <u>Área del estudiante</u></div>
 
                             </div>
                         </li>

@@ -1,6 +1,7 @@
 import React, { Component, useEffect } from 'react'
 import { Accordion } from 'react-bootstrap'
 import jsPDF from 'jspdf'
+import Swal from 'sweetalert2';
 
 import axios from 'axios';
 const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
@@ -23,7 +24,8 @@ export default class MostrarRotaciones extends Component {
 
         var doc = new jsPDF('landscape', 'px', 'a4', 'false');
 
-        doc.setFont('Helvetica', 'bold')
+        try{
+            doc.setFont('Helvetica', 'bold')
         doc.text(236, 60, "Universidad el Bosque")
         doc.text(213, 80, 'Escuela Colombiana de medicina')
         doc.text(210, 100, 'Guia de Evaluación de internos')
@@ -43,23 +45,29 @@ export default class MostrarRotaciones extends Component {
         doc.text(180, 270, rt.nota.c2)
         doc.text(60, 290, "PRÁCTICA:")
         doc.text(130, 290, rt.nota.c3)
-        doc.text(60, 310, "CONOCIMIENTOS Y ACTUALIZACIONES CIENTIFICAS:")
+        doc.text(60, 310, "CONOCIMIENTOS Y ACTUALIZACIONES CIENTÍFICA:")
         doc.text(370, 310, rt.nota.c4)
         doc.text(60, 330, "CALIFICACIÓN")
-        doc.text(150, 330, "" + rt.nota.c5)
+        doc.text(150, 330, '' + rt.nota.c5)
         doc.text(60, 350, "OBSERVACIONES")
         doc.text(60, 370, rt.nota.cmt)
         doc.text(60, 390, "FIRMA")
-
         doc.save('documento.pdf')
+        }catch(e){
+            console.log(e)
+            Swal.fire({
+                title: `¡No hay notas del estudiante!`,
+                icon: 'warning',
+              })
+        }
+
+        
 
     }
 
     firmaGeneral = async (nota) => {
 
         const ipBuilder = ip + '/api/admin/notFirma';
-
-        console.log('asodfnaiofnawio fa' + nota)
 
         if(this.state.imagen === null){
 
@@ -117,7 +125,7 @@ export default class MostrarRotaciones extends Component {
 
                                 <div className="row">
 
-                                    <label htmlFor="hClin" className="col-sm-2 my-auto text-center">Historia Clinica:</label>
+                                    <label htmlFor="hClin" className="col-sm-2 my-auto text-center">Historia Clínica:</label>
                                     <div className="col-sm-1 my-auto">
                                         <input type="text" readOnly className="form-control-plaintext my-auto" id="hClin" value={nota.c1} />
                                     </div>
@@ -127,7 +135,7 @@ export default class MostrarRotaciones extends Component {
                                         <input type="text" readOnly className="form-control-plaintext my-auto" id="hClin" value={nota.c2} />
                                     </div>
 
-                                    <label htmlFor="hClin" className="col-sm-2 my-auto text-center">Practica:</label>
+                                    <label htmlFor="hClin" className="col-sm-2 my-auto text-center">Práctica:</label>
                                     <div className="col-sm-1 my-auto">
                                         <input type="text" readOnly className="form-control-plaintext my-auto" id="hClin" value={nota.c3} />
                                     </div>
@@ -193,7 +201,7 @@ export default class MostrarRotaciones extends Component {
 
                                 <div className="row border">
 
-                                    <label htmlFor="fecha" className="col-sm-2 my-auto text-center">Area:</label>
+                                    <label htmlFor="fecha" className="col-sm-2 my-auto text-center">Área:</label>
                                     <div className="col-sm-7">
                                         <input type="text" readOnly className="form-control-plaintext my-auto" value={e.area} />
                                     </div>

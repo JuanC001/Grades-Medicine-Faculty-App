@@ -12,24 +12,25 @@ const ip = 'http://'+ process.env.REACT_APP_URL_API+ ':5000';
 
 export default function ListaEstudiantes(props) {
 
-  const [estilo, setEstilo] = useState({backgroundColor: '#fffff'})
   const id_estudiante = props.estudiante._id;
-
-  let coincideRotacion = false;
-  for (let i = 0; i < props.estudiante.rotaciones.length; i++) {
-
-    if(props.estudiante.rotaciones[i].nombre_hospital === props.hsp_select){
-      coincideRotacion = true;
-      setEstilo({backgroundColor: '#fffff'})
-    }
-
-  }
 
   const borrarEstudiante = async (e) => {
 
     const ipBuilder = ip + '/api/admin/eliminarEstudiante';
     await axios.post(ipBuilder, { _id: id_estudiante });
     props.actualizar()
+
+  }
+
+  const rotacioneConincide = () => {
+
+    for (let i = 0; i < props.estudiante.rotaciones.length; i++) {
+
+      if(props.estudiante.rotaciones[i].nombre_hospital === props.hsp_select){
+        return true;
+      }
+  
+    }
 
   }
 
@@ -50,7 +51,7 @@ export default function ListaEstudiantes(props) {
         
         Swal.fire(
           '¡Eliminado!',
-          'Se borro al estudiante',
+          'Se borró al estudiante',
           'success'
         );
 
@@ -60,12 +61,12 @@ export default function ListaEstudiantes(props) {
 
   }
 
-  if(coincideRotacion || props.hsp_select === 'All'){
+  if(rotacioneConincide() || props.hsp_select === 'All'){
 
     return (
       <div className="card mb-3 shadow-sm">
   
-        <div className="card-header" style={estilo}>
+        <div className="card-header">
           <div className="container">
             <div className="row">
               <div className="col">
@@ -118,15 +119,15 @@ export default function ListaEstudiantes(props) {
                 <li className="list-group-item active">
                   <div className="row">
                     <div className="col">
-                      <label>Rotacion Actual:</label>
+                      <label>Rotación Actual:</label>
                     </div>
                     <div className="col">
                       <label htmlFor="">{props.estudiante.rotacionActual}</label>
                     </div>
                     <div className="col">
-                      <label htmlFor="">Area Actual:</label>
+                      <label htmlFor="">Área Actual:</label>
                     </div>
-                    <div className="col"> <u>Area del estudiante</u></div>
+                    <div className="col"> <u>Área del estudiante</u></div>
                   </div>
                 </li>
   

@@ -43,9 +43,9 @@ export default class MostrarEstudiante extends React.Component {
                 <button onClick={this.toggle} className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-eye" /></button>
                 <Modal isOpen={this.state.modalOpen} className="modal-class" size='xl'>
 
-                    <ModalHeader toggle={this.toggle}>Informacion de {this.state.estudiante.nombres}</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>Información de {this.state.estudiante.nombres}</ModalHeader>
                     <ModalBody>
-                        <p>En esta seccion puedes ver la informacion del estudiante indicado:</p>
+                        <p>En esta sección puedes ver la información del estudiante indicado:</p>
 
                         <p>Nombre: {this.state.estudiante.nombres} </p>
                         <p>Correo: {this.state.estudiante.correo} </p>

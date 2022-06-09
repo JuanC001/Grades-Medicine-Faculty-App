@@ -47,7 +47,7 @@ function ExcelDescarga(props) {
     <ExcelFile element={<button className="btn btn-primary"><FontAwesomeIcon icon="fa-solid fa-print" /></button>} filename="Lista estudiantes">
       <ExcelHoja data={lista} name="Lista de estudiantes">
         <ExcelColumna label="Documento" value="documento" />
-        <ExcelColumna label="Nombres y apellido" value="nombres" />
+        <ExcelColumna label="Nombres y apellidos" value="nombres" />
         <ExcelColumna label="Medicina Interna" value={(e) => {
           return Areas("Medicina Interna");
         }} />
@@ -218,7 +218,7 @@ export default class Estudiantes extends React.Component {
 
 
                     <div className="col-sm-8">
-                      <input type="text" className="form-control" onChange={e => this.setState({ term: e.target.value })} placeholder='Busque por Documento o Nombre' />
+                      <input type="text" className="form-control" onChange={e => this.setState({ term: e.target.value })} placeholder='Busque por documento o nombre' />
                     </div>
 
                     <div className="col-sm-1">

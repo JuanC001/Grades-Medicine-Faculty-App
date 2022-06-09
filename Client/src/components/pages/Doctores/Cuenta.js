@@ -65,7 +65,7 @@ export default function Cuenta(props) {
 
             Swal.fire({
                 title: 'Revisa las contraseñas',
-                text: "Whoops algo salio mal!",
+                text: "¡Whoops! algo salió mal...",
                 icon: 'error',
                 showCancelButton: false,
                 confirmButtonColor: '#3085d6',

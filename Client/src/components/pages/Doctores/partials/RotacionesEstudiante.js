@@ -214,12 +214,12 @@ const RotacionesEstudiante = (props) => {
         return (
             <div>
                 <Accordion.Header>
-                    <label className="text-danger">{rotacion.fechaInicial} - {rotacion.fechaFinal} <strong>¡NO HAY AREA!</strong></label>
+                    <label className="text-danger">{rotacion.fechaInicial} - {rotacion.fechaFinal} <strong>¡NO HAY ÁREA!</strong></label>
                 </Accordion.Header>
                 <Accordion.Body>
                     <div className="row">
                         <div className="col">
-                            <h6 className=""><strong>¡Aun no se ha seleccionado un area!</strong></h6>
+                            <h6 className=""><strong>¡Aun no se ha seleccionado un área!</strong></h6>
                         </div>
                     </div>
                     <div className="row">
@@ -253,7 +253,7 @@ const RotacionesEstudiante = (props) => {
                 <Accordion.Body>
 
                     <div className="row pb-2">
-                        <label htmlFor="rotacionId" className="col-sm-3 col-form-label text-end">Area de Rotación:</label>
+                        <label htmlFor="rotacionId" className="col-sm-3 col-form-label text-end">Área de Rotación:</label>
                         <div className="col-sm-7 text-start">
 
                             <input type="text" className="form-control-plaintext" readOnly id="rotacionId" value={rotacion.area} />
@@ -369,7 +369,7 @@ const RotacionesEstudiante = (props) => {
                     </div>
 
                     <div className="row pb-2">
-                        <label htmlFor="srv" className="col-sm-3 col-form-label text-end">Servicios Por Los Cuales Roto:</label>
+                        <label htmlFor="srv" className="col-sm-3 col-form-label text-end">Servicios Por Los Cuales Rotó:</label>
                         <div className="col-sm-7 text-start my-auto">
 
                             <input type="text" className="form-control" id="srv" onChange={e => setSRVs(e.target.value)} />
@@ -426,7 +426,7 @@ const RotacionesEstudiante = (props) => {
                 <Accordion.Body>
 
                     <div className="row pb-2">
-                        <label htmlFor="rotacionId" className="col-sm-3 col-form-label text-end">Area de Rotación:</label>
+                        <label htmlFor="rotacionId" className="col-sm-3 col-form-label text-end">Área de Rotación:</label>
                         <div className="col-sm-7 text-start">
 
                             <input type="text" className="form-control-plaintext" readOnly id="rotacionId" value={rotacion.area} />

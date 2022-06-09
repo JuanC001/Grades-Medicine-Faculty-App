@@ -76,11 +76,11 @@ const Home = (props) => {
           <div className="rounded-3 text-dark pb-4">
             <img
               src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Logo_de_la_Universidad_El_Bosque.svg/1200px-Logo_de_la_Universidad_El_Bosque.svg.png'
-              className='mx-auto d-block w-75 h-75' alt='' />
+              className='mx-auto d-block w-75 h-75' alt='asd' />
 
           </div>
           <hr />
-          <h1 className='text-center pb-4'>Iniciar Sesion</h1>
+          <h1 className='text-center pb-4'>Iniciar Sesión</h1>
           <form className='form-floating text-center' onSubmit={handleSubmit}>
 
             <div className='form-floating mb-3'>

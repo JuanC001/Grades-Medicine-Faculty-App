@@ -191,7 +191,7 @@ class AddStudent extends React.Component {
         } else {
             Swal.fire({
                 title: '¡Agregados!',
-                text: "Has agregado estudiantes por excel!",
+                text: "¡Has agregado estudiantes por excel!",
                 icon: 'success',
                 showCancelButton: false,
                 confirmButtonColor: '#3085d6',
@@ -254,7 +254,7 @@ class AddStudent extends React.Component {
             console.log("Completado!");
             Swal.fire({
                 title: 'Agregado!',
-                text: "Has agregado un estudiante!",
+                text: "¡Has agregado un estudiante!",
                 icon: 'success',
                 showCancelButton: false,
                 confirmButtonColor: '#3085d6',
@@ -316,7 +316,7 @@ class AddStudent extends React.Component {
                         <ModalHeader toggle={this.toggle}>Agregar Estudiante</ModalHeader>
                         <ModalBody>
                             <p>En esta seccion puedes agregar a los diferentes estudiantes de la facultad de medicina,
-                                puedes registrar a uno solo o agregar un archivo de excel.</p>
+                                puedes registrar a un solo estudiante o agregar un archivo de excel.</p>
                             <form className='form-control text-center'>
 
                                 <h6 className="pb-2 pt-1">Información del Estudiante</h6>
@@ -390,7 +390,7 @@ class AddStudent extends React.Component {
 
                                 </div>
 
-                                <button type="button" className="btn btn-warning" onClick={this.generarAcordion}>Nueva Rotacion</button>
+                                <button type="button" className="btn btn-warning" onClick={this.generarAcordion}>Nueva Rotación</button>
                                 <hr />
 
                                 <div className="row">

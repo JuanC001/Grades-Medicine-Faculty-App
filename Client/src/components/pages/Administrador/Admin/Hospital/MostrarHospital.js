@@ -30,7 +30,7 @@ export default class MostrarHospital extends Component {
                     <ModalBody>
                         <div className="row">
 
-                            <label htmlFor="cupo" className="col-sm-2 col-form-label">Persona Acargo:</label>
+                            <label htmlFor="cupo" className="col-sm-2 col-form-label">Persona a cargo:</label>
                             <div className="col-sm-7">
                                 <input readOnly type="text" className=" form-control-plaintext" id="nombreL" value={this.state.hospital.nombre_lider} />
 
@@ -52,7 +52,7 @@ export default class MostrarHospital extends Component {
 
                         <div className="row">
 
-                            <h6 className="display-6">Lista estudiantes Afiliados</h6>
+                            <h6 className="display-6">Lista de estudiantes</h6>
 
                             {
                                 
@@ -90,7 +90,7 @@ function Listas(props){
 
     }
 
-    return <div>No hay estudiantes aun</div>
+    return <div className="text-center">No hay estudiantes aun</div>
 
     
 }
