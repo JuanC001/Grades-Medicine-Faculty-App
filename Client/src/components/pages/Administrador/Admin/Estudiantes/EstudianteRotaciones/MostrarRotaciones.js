@@ -1,43 +1,18 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useEffect } from 'react'
 import { Accordion } from 'react-bootstrap'
 import jsPDF from 'jspdf'
 
 import axios from 'axios';
 const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
 
-function TraerImagen (props) {
-
-        const [imagen, setImagen] = useState();
-        const ipBuilder = ip + '/api/admin/notFirma';
-        
-        const traerImg = async () => {
-            const nota = props.nota;
-            const res = await axios.post(ipBuilder,
-                { img_url: nota.url });
-            setImagen(res.data)
-        }
-
-        traerImg();
-        if(imagen !==null){
-
-            return (
-
-                <div>
-                    <img src={imagen} alt="" />
-                </div>
-
-            )
-
-        }
-        return (
-            <h1>Aqui iria la imagen... si tan solo funcionara...</h1>
-        )
-        
-
-}
-
 export default class MostrarRotaciones extends Component {
     
+
+    state = {
+
+        imagen: null
+
+    }
 
     pdfGenerate = (rotacionPropia) => {
 
@@ -80,16 +55,29 @@ export default class MostrarRotaciones extends Component {
 
     }
 
-    firmaGeneral = async (firma) => {
+    firmaGeneral = async (nota) => {
 
-        const ipBuilder = ip + '/api/admin/obtenerFirma';
-        const res = await axios.post(ip, )
+        const ipBuilder = ip + '/api/admin/notFirma';
 
-        return (
+        console.log('asodfnaiofnawio fa' + nota)
 
-            <img src={res.data}/>
+        if(this.state.imagen === null){
 
-        )
+            const res = await axios.post(ipBuilder, {
+
+                img_url: nota,
+                responseType: 'blob'
+    
+            });
+
+            console.log(res)
+            
+            this.setState({imagen: res.data})
+            return res.data;
+
+        }
+        
+
 
     }
 
@@ -97,59 +85,15 @@ export default class MostrarRotaciones extends Component {
 
         const rotaciones = this.props.rotaciones;
 
-        const RotacionesMap = (prp) => {
+        const Firma = (prp) => {
 
-            const e = prp.rotaciones;
+            const r = prp.nota;
+            this.firmaGeneral(r.url);
+            return (
 
-            return(
-
-                <Accordion.Item eventKey={e.id} key={e.id}>
-                <Accordion.Header>
-                    Rotacion #{e.id}: {e.nombre_hospital} | {e.fechaInicial} - {e.fechaFinal}
-                </Accordion.Header>
-                <Accordion.Body>
-
-                    <div className="row border">
-
-                        <label htmlFor="fecha" className="col-sm-2 my-auto text-center">Area:</label>
-                        <div className="col-sm-7">
-                            <input type="text" readOnly className="form-control-plaintext my-auto" value={e.area} />
-                        </div>
-
-                    </div>
-
-                    <div className="row border">
-
-                        <label htmlFor="fecha" className="col-sm-2 my-auto text-center">Mes Inicial:</label>
-                        <div className="col-sm-7">
-                            <input type="text" readOnly className="form-control-plaintext my-auto" value={e.fechaInicial} />
-                        </div>
-
-                    </div>
-
-                    <div className="row border">
-
-                        <label htmlFor="fecha" className="col-sm-2 my-auto text-center">Mes Final:</label>
-                        <div className="col-sm-7 ">
-                            <input type="text" readOnly className="form-control-plaintext my-auto" value={e.fechaFinal} />
-                        </div>
-
-                    </div>
-
-                    <div className="row pb-1 pt-1 text-center">
-                        <h4>Nota:</h4>
-                    </div>
-
-                    <div className="row">
-
-                        <Nota nota={e.nota} />
-
-                    </div>
-                </Accordion.Body>
-            </Accordion.Item>
+                <img src={this.state.imagen}/>
 
             )
-
 
         }
 
@@ -226,7 +170,7 @@ export default class MostrarRotaciones extends Component {
 
                         </ul>
 
-                        <TraerImagen nota = {nota}/>
+
 
                     </div>)
 
@@ -240,8 +184,6 @@ export default class MostrarRotaciones extends Component {
                 {
 
                     rotaciones.map(e => (
-
-                        <RotacionesMap rotaciones={e} />
 
                         <Accordion.Item eventKey={e.id} key={e.id}>
                             <Accordion.Header>
@@ -289,8 +231,6 @@ export default class MostrarRotaciones extends Component {
                                 <div className="row">
 
                                     <Nota nota={e.nota} />
-
-
 
                                 </div>
                             </Accordion.Body>

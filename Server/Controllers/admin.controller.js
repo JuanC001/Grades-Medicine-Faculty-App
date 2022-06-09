@@ -1,5 +1,5 @@
 import path from 'path';
-import fs from 'fs';
+import { fileURLToPath } from 'url';
 
 import student from '../models/estudent.js';
 import hospital from '../models/hospital.js';
@@ -374,9 +374,15 @@ admCtrl.allExcelEstudiantes = async (req, res) => {
 
 admCtrl.OtenerFirma = (req,res) => {
 
-    const {url} = req.body;
+    const {img_url} = req.body;
+    const urlfi = '..' + img_url;
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+    const url = path.join(__dirname, urlfi);
 
-    res.sendFile(url)
+    console.log(url)
+
+    res.sendFile(url);
 
 }
 
