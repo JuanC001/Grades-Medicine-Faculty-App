@@ -30,11 +30,10 @@ Router.post('/api/admin/unHospital', ObtenerUnHospital);
 Router.post('/api/admin/modEst', ModifEstudiante);
 Router.post('/api/admin/modHsp', ModifHospital);
 
-Router.post('/api/admin/notFirma', OtenerFirma);
 
+Router.post('/api/admin/notFirma', OtenerFirma);
 
 Router.get('/api/admin/allStudents', ObtenerEstudiantes);
 Router.get('/api/admin/allHospital', ObtenerHospitales);
-
 
 export default Router;

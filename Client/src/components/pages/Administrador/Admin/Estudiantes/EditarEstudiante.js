@@ -22,7 +22,8 @@ class EditarEstudiante extends React.Component {
             fechaInicial: '',
             fechaFinal: '',
             id_hospital: '',
-            nota: 'no definido',
+            nota: 'no definido'
+          
         }
 
         this.setState({ rotaciones: this.state.rotaciones.concat(nuevaRotacion) })
