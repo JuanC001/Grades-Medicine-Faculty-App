@@ -9,13 +9,13 @@ import MostrarHospital from './MostrarHospital';
 export default function ListaHospitales(props) {
 
     const id_hsp = props.hsp._id;
-    const ip = 'http://'+ process.env.REACT_APP_URL_API+ ':5000';
+    const ip = 'http://' + process.env.REACT_APP_URL_API + + ':' + process.env.REACT_APP_PORT_API;
 
     const eliminarHospital = async (e) => {
         const ipBuilder = ip + '/api/admin/eliminarHospital';
-        await axios.post(ipBuilder, {_id: id_hsp});
+        await axios.post(ipBuilder, { _id: id_hsp });
         const ipBuilder2 = ip + '/api/eliminarUser';
-        await axios.post(ipBuilder2, { user: props.hsp.correo_administrador})
+        await axios.post(ipBuilder2, { user: props.hsp.correo_administrador })
 
     }
 
@@ -30,21 +30,21 @@ export default function ListaHospitales(props) {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si, bórralo!'
-          }).then((result) => {
+        }).then((result) => {
 
-            if(result.isConfirmed){
+            if (result.isConfirmed) {
 
                 eliminarHospital();
-                Swal.fire('¡Eliminado!','Se borró al hospital','success').then((result) => {
-                    if(result.isConfirmed){
+                Swal.fire('¡Eliminado!', 'Se borró al hospital', 'success').then((result) => {
+                    if (result.isConfirmed) {
                         props.actualizar()
                     }
                 })
 
             }
 
-          });    
-            
+        });
+
     }
 
     return (
@@ -83,8 +83,8 @@ export default function ListaHospitales(props) {
                     <div className="col align-self-center">
                         <div className="btn-group" role="group" aria-label="buttonGroup">
 
-                            <Editarhospital id={props.hsp._id} actualizar= {props.actualizar}/>
-                            <MostrarHospital id={props.hsp._id} hsp = {props.hsp}/>
+                            <Editarhospital id={props.hsp._id} actualizar={props.actualizar} />
+                            <MostrarHospital id={props.hsp._id} hsp={props.hsp} />
                             <button className="btn btn-danger" onClick={askEliminarHospital}><FontAwesomeIcon icon="fa-solid fa-trash" /></button>
 
                         </div>

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 
 import * as XLSX from 'xlsx';
 
-const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
+const ip = 'http://' + process.env.REACT_APP_URL_API + ':' + process.env.REACT_APP_PORT_API;
 
 class AddHospital extends React.Component {
 

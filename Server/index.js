@@ -25,7 +25,7 @@ app.use(doctor);
 app.use(express.static(join(__dirname, '../Client/build')))
  
 const CONNECT_URL = "mongodb+srv://juanDbMongo:juan123@cluster0.xh2hw.mongodb.net/ProyIng2?retryWrites=true&w=majority";
-const PORT = 5000;
+const PORT = 55128;
 
 mongoose.connect(CONNECT_URL).then(
     app.listen(PORT, () => console.log('RUNNING ON ' + PORT))

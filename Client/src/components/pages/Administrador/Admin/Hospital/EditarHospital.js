@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 
 
 
-const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
+const ip = 'http://' + process.env.REACT_APP_URL_API + ':' + process.env.REACT_APP_PORT_API;
 
 class Editarhospital extends Component {
 

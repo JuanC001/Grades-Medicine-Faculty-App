@@ -8,7 +8,7 @@ import EditarRotaciones from './EstudianteRotaciones/EditarRotaciones'
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
+const ip = 'http://' + process.env.REACT_APP_URL_API + ':' + process.env.REACT_APP_PORT_API;
 
 class EditarEstudiante extends React.Component {
 
@@ -23,7 +23,7 @@ class EditarEstudiante extends React.Component {
             fechaFinal: '',
             id_hospital: '',
             nota: 'no definido'
-          
+
         }
 
         this.setState({ rotaciones: this.state.rotaciones.concat(nuevaRotacion) })

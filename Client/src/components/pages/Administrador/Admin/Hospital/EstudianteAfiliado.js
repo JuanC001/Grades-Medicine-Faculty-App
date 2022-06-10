@@ -4,7 +4,7 @@ import { Accordion } from 'react-bootstrap'
 import axios from 'axios';
 
 
-const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
+const ip = 'http://' + process.env.REACT_APP_URL_API + ':' + process.env.REACT_APP_PORT_API;
 
 export default class MostrarEstudiantes extends Component {
 
@@ -31,7 +31,7 @@ export default class MostrarEstudiantes extends Component {
 
     }
 
-    this.setState({loaded: true})
+    this.setState({ loaded: true })
 
   }
 
@@ -117,7 +117,7 @@ export default class MostrarEstudiantes extends Component {
 
         </Accordion.Item>)
 
-    }else{
+    } else {
 
       return (
 
@@ -126,7 +126,7 @@ export default class MostrarEstudiantes extends Component {
       )
 
     }
-    
-    
+
+
   }
 }

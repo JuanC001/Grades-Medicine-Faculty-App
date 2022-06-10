@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import DoctorNavigation from './partials/DoctorNavigation'
-import { Modal, ModalHeader, ModalBody} from 'reactstrap'
+import { Modal, ModalHeader, ModalBody } from 'reactstrap'
 
 import axios from 'axios'
 import Swal from 'sweetalert2';
 
 
-const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
+const ip = 'http://' + process.env.REACT_APP_URL_API + ':' + process.env.REACT_APP_PORT_API;
 
 export default function Cuenta(props) {
 

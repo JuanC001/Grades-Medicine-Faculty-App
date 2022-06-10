@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MostrarRotaciones from './EstudianteRotaciones/MostrarRotaciones'
 
 import axios from 'axios';
-const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
+const ip = 'http://' + process.env.REACT_APP_URL_API + ':' + process.env.REACT_APP_PORT_API;
 
 export default class MostrarEstudiante extends React.Component {
 
@@ -51,7 +51,7 @@ export default class MostrarEstudiante extends React.Component {
                         <p>Correo: {this.state.estudiante.correo} </p>
                         <p>Documento: {this.state.estudiante.documento} </p>
                         <h1 className="display-6">Lista de rotaciones:</h1>
-                        <MostrarRotaciones rotaciones={this.state.rotaciones} estudiante = {this.state.estudiante}/>
+                        <MostrarRotaciones rotaciones={this.state.rotaciones} estudiante={this.state.estudiante} />
 
 
                     </ModalBody>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import './CSS/LE.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
@@ -8,7 +8,7 @@ import EditarEstudiante from './EditarEstudiante';
 
 import Swal from 'sweetalert2';
 
-const ip = 'http://'+ process.env.REACT_APP_URL_API+ ':5000';
+const ip = 'http://' + process.env.REACT_APP_URL_API + ':' + process.env.REACT_APP_PORT_API;
 
 export default function ListaEstudiantes(props) {
 
@@ -26,10 +26,10 @@ export default function ListaEstudiantes(props) {
 
     for (let i = 0; i < props.estudiante.rotaciones.length; i++) {
 
-      if(props.estudiante.rotaciones[i].nombre_hospital === props.hsp_select){
+      if (props.estudiante.rotaciones[i].nombre_hospital === props.hsp_select) {
         return true;
       }
-  
+
     }
 
   }
@@ -48,7 +48,7 @@ export default function ListaEstudiantes(props) {
     }).then((result) => {
       if (result.isConfirmed) {
         borrarEstudiante();
-        
+
         Swal.fire(
           '¡Eliminado!',
           'Se borró al estudiante',
@@ -61,11 +61,11 @@ export default function ListaEstudiantes(props) {
 
   }
 
-  if(rotacioneConincide() || props.hsp_select === 'All'){
+  if (rotacioneConincide() || props.hsp_select === 'All') {
 
     return (
       <div className="card mb-3 shadow-sm">
-  
+
         <div className="card-header">
           <div className="container">
             <div className="row">
@@ -81,18 +81,18 @@ export default function ListaEstudiantes(props) {
                   <label htmlFor="" className="col col-form-label">{props.estudiante.documento}</label>
                 </div>
               </div>
-  
+
             </div>
           </div>
         </div>
-  
+
         <div className="card-body">
           <div className="row">
             <div className="col-sm-2">
               <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" className="cardimg" />
             </div>
             <div className="col-sm-9">
-  
+
               <ul className="list-group">
                 <li className="list-group-item">
                   <div className="row">
@@ -100,20 +100,20 @@ export default function ListaEstudiantes(props) {
                       <label htmlFor="" className="col-form-label">Correo:</label>
                     </div>
                     <div className="col">
-  
+
                       <p htmlFor="" className="col-form-label text-start">{props.estudiante.correo}</p>
-  
+
                     </div>
-  
+
                     <div className="col">
                       <label htmlFor="" className="col-form-label">Semestre:</label>
                     </div>
                     <div className="col">
-  
+
                       <p htmlFor="" className="col-form-label text-start">{props.estudiante.semestre}</p>
-  
+
                     </div>
-  
+
                   </div>
                 </li>
                 <li className="list-group-item active">
@@ -130,19 +130,19 @@ export default function ListaEstudiantes(props) {
                     <div className="col"> <u>Área del estudiante</u></div>
                   </div>
                 </li>
-  
+
               </ul>
-  
+
             </div>
-  
+
             <div className="col-sm-1">
-  
+
               <div className="row pb-1">
                 <MostrarEstudiante id={props.estudiante._id} />
               </div>
               <div className="row pb-1">
                 <div>
-                  <EditarEstudiante id={props.estudiante._id} actualizar = {props.actualizar}/>
+                  <EditarEstudiante id={props.estudiante._id} actualizar={props.actualizar} />
                 </div>
               </div>
               <div className="row pb-1">
@@ -151,14 +151,14 @@ export default function ListaEstudiantes(props) {
                 </div>
               </div>
             </div>
-  
+
           </div>
-  
+
         </div>
-  
-  
+
+
       </div>
-  
+
     )
 
   }

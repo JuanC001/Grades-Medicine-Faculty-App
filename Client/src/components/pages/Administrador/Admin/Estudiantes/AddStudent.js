@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { Accordion } from 'react-bootstrap'
 import GenerarAcordion from './EstudianteRotaciones/AgregarRotacionesADD'
@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import * as XLSX from 'xlsx';
 
-const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
+const ip = 'http://' + process.env.REACT_APP_URL_API + ':' + process.env.REACT_APP_PORT_API;
 
 class AddStudent extends React.Component {
 
@@ -70,7 +70,7 @@ class AddStudent extends React.Component {
 
         e.preventDefault()
 
-        if(this.state.hospitales.length === 0){
+        if (this.state.hospitales.length === 0) {
 
             Swal.fire({
                 title: 'No hay hospitales agregados',
@@ -115,7 +115,7 @@ class AddStudent extends React.Component {
 
         if (res.data.txrepetidos !== null || res.data.errores !== null) {
 
-            if(res.data.txrepetidos !== '' && res.data.errores !== ''){
+            if (res.data.txrepetidos !== '' && res.data.errores !== '') {
 
                 Swal.fire({
                     title: '¡Agregados!',
@@ -127,7 +127,7 @@ class AddStudent extends React.Component {
                     confirmButtonText: 'OK!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-    
+
                         this.setState({ rotaciones: [] });
                         this.setState({ modalOpen: false });
                         Swal.fire({
@@ -139,13 +139,13 @@ class AddStudent extends React.Component {
                             cancelButtonColor: '#d33',
                             confirmButtonText: 'OK!'
                         })
-    
+
                     }
                 })
 
             }
 
-            else if(res.data.txrepetidos !== '' ){
+            else if (res.data.txrepetidos !== '') {
 
                 Swal.fire({
                     title: '¡Agregados!',
@@ -157,17 +157,17 @@ class AddStudent extends React.Component {
                     confirmButtonText: 'OK!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-    
+
                         this.setState({ rotaciones: [] });
                         this.setState({ modalOpen: false });
-                        
-    
+
+
                     }
                 })
 
             }
 
-            else if(res.data.errores !== '') {
+            else if (res.data.errores !== '') {
 
                 Swal.fire({
                     title: '¡Agregados!',
@@ -179,10 +179,10 @@ class AddStudent extends React.Component {
                     confirmButtonText: 'OK!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-    
+
                         this.setState({ rotaciones: [] });
                         this.setState({ modalOpen: false });
-    
+
                     }
                 })
 

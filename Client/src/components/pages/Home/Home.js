@@ -7,105 +7,106 @@ import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 
-const ip = 'http://'+ process.env.REACT_APP_URL_API+ ':5000';
+const ip = 'http://' + process.env.REACT_APP_URL_API+ ':' + process.env.REACT_APP_PORT_API;
 
 const Home = (props) => {
 
-    let navigate = useNavigate();
+  let navigate = useNavigate();
+  console.log(ip);
 
-    const [user, setUsuario] = useState('');
-    const [password, setPassword] = useState('');
+  const [user, setUsuario] = useState('');
+  const [password, setPassword] = useState('');
 
-    const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
 
-      e.preventDefault();
-      const ipBuilder = ip + '/api/login';
-      const usuario = await axios.post(ipBuilder, {
-        user: user,
-        password: password
-      })
+    e.preventDefault();
+    const ipBuilder = ip + '/api/login';
+    const usuario = await axios.post(ipBuilder, {
+      user: user,
+      password: password
+    })
 
-      if(usuario.data === null) {
+    if (usuario.data === null) {
 
-        console.log('User Not Found!')
+      console.log('User Not Found!')
 
-        return null;
-      }
+      return null;
+    }
 
-      const usuarioEnvio = {
+    const usuarioEnvio = {
 
-        user: usuario.data.user,
-        email: usuario.data.email,
-        nombre: usuario.data.nombre,
-        hospital: usuario.data.hospital,
-        id: usuario.data._id
-
-      }
-
-      if(usuario.data != null) {
-
-        if(usuario.data.rol === 'admin'){
-
-          console.log('entro');
-          props.setstatemt(usuarioEnvio);
-          return navigate('/admin/Estudiantes')
-
-        }
-
-        if(usuario.data.rol === 'doctor'){
-          const route = 'doctor/estudiantes/';
-          props.setstatemt(usuarioEnvio);
-          return navigate(route)
-
-        }
-
-        
-      }else{
-        console.log('efe');
-      }
+      user: usuario.data.user,
+      email: usuario.data.email,
+      nombre: usuario.data.nombre,
+      hospital: usuario.data.hospital,
+      id: usuario.data._id
 
     }
 
+    if (usuario.data != null) {
 
-    return (
-      <div className="container-fluid py-5 pd-5 rounded rounded-3">
-        <div className="login-card shadow bg-body container-fluid bg-light rounded-3 border border-3 pb-5">
+      if (usuario.data.rol === 'admin') {
 
-          <h1 className="display-5 text-center">Facultad de Medicina</h1>
+        console.log('entro');
+        props.setstatemt(usuarioEnvio);
+        return navigate('/admin/Estudiantes')
 
-          <div className="rounded-3 text-dark pb-4">
-            <img
-              src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Logo_de_la_Universidad_El_Bosque.svg/1200px-Logo_de_la_Universidad_El_Bosque.svg.png'
-              className='mx-auto d-block w-75 h-75' alt='asd' />
+      }
+
+      if (usuario.data.rol === 'doctor') {
+        const route = 'doctor/estudiantes/';
+        props.setstatemt(usuarioEnvio);
+        return navigate(route)
+
+      }
+
+
+    } else {
+      console.log('efe');
+    }
+
+  }
+
+
+  return (
+    <div className="container-fluid py-5 pd-5 rounded rounded-3">
+      <div className="login-card shadow bg-body container-fluid bg-light rounded-3 border border-3 pb-5">
+
+        <h1 className="display-5 text-center">Facultad de Medicina</h1>
+
+        <div className="rounded-3 text-dark pb-4">
+          <img
+            src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Logo_de_la_Universidad_El_Bosque.svg/1200px-Logo_de_la_Universidad_El_Bosque.svg.png'
+            className='mx-auto d-block w-75 h-75' alt='asd' />
+
+        </div>
+        <hr />
+        <h1 className='text-center pb-4'>Iniciar Sesión</h1>
+        <form className='form-floating text-center' onSubmit={handleSubmit}>
+
+          <div className='form-floating mb-3'>
+
+            <input className='form-control' type='text' id='user' placeholder='Nombre de Usuario' onChange={(e) => setUsuario(e.target.value)}></input>
+            <label htmlFor='user'>Nombre de Usuario</label>
 
           </div>
-          <hr />
-          <h1 className='text-center pb-4'>Iniciar Sesión</h1>
-          <form className='form-floating text-center' onSubmit={handleSubmit}>
 
-            <div className='form-floating mb-3'>
+          <div className='form-floating mb-3'>
 
-              <input className='form-control' type='text' id='user' placeholder='Nombre de Usuario' onChange={(e) => setUsuario(e.target.value)}></input>
-              <label htmlFor='user'>Nombre de Usuario</label>
 
-            </div>
+            <input className='form-control' type='password' id='pass' placeholder='Password' onChange={(e) => setPassword(e.target.value)}></input>
+            <label htmlFor='pass'>Contraseña</label>
 
-            <div className='form-floating mb-3'>
+          </div>
 
-                
-              <input className='form-control' type='password' id='pass' placeholder='Password' onChange={(e) =>setPassword(e.target.value)}></input>
-              <label htmlFor='pass'>Contraseña</label>
+          <button className='btn btn-primary text-center align-center' onSubmit={() => { navigate('Estudiantes') }}><FontAwesomeIcon icon="fa-solid fa-key" /> Iniciar Sesión</button>
 
-            </div>
-
-            <button className='btn btn-primary text-center align-center' onSubmit={() => {navigate('Estudiantes')}}><FontAwesomeIcon icon="fa-solid fa-key" /> Iniciar Sesión</button>
-
-          </form>
-        </div>
-        
+        </form>
       </div>
 
-    )
+    </div>
+
+  )
 }
 
 export default Home;

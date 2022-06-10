@@ -7,7 +7,7 @@ import AddHospital from './Hospital/AddHospital';
 import ListaHospitales from './Hospital/ListaHospitales';
 import './CSS/Estudiantes.css'
 
-const ip = 'http://' + process.env.REACT_APP_URL_API + ':5000';
+const ip = 'http://' + process.env.REACT_APP_URL_API + ':' + process.env.REACT_APP_PORT_API;
 
 export default class Hospitales extends React.Component {
 
@@ -73,11 +73,11 @@ export default class Hospitales extends React.Component {
 
                   <div className="row">
                     <div className="col-sm-6">
-                      <input type="text" className="form-control" onChange={e => this.setState({hsp_busqueda: e.target.value })} placeholder='Busca por nombre del hospital'/>
+                      <input type="text" className="form-control" onChange={e => this.setState({ hsp_busqueda: e.target.value })} placeholder='Busca por nombre del hospital' />
 
                     </div>
-                    <div className="col-sm-1" style={{width: '40px'}}>
-                      <button className="btn btn-primary" style={{width: '40px'}}><FontAwesomeIcon icon="fa-solid fa-magnifying-glass" /></button>
+                    <div className="col-sm-1" style={{ width: '40px' }}>
+                      <button className="btn btn-primary" style={{ width: '40px' }}><FontAwesomeIcon icon="fa-solid fa-magnifying-glass" /></button>
                     </div>
                   </div>
 
