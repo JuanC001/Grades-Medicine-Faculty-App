@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon server",
-    "start": "node server"
+    "start": "node Server"
   },
   "engines": {
     "node": "16.14.2"
