@@ -6,7 +6,6 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon server",
-    "build": "npm i --prefix Client npm run build --prefix Client",
     "start": "node server"
   },
   "engines": {
