@@ -22,7 +22,7 @@ app.use(login);
 app.use(admin);
 app.use(doctor);
 
-app.use(express.static(join(__dirname, '../client/build')))
+app.use(express.static(join(__dirname, '../Client/build')))
  
 const CONNECT_URL = "mongodb+srv://juanDbMongo:juan123@cluster0.xh2hw.mongodb.net/ProyIng2?retryWrites=true&w=majority";
 const PORT = process.env.PORT || 5000;
